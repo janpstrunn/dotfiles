@@ -48,11 +48,12 @@ zen = "flatpak run io.github.zen_browser.zen -P"
 TerminalEmulator = "alacritty"
 autokey = "autokey-gtk"
 explorer = "thunar"
-keepass = "flatpak run org.keepassxc.KeePassXC"
+keepass = "keepassxc"
 flameshot = "flameshot gui"
 obsidian = "obsidian"
 delta = "deltachat-desktop"
 git_master = "alacritty -e python /home/janpstrunn/git-master.py"
+ranger = "alacritty -e ranger"
 
 @lazy.layout.function
 def add_treetab_section(layout):
@@ -74,14 +75,14 @@ def maximize_by_switching_layout(qtile):
         qtile.current_group.layout = 'monadtall'
 keys = [
     Key([mod], "Return", lazy.spawn(TerminalEmulator), desc="Terminal"),
-    Key([mod], "u", lazy.spawn("dm-run"), desc='Run Launcher'),
     Key([mod], "g", lazy.spawn(flameshot), desc='Flameshot'),
-    Key([mod], "F12", lazy.spawn(keepass), desc='KeepassXC'),
-    Key([mod], "F2", lazy.spawn(delta), desc='DeltaChat'),
     Key([mod], "F1", lazy.spawn(zen), desc='Firefox'),
-    Key([mod], "e", lazy.spawn(explorer), desc='Thunar'),
+    Key([mod], "F2", lazy.spawn(delta), desc='DeltaChat'),
     Key([mod], "F3", lazy.spawn(obsidian), desc='Obsidian'),
     Key([mod], "F5", lazy.spawn(git_master), desc='Git Master'),
+    Key([mod], "F6", lazy.spawn(explorer), desc='Thunar'),
+    Key([mod], "F12", lazy.spawn(keepass), desc='KeepassXC'),
+    Key([mod], "e", lazy.spawn(ranger), desc='Thunar'),
     Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
     Key([mod], "l", lazy.spawn(autokey), desc='AutoKey'),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -257,19 +258,6 @@ def init_widgets_list():
                  #scale = "False",
                  #mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)},
                  #),
-        widget.Pomodoro(
-                 font = "Ubuntu Mono",
-                 padding = 2,
-                 fontsize = 14
-                ),
-        widget.TextBox(
-                 text = '|',
-                 font = "Ubuntu Mono",
-                 foreground = colors[1],
-                 padding = 2,
-                 fontsize = 14
-                 ),
-
         widget.Prompt(
                  font = "Ubuntu Mono",
                  fontsize=14,
