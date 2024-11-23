@@ -52,7 +52,7 @@ keepass = "keepassxc"
 flameshot = "flameshot gui"
 obsidian = "obsidian"
 delta = "deltachat-desktop"
-git_master = "alacritty -e python /home/janpstrunn/git-master.py"
+git_master = "alacritty -e python /home/janpstrunn/scripts/git-master.py"
 ranger = "alacritty -e ranger"
 
 @lazy.layout.function
