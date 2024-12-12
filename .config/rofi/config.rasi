@@ -12,4 +12,4 @@ configuration {
     drun-display-format: "{icon} {name}";
 }
 
-@theme "/home/janpstrunn/.local/share/rofi/themes/elegantvagrant.rasi"
+@theme "/home/janpstrunn/.config/rofi/elegantvagrant.rasi"
