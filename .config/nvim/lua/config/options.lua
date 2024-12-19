@@ -49,7 +49,7 @@ opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 opt.spell = false
 opt.encoding = "UTF-8"
-opt.spelllang = "br,en_us"
+opt.spelllang = "pt,en_us"
 
 -- Folding
 
