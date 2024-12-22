@@ -43,6 +43,11 @@ keymap.set("n", "<C-m>", ":Maximize<CR>") -- Maximize current pane
 keymap.set("v", "<", "<gv") -- Allows multiple indents without losing cursor
 keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 
+-- Time
+
+keymap.set("n", "<leader>gt", ":r !date +\"\\%H:\\%M\"<CR>")
+keymap.set("n", "<leader>gd", ":r !./.config/nvim/lua/scripts/time-day.sh<CR>")
+
 -- Obsidian
 
 --- OUROBOROS (o-o)
@@ -78,3 +83,4 @@ function toggle_checkbox()
 end
 
 keymap.set('n', '<leader>ti', toggle_checkbox, { noremap = true, silent = true })
+
