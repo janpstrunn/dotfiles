@@ -9,6 +9,11 @@ vim.api.nvim_set_keymap("n", "<F5>", ":set spell!<CR>", { noremap = true, silent
 keymap.set("n", "<leader>w", ":w<CR>")
 keymap.set("n", "<leader>c", ":q!<CR>")
 
+-- Search and Replace
+
+keymap.set("v", "<leader>ss", ":s/")
+keymap.set("n", "<leader>sS", ":%s/")
+
 -- Managing lines
 
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true }) -- Shift + K in Visual Mode
