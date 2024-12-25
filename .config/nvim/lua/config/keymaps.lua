@@ -93,3 +93,6 @@ end
 
 keymap.set('n', '<leader>ti', toggle_checkbox, { noremap = true, silent = true })
 
+vim.keymap.set("i", "<c-t>", function()
+  require("telescope.builtin").registers()
+end, { remap = true, silent = false, })
