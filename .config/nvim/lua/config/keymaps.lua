@@ -14,6 +14,10 @@ keymap.set("n", "<leader>c", ":q!<CR>")
 keymap.set("v", "<leader>ss", ":s/")
 keymap.set("n", "<leader>sS", ":%s/")
 
+-- File Permissions
+
+keymap.set("n", "<leader>cx", ":!chmod +x %<cr>")
+
 -- Managing lines
 
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true }) -- Shift + K in Visual Mode
