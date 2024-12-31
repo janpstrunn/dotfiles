@@ -1,0 +1,9 @@
+session_name: master
+windows:
+- focus: 'true'
+  layout: 5d81,75x35,0,0,50
+  options: {}
+  panes:
+  - sh /home/janpstrunn/motd.sh
+  start_directory: /home/janpstrunn
+  window_name: zsh
