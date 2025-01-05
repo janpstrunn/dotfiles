@@ -1,5 +1,6 @@
 return {
   "akinsho/horizon.nvim",
+  enabled = false;
   opts = {
     plugins = {
       cmp = true,
