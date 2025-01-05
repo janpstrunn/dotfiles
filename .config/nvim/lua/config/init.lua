@@ -30,9 +30,6 @@ require("lazy").setup({
     { import = "plugins" },
   },
   checker = { enabled = true },
-	install = {
-		colorscheme = { "horizon" }
-	},
   ui = {
     icons = {
       ft = "",
