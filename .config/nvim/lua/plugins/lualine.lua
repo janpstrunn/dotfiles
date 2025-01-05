@@ -1,5 +1,5 @@
 local config = function()
-  local theme = require("lualine.themes.horizon")
+  local theme = require("lualine.themes.carbonfox")
 
  -- Elegant Vagrant
 
