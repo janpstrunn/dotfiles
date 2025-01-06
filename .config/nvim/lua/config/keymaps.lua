@@ -7,7 +7,8 @@ vim.api.nvim_set_keymap("n", "<F5>", ":set spell!<CR>", { noremap = true, silent
 -- Managing files
 
 keymap.set("n", "<leader>w", ":w<CR>")
-keymap.set("n", "<leader>c", ":q!<CR>")
+keymap.set("n", "<leader>cq", ":q!<CR>")
+vim.keymap.set("n", "<C-->", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Search and Replace
 
