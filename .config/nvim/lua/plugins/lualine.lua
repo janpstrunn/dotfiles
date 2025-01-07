@@ -35,8 +35,8 @@ local config = function()
     options = {
       icons_enabled = true,
       theme = theme,
-      component_separators = { left = '', right = ''},
-      section_separators = { left = '', right = ''},
+      component_separators = { left = '|', right = '|'},
+      section_separators = { left = '', right = ''},
       disabled_filetypes = {
         statusline = {},
         winbar = {},
