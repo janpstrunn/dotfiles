@@ -53,8 +53,53 @@ opt.spelllang = "pt,en_us"
 
 -- Folding
 
-opt.fillchars = { fold = " " }
-opt.foldmethod = "indent"
-opt.foldenable = false
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 opt.foldlevel = 99
-vim.markdown_folding = 1
+opt.formatexpr = "v:lua.require'lazyvim.util'.format.formatexpr()"
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+  opt.foldmethod = "expr"
+  opt.foldexpr = "nvim_treesitter#foldexpr()"
+  opt.foldtext = ""
+else
+  opt.foldmethod = "indent"
+  opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
+end
+vim.g.markdown_recommended_style = 0
+
+--
+local function get_winbar_path()
+  local full_path = vim.fn.expand("%:p")
+  return full_path:gsub(vim.fn.expand("$HOME"), "~")
+end
+local function get_buffer_count()
+  local buffers = vim.fn.execute("ls")
+  local count = 0
+  for line in string.gmatch(buffers, "[^\r\n]+") do
+    if string.match(line, "^%s*%d+") then
+      count = count + 1
+    end
+  end
+  return count
+end
+local function update_winbar()
+  local home_replaced = get_winbar_path()
+  local buffer_count = get_buffer_count()
+  vim.opt.winbar = "%#WinBar1#%m "
+    .. "%#WinBar2#("
+    .. buffer_count
+    .. ") "
+    .. "%#WinBar1#"
+    .. home_replaced
+    .. "%*%=%#WinBar2#"
+end
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+  callback = update_winbar,
+})
