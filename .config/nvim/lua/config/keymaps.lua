@@ -46,7 +46,7 @@ keymap.set("n", "<C-h>", "TmuxNavigateLeft") -- Navigate Left
 keymap.set("n", "<C-j>", "TmuxNavigateDown") -- Navigate Down
 keymap.set("n", "<C-k>", "TmuxNavigateUp") -- Navigate Up
 keymap.set("n", "<C-l>", "TmuxNavigateRight") -- Navigate Right
-keymap.set("n", "<C-m>", ":Maximize<CR>") -- Maximize current pane
+keymap.set("n", "<leader>m", ":Maximize<CR>") -- Maximize current pane
 
 -- Indenting
 
@@ -57,21 +57,6 @@ keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 
 keymap.set("n", "<leader>gt", ":r !date +\"\\%H:\\%M\"<CR>")
 keymap.set("n", "<leader>gd", ":r !./.config/nvim/lua/scripts/time-day.sh<CR>")
-
--- Obsidian
-
---- OUROBOROS (o-o)
-
-keymap.set("n", "<leader>oof", ":Telescope find_files search_dirs={\"/mnt/pandora/Pandora/obsidian/OUROBOROS\"}<cr>")
-keymap.set("n", "<leader>oog", ":Telescope live_grep search_dirs={\"/mnt/pandora/Pandora/obsidian/OUROBOROS\"}<cr>")
-
--- HEPHAESTUS (o-h)
-
-keymap.set("n", "<leader>ohf", ":Telescope find_files search_dirs={\"/mnt/pandora/Pandora/obsidian/HEPHAESTUS/\"}<cr>")
-keymap.set("n", "<leader>ohg", ":Telescope live_grep search_dirs={\"/mnt/pandora/Pandora/obsidian/HEPHAESTUS/\"}<cr>")
-
--- vim.keymap.set("n", "<leader>on", ":ObsidianTemplate Atomic Note<cr> :lua vim.cmd([[1,/^\\S/s/^\\n\\{1,}//]])<cr>")
--- vim.keymap.set("n", "<leader>of", ":s/\\(# \\)[^_]*_/\\1/ | s/-/ /g<cr>")
 
 -- LSP
 
@@ -97,3 +82,30 @@ keymap.set('n', '<leader>ti', toggle_checkbox, { noremap = true, silent = true }
 vim.keymap.set("i", "<c-t>", function()
   require("telescope.builtin").registers()
 end, { remap = true, silent = false, })
+
+----------------------------------------------------------
+--                     Obsidian                         --
+----------------------------------------------------------
+
+keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>")
+keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>")
+
+keymap.set("n", "<leader>or", ":ObsidianRename<cr>")
+keymap.set("n", "<leader>os", ":ObsidianSearch<cr>")
+keymap.set("n", "<leader>om", ":ObsidianTOC<cr>")
+keymap.set("n", "<leader>ot", ":ObsidianTags<cr>")
+keymap.set("n", "<leader>oy", ":ObsidianTemplate<cr>")
+keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>")
+
+-- Links
+
+keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>") -- Link under cursor
+keymap.set("v", "<leader>l", ":ObsidianLink<cr>") -- Link in visual mode
+
+keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>")
+keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>")
+
+-- Others
+
+keymap.set("n", "<leader>oc", ":ObsidianCheck<cr>")
+
