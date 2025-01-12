@@ -44,5 +44,7 @@ return {
 		keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", opts),
 		keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", opts),
 		keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", opts),
+		keymap.set("n", "<leader>fm", ":Telescope man_pages<CR>", opts),
+		keymap.set("n", "<leader>ft", ":Telescope help_tags<CR>", opts),
 	},
 }
