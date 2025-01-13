@@ -6,8 +6,8 @@ vim.api.nvim_set_keymap("n", "<F5>", ":set spell!<CR>", { noremap = true, silent
 
 -- Managing files
 
-keymap.set("n", "<leader>w", ":w<CR>")
-keymap.set("n", "<leader>cq", ":q!<CR>")
+keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write changes" })
+keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
 vim.keymap.set("n", "<C-->", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Search and Replace
@@ -46,7 +46,7 @@ keymap.set("n", "<C-h>", "TmuxNavigateLeft") -- Navigate Left
 keymap.set("n", "<C-j>", "TmuxNavigateDown") -- Navigate Down
 keymap.set("n", "<C-k>", "TmuxNavigateUp") -- Navigate Up
 keymap.set("n", "<C-l>", "TmuxNavigateRight") -- Navigate Right
-keymap.set("n", "<leader>m", ":Maximize<CR>") -- Maximize current pane
+keymap.set("n", "<leader>mz", ":Maximize<CR>") -- Maximize current pane
 
 -- Indenting
 
@@ -87,27 +87,29 @@ end, { remap = true, silent = false, })
 --                     Obsidian                         --
 ----------------------------------------------------------
 
-keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>")
-keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>")
-
-keymap.set("n", "<leader>or", ":ObsidianRename<cr>")
-keymap.set("n", "<leader>os", ":ObsidianSearch<cr>")
-keymap.set("n", "<leader>om", ":ObsidianTOC<cr>")
-keymap.set("n", "<leader>ot", ":ObsidianTags<cr>")
-keymap.set("n", "<leader>oy", ":ObsidianTemplate<cr>")
-keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>")
+keymap.set("n", "<leader>o", ":Obsidian<cr>" , { desc = "Obsidian" })
+keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>" , { desc = "Quick Switch" })
+keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "Workspace" })
+keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "Rename" })
+keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "Search" })
+keymap.set("n", "<leader>om", ":ObsidianTOC<cr>", { desc = "ToC" })
+keymap.set("n", "<leader>ot", ":ObsidianTags<cr>", { desc = "Tags" })
+keymap.set("n", "<leader>oy", ":ObsidianTemplate<cr>", { desc = "Template" })
+keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>", { desc = "Open UX" })
 
 -- Links
 
-keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>") -- Link under cursor
-keymap.set("v", "<leader>l", ":ObsidianLink<cr>") -- Link in visual mode
+keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "Link" }) -- Link under cursor
+keymap.set("v", "<leader>l", ":ObsidianLink<cr>", { desc = "Link" }) -- Link in visual mode
 
-keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>")
-keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>")
+keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "View backlinks" })
+
+keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>", { desc = "View links" })
 
 -- Others
 
-keymap.set("n", "<leader>oc", ":ObsidianCheck<cr>")
+keymap.set("n", "<leader>oc", ":ObsidianCheck<cr>", { desc = "Check plugin" })
+
 
 ----------------------------------------------------------
 --                      Folding                         --
