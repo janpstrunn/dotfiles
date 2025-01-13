@@ -6,3 +6,11 @@ vim.api.nvim_create_autocmd({"BufWritePre"}, {
   pattern = "*",
   command = [[%s/\s\+$//e]],
 })
+
+vim.api.nvim_create_augroup("ChangeColorscheme", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = "ChangeColorscheme",
+  callback = function()
+      vim.cmd("colorscheme catppuccin-mocha")
+  end,
+})
