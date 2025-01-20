@@ -87,7 +87,6 @@ end, { remap = true, silent = false, })
 --                     Obsidian                         --
 ----------------------------------------------------------
 
-keymap.set("n", "<leader>o", ":Obsidian<cr>" , { desc = "Obsidian" })
 keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>" , { desc = "Quick Switch" })
 keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "Workspace" })
 keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "Rename" })
