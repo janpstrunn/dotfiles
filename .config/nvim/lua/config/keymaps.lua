@@ -1,4 +1,5 @@
 local keymap = vim.keymap
+local M = {}
 
 -- Toggle Spelling
 
@@ -111,7 +112,7 @@ keymap.set("n", "<leader>oc", ":ObsidianCheck<cr>", { desc = "Check plugin" })
 
 
 ----------------------------------------------------------
---                      Folding                         --
+--                      Linkarzu                        --
 ----------------------------------------------------------
 
 -- Originally created by Linkarzu
@@ -188,3 +189,110 @@ vim.keymap.set("n", "z;", function()
   fold_markdown_headings({ 6, 5, 4 })
 end)
 
+vim.keymap.set("v", "<leader>mj", function()
+  local start_row = vim.fn.line("v")
+  local end_row = vim.fn.line(".")
+  if start_row > end_row then
+    start_row, end_row = end_row, start_row
+  end
+  local current_row = start_row
+  while current_row <= end_row do
+    local line = vim.api.nvim_buf_get_lines(0, current_row - 1, current_row, false)[1]
+    if line == "" then
+      vim.cmd(current_row .. "delete")
+      end_row = end_row - 1
+    else
+      current_row = current_row + 1
+    end
+  end
+end, { desc = "[P]Delete newlines in selected text (join)" })
+
+vim.keymap.set("n", "<leader>md", function()
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  local current_buffer = vim.api.nvim_get_current_buf()
+  local start_row = cursor_pos[1] - 1
+  local col = cursor_pos[2]
+  local line = vim.api.nvim_buf_get_lines(current_buffer, start_row, start_row + 1, false)[1]
+  if line:match("^%s*%-") then
+    line = line:gsub("^%s*%-", "")
+    vim.api.nvim_buf_set_lines(current_buffer, start_row, start_row + 1, false, { line })
+    return
+  end
+  local left_text = line:sub(1, col)
+  local bullet_start = left_text:reverse():find("\n")
+  if bullet_start then
+    bullet_start = col - bullet_start
+  end
+  local right_text = line:sub(col + 1)
+  local bullet_end = right_text:find("\n")
+  local end_row = start_row
+  while not bullet_end and end_row < vim.api.nvim_buf_line_count(current_buffer) - 1 do
+    end_row = end_row + 1
+    local next_line = vim.api.nvim_buf_get_lines(current_buffer, end_row, end_row + 1, false)[1]
+    if next_line == "" then
+      break
+    end
+    right_text = right_text .. "\n" .. next_line
+    bullet_end = right_text:find("\n")
+  end
+  if bullet_end then
+    bullet_end = col + bullet_end
+  end
+  local text_lines = vim.api.nvim_buf_get_lines(current_buffer, start_row, end_row + 1, false)
+  local text = table.concat(text_lines, "\n")
+  local new_text = "- " .. text
+  local new_lines = vim.split(new_text, "\n")
+  vim.api.nvim_buf_set_lines(current_buffer, start_row, end_row + 1, false, new_lines)
+end)
+
+vim.keymap.set({ "n", "v" }, "gk", function() -- Go previous header
+  vim.cmd("silent! ?^##\\+\\s.*$")
+  vim.cmd("nohlsearch")
+end)
+
+vim.keymap.set({ "n", "v" }, "gj", function() -- Go next header
+  vim.cmd("silent! /^##\\+\\s.*$")
+  vim.cmd("nohlsearch")
+end)
+
+M.tmux_pane_function = function(dir)
+  local auto_cd_to_new_dir = true
+  local pane_direction = vim.g.tmux_pane_direction or "bottom"
+  local pane_size = (pane_direction == "right") and 60 or 15
+  local move_key = (pane_direction == "right") and "C-l" or "C-k"
+  local split_cmd = (pane_direction == "right") and "-h" or "-v"
+  local file_dir = dir or vim.fn.expand("%:p:h")
+  local has_panes = vim.fn.system("tmux list-panes | wc -l"):gsub("%s+", "") ~= "1"
+  local is_zoomed = vim.fn.system("tmux display-message -p '#{window_zoomed_flag}'"):gsub("%s+", "") == "1"
+  local escaped_dir = file_dir:gsub("'", "'\\''")
+  if has_panes then
+    if is_zoomed then
+      if auto_cd_to_new_dir and vim.g.tmux_pane_dir ~= escaped_dir then
+        vim.fn.system("tmux send-keys -t :.+ 'cd \"" .. escaped_dir .. "\"' Enter")
+        vim.g.tmux_pane_dir = escaped_dir
+      end
+      vim.fn.system("tmux resize-pane -Z")
+      vim.fn.system("tmux send-keys " .. move_key)
+    else
+      vim.fn.system("tmux resize-pane -Z")
+    end
+  else
+    if vim.g.tmux_pane_dir == nil then
+      vim.g.tmux_pane_dir = escaped_dir
+    end
+    vim.fn.system(
+      "tmux split-window "
+        .. split_cmd
+        .. " -l "
+        .. pane_size
+        .. " 'cd \""
+        .. escaped_dir
+        .. "\" && DISABLE_PULL=1 zsh'"
+    )
+    vim.fn.system("tmux send-keys " .. move_key)
+    vim.fn.system("tmux send-keys Escape i")
+  end
+end
+vim.keymap.set({ "n", "v", "i" }, "<M-t>", function()
+  M.tmux_pane_function()
+end, { desc = "[P]Terminal on tmux pane" })
