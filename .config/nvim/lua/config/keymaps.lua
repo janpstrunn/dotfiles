@@ -3,22 +3,21 @@ local M = {}
 
 -- Toggle Spelling
 
-vim.api.nvim_set_keymap("n", "<F5>", ":set spell!<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F6>", ":set spell!<CR>", { noremap = true, silent = true })
 
 -- Managing files
 
-keymap.set("n", "<leader>w", ":w<CR>", { desc = "Write changes" })
+keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
 keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
-vim.keymap.set("n", "<C-->", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Search and Replace
 
-keymap.set("v", "<leader>ss", ":s/")
-keymap.set("n", "<leader>sS", ":%s/")
+keymap.set("v", "<leader>ss", ":s/", { desc = "[S]earch" })
+keymap.set("n", "<leader>sS", ":%s/", { desc = "[S]earch" })
 
 -- File Permissions
 
-keymap.set("n", "<leader>cx", ":!chmod +x %<cr>")
+keymap.set("n", "<leader>cx", ":!chmod +x %<cr>", { desc = "Make executable" })
 
 -- Managing lines
 
@@ -56,12 +55,12 @@ keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 
 -- Time
 
-keymap.set("n", "<leader>gt", ":r !date +\"\\%H:\\%M\"<CR>")
-keymap.set("n", "<leader>gd", ":r !./.config/nvim/lua/scripts/time-day.sh<CR>")
+keymap.set("n", "<leader>gt", ":r !date +\"\\%H:\\%M\"<CR>", { desc = "Insert time" })
+keymap.set("n", "<leader>gd", ":r !./.config/nvim/lua/scripts/time-day.sh<CR>", { desc = "Insert Date" })
 
 -- LSP
 
-keymap.set('n', '<leader>fmd', vim.lsp.buf.format)
+keymap.set('n', '<leader>fmd', vim.lsp.buf.format, { desc = "LSP Format" })
 
 -- Functions
 
@@ -88,27 +87,28 @@ end, { remap = true, silent = false, })
 --                     Obsidian                         --
 ----------------------------------------------------------
 
-keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>" , { desc = "Quick Switch" })
-keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "Workspace" })
-keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "Rename" })
-keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "Search" })
-keymap.set("n", "<leader>om", ":ObsidianTOC<cr>", { desc = "ToC" })
-keymap.set("n", "<leader>ot", ":ObsidianTags<cr>", { desc = "Tags" })
-keymap.set("n", "<leader>oy", ":ObsidianTemplate<cr>", { desc = "Template" })
-keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>", { desc = "Open UX" })
+keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>" , { desc = "[Q]uick Switch" })
+keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "[W]orkspace" })
+keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "[R]ename" })
+keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "[S]earch" })
+keymap.set("n", "<leader>oc", ":ObsidianTOC<cr>", { desc = "To[C]" })
+keymap.set("n", "<leader>om", ":ObsidianTags<cr>", { desc = "[M]arks" })
+keymap.set("n", "<leader>ot", ":ObsidianTemplate<cr>", { desc = "[T]emplate" })
+keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>", { desc = "[O]pen UX" })
+keymap.set("n", "<leader>od", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
 
 -- Links
 
-keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "Link" }) -- Link under cursor
-keymap.set("v", "<leader>l", ":ObsidianLink<cr>", { desc = "Link" }) -- Link in visual mode
+keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "[L]ink" }) -- Link under cursor
+keymap.set("v", "<leader>l", ":ObsidianLink<cr>", { desc = "[L]ink" }) -- Link in visual mode
 
-keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "View backlinks" })
+keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "[B]acklinks" })
 
-keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>", { desc = "View links" })
+keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>", { desc = "Coming Links" })
 
 -- Others
 
-keymap.set("n", "<leader>oc", ":ObsidianCheck<cr>", { desc = "Check plugin" })
+keymap.set("n", "<leader>oz", ":ObsidianCheck<cr>", { desc = "Check plugin" })
 
 
 ----------------------------------------------------------
