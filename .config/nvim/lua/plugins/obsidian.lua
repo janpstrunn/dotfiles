@@ -10,7 +10,7 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "/mnt/beelzebub/Pandora/obsidian/OUROBOROS",
+        path = "/mnt/beelzebub/Pandora/obsidian/OUROBOROS/",
       },
       {
         name = "tree",
@@ -50,6 +50,12 @@ return {
 
   new_notes_location = "",
 
+  daily_notes = {
+    folder = "Journals/Daily",
+    date_format = "%Y-%m-%d",
+    template = "Journal - Daily.md"
+  },
+
   wiki_link_func = function(opts)
     return require("obsidian.util").wiki_link_id_prefix(opts)
   end,
@@ -70,10 +76,17 @@ return {
   end,
 
   templates = {
-    folder = "Templates",
+    folder = "templates",
     date_format = "%Y-%m-%d",
     time_format = "%H:%M",
-    substitutions = {},
+    substitutions = {
+      week_note = function()
+        local current_time = os.time()
+        local year = os.date("%Y", current_time)
+        local week = os.date("%W", current_time)
+        return string.format("[[%s-W%02d]]", year, tonumber(week))
+      end
+      },
   },
 
   ---@param url string
