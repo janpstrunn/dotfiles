@@ -11,7 +11,7 @@ return {
 		treesitter.setup({
 			highlight = {
 				enable = true,
-				additional_vim_regex_highlighting = false,
+				additional_vim_regex_highlighting = true,
 			},
 			indent = { enable = true },
 			autotag = {
@@ -21,7 +21,6 @@ return {
 				"json",
 				"javascript",
 				"typescript",
-				"tsx",
 				"yaml",
 				"html",
 				"css",
@@ -33,15 +32,16 @@ return {
 				"dockerfile",
 				"gitignore",
 				"c",
+        "hyprlang",
 				"rust",
 			},
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
+          init_selection = "gnn",
+          node_incremental = "grn",
+          scope_incremental = "grc",
+          node_decremental = "grm",
 				},
 			},
 			rainbow = {
@@ -54,6 +54,7 @@ return {
 				enable = true,
 				enable_autocmd = false,
 			},
+      auto_install = false,
 		})
 	end,
 }
