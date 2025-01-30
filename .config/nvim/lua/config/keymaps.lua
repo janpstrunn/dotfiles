@@ -29,8 +29,8 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true }) -- Shift + J in Visu
 keymap.set("n", "<C-u>", "<C-u>zz") -- Page Up and Center
 keymap.set("n", "<C-d>", "<C-d>zz") -- Page Down and Center
 
-keymap.set("n", "n", "nzzzv") -- Next and Center
-keymap.set("n", "N", "Nzzzv") -- Previous and Center
+keymap.set("n", "n", "nzzzv")       -- Next and Center
+keymap.set("n", "N", "Nzzzv")       -- Previous and Center
 
 -- Visual
 
@@ -38,14 +38,14 @@ keymap.set("n", "<leader>h", ":noh<cr>") -- Remove highlight
 
 -- Panes
 
-keymap.set("n", "<C-h>", "<C-w>h") -- Navigate Left
-keymap.set("n", "<C-j>", "<C-w>j") -- Navigate Down
-keymap.set("n", "<C-k>", "<C-w>k") -- Navigate Up
-keymap.set("n", "<C-l>", "<C-w>l") -- Navigate Right
-keymap.set("n", "<C-h>", "TmuxNavigateLeft") -- Navigate Left
-keymap.set("n", "<C-j>", "TmuxNavigateDown") -- Navigate Down
-keymap.set("n", "<C-k>", "TmuxNavigateUp") -- Navigate Up
-keymap.set("n", "<C-l>", "TmuxNavigateRight") -- Navigate Right
+keymap.set("n", "<C-h>", "<C-w>h")             -- Navigate Left
+keymap.set("n", "<C-j>", "<C-w>j")             -- Navigate Down
+keymap.set("n", "<C-k>", "<C-w>k")             -- Navigate Up
+keymap.set("n", "<C-l>", "<C-w>l")             -- Navigate Right
+keymap.set("n", "<C-h>", "TmuxNavigateLeft")   -- Navigate Left
+keymap.set("n", "<C-j>", "TmuxNavigateDown")   -- Navigate Down
+keymap.set("n", "<C-k>", "TmuxNavigateUp")     -- Navigate Up
+keymap.set("n", "<C-l>", "TmuxNavigateRight")  -- Navigate Right
 keymap.set("n", "<leader>mz", ":Maximize<CR>") -- Maximize current pane
 
 -- Indenting
@@ -56,7 +56,7 @@ keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 -- Time
 
 keymap.set("n", "<leader>gt", ":r !date +\"\\%H:\\%M\"<CR>", { desc = "Insert time" })
-keymap.set("n", "<leader>gd", ":r !./.config/nvim/lua/scripts/time-day.sh<CR>", { desc = "Insert Date" })
+keymap.set("n", "<leader>gd", ":r !date +\"\\%F\"<CR>", { desc = "Insert Date" })
 
 -- LSP
 
@@ -65,16 +65,16 @@ keymap.set('n', '<leader>fmd', vim.lsp.buf.format, { desc = "LSP Format" })
 -- Functions
 
 function toggle_checkbox()
-    local line = vim.api.nvim_get_current_line()
-    if line:match("^%s*-%s*%[ %]") then
-        local new_line = line:gsub("%[ %]", "[x]")
-        vim.api.nvim_set_current_line(new_line)
-    elseif line:match("^%s*-%s*%[x%]") then
-        local new_line = line:gsub("%[x%]", "[ ]")
-        vim.api.nvim_set_current_line(new_line)
-    else
-        print("No checkbox found on this line")
-    end
+  local line = vim.api.nvim_get_current_line()
+  if line:match("^%s*-%s*%[ %]") then
+    local new_line = line:gsub("%[ %]", "[x]")
+    vim.api.nvim_set_current_line(new_line)
+  elseif line:match("^%s*-%s*%[x%]") then
+    local new_line = line:gsub("%[x%]", "[ ]")
+    vim.api.nvim_set_current_line(new_line)
+  else
+    print("No checkbox found on this line")
+  end
 end
 
 keymap.set('n', '<leader>ti', toggle_checkbox, { noremap = true, silent = true })
@@ -87,7 +87,7 @@ end, { remap = true, silent = false, })
 --                     Obsidian                         --
 ----------------------------------------------------------
 
-keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>" , { desc = "[Q]uick Switch" })
+keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>", { desc = "[Q]uick Switch" })
 keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "[W]orkspace" })
 keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "[R]ename" })
 keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "[S]earch" })
@@ -100,7 +100,7 @@ keymap.set("n", "<leader>od", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
 -- Links
 
 keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "[L]ink" }) -- Link under cursor
-keymap.set("v", "<leader>l", ":ObsidianLink<cr>", { desc = "[L]ink" }) -- Link in visual mode
+keymap.set("v", "<leader>l", ":ObsidianLink<cr>", { desc = "[L]ink" })     -- Link in visual mode
 
 keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "[B]acklinks" })
 
@@ -282,12 +282,12 @@ M.tmux_pane_function = function(dir)
     end
     vim.fn.system(
       "tmux split-window "
-        .. split_cmd
-        .. " -l "
-        .. pane_size
-        .. " 'cd \""
-        .. escaped_dir
-        .. "\" && DISABLE_PULL=1 zsh'"
+      .. split_cmd
+      .. " -l "
+      .. pane_size
+      .. " 'cd \""
+      .. escaped_dir
+      .. "\" && DISABLE_PULL=1 zsh'"
     )
     vim.fn.system("tmux send-keys " .. move_key)
     vim.fn.system("tmux send-keys Escape i")
