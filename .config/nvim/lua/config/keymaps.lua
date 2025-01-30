@@ -10,6 +10,9 @@ vim.api.nvim_set_keymap("n", "<F6>", ":set spell!<CR>", { noremap = true, silent
 keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
 keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
 
+keymap.set("n", "<M-j>", ":cnext<CR>", { desc = "Next QuickFix" })
+keymap.set("n", "<M-k>", ":cprev<CR>", { desc = "Previous QuickFix" })
+
 -- Search and Replace
 
 keymap.set("v", "<leader>ss", ":s/", { desc = "[S]earch" })
