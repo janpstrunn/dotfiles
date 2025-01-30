@@ -31,20 +31,20 @@ local config = function()
 end
 
 return {
-	"nvim-telescope/telescope.nvim",
-	version = "*",
-	lazy = false,
-	dependencies = { "nvim-lua/plenary.nvim" },
+  "nvim-telescope/telescope.nvim",
+  version = "*",
+  lazy = false,
+  dependencies = { "nvim-lua/plenary.nvim" },
   opts = {
   },
-	config = config,
-	keys = {
-		keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>", opts),
-		keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", opts),
-		keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", opts),
-		keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", opts),
-		keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", opts),
-		keymap.set("n", "<leader>fm", ":Telescope man_pages<CR>", opts),
-		keymap.set("n", "<leader>ft", ":Telescope help_tags<CR>", opts),
-	},
+  config = config,
+  keys = {
+    keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>", opts),
+    keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>", opts),
+    keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", opts),
+    keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", opts),
+    keymap.set("n", "<leader>fb", ":Telescope buffers<CR>", opts),
+    keymap.set("n", "<leader>fl", ":Telescope man_pages<CR>", opts),
+    keymap.set("n", "<leader>ft", ":Telescope help_tags<CR>", opts),
+  },
 }
