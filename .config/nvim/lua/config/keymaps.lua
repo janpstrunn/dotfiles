@@ -9,6 +9,9 @@ vim.api.nvim_set_keymap("n", "<F6>", ":set spell!<CR>", { noremap = true, silent
 
 keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
 keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
+keymap.set("n", "<leader>cw", ":wq<CR>", { desc = "Exit and Save" })
+keymap.set("n", "<M-q>", ":q!<CR>", { desc = "Exit without saving" })
+keymap.set("n", "<M-w>", ":wq<CR>", { desc = "Exit and Save" })
 
 keymap.set("n", "<M-j>", ":cnext<CR>", { desc = "Next QuickFix" })
 keymap.set("n", "<M-k>", ":cprev<CR>", { desc = "Previous QuickFix" })
@@ -39,7 +42,7 @@ keymap.set("n", "N", "Nzzzv")       -- Previous and Center
 
 keymap.set("n", "<leader>h", ":noh<cr>") -- Remove highlight
 
--- Panes
+-- Panes & Tabs
 
 keymap.set("n", "<C-h>", "<C-w>h")             -- Navigate Left
 keymap.set("n", "<C-j>", "<C-w>j")             -- Navigate Down
@@ -50,6 +53,8 @@ keymap.set("n", "<C-j>", "TmuxNavigateDown")   -- Navigate Down
 keymap.set("n", "<C-k>", "TmuxNavigateUp")     -- Navigate Up
 keymap.set("n", "<C-l>", "TmuxNavigateRight")  -- Navigate Right
 keymap.set("n", "<leader>mz", ":Maximize<CR>") -- Maximize current pane
+
+keymap.set("n", "<M-t>", ":tabnew<CR>")        -- Create a new Tab
 
 -- Indenting
 
@@ -296,6 +301,6 @@ M.tmux_pane_function = function(dir)
     vim.fn.system("tmux send-keys Escape i")
   end
 end
-vim.keymap.set({ "n", "v", "i" }, "<M-t>", function()
+vim.keymap.set({ "n", "v", "i" }, "<M-u>", function()
   M.tmux_pane_function()
 end, { desc = "[P]Terminal on tmux pane" })
