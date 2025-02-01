@@ -304,3 +304,19 @@ end
 vim.keymap.set({ "n", "v", "i" }, "<M-u>", function()
   M.tmux_pane_function()
 end, { desc = "[P]Terminal on tmux pane" })
+
+-- Nvim Scissors
+
+vim.keymap.set(
+  "n",
+  "<leader>se",
+  function() require("scissors").editSnippet() end,
+  { desc = "Snippet: Edit" }
+)
+
+vim.keymap.set(
+  { "n", "x" },
+  "<leader>sa",
+  function() require("scissors").addNewSnippet() end,
+  { desc = "Snippet: Add" }
+)
