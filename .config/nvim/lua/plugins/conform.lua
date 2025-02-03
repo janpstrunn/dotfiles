@@ -6,7 +6,7 @@ return {
 			sh = { "shfmt" },
 			bash = { "shfmt" },
 			zsh = { "shfmt" },
-			-- python = { "black" },
+			python = { "black" },
 			javascript = { "prettier" },
 			typescript = { "prettier" },
 			json = { "prettier" },
