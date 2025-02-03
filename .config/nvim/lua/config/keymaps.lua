@@ -301,7 +301,11 @@ M.tmux_pane_function = function(dir)
 end
 vim.keymap.set({ "n", "v", "i" }, "<M-u>", function()
 	M.tmux_pane_function()
-end, { desc = "[P]Terminal on tmux pane" })
+end, { desc = "Create Tmux Pane" })
+
+----------------------------------------------------------
+--                     Janpstrunn                       --
+----------------------------------------------------------
 
 -- Nvim Scissors
 
@@ -345,17 +349,17 @@ end
 
 vim.keymap.set("n", "<leader>gd", function()
 	insert_text_in_current_line(os.date("%Y-%m-%d %H:%M:%S"))
-end, { desc = "Insert date" })
+end, { desc = "Insert [D]ate" })
 
 vim.keymap.set("n", "<leader>gt", function()
 	insert_text_in_current_line(os.date("%H:%M:%S"))
-end, { desc = "Insert time" })
+end, { desc = "Insert [T]ime" })
 
 -- Insert Reference ID
 
 vim.keymap.set("n", "<leader>gr", function()
 	insert_text_in_current_line(generate_random_id())
-end, { desc = "Insert time" })
+end, { desc = "Insert [R]eference ID" })
 
 -- Week Daily
 local function open_weeknote()
@@ -373,7 +377,7 @@ local function open_weeknote()
 	vim.cmd("edit " .. weeknote_path)
 end
 
-vim.keymap.set("n", "<leader>dw", open_weeknote, { desc = "Open Current Week's Note" })
+vim.keymap.set("n", "<leader>dw", open_weeknote, { desc = "Open [W]eek Note" })
 
 local function open_monthnote()
 	local obsidian_dir = os.getenv("JOURNAL") .. "/Month/"
@@ -387,7 +391,7 @@ local function open_monthnote()
 	vim.cmd("edit " .. monthnote_path)
 end
 
-vim.keymap.set("n", "<leader>dm", open_monthnote, { desc = "Open Current Month's Note" })
+vim.keymap.set("n", "<leader>dm", open_monthnote, { desc = "Open [M]onth Note" })
 
 local function open_yearnote()
 	local obsidian_dir = os.getenv("JOURNAL")
@@ -399,4 +403,4 @@ local function open_yearnote()
 	vim.cmd("edit " .. yearnote_path)
 end
 
-vim.keymap.set("n", "<leader>dy", open_yearnote, { desc = "Open Current Year's Note" })
+vim.keymap.set("n", "<leader>dy", open_yearnote, { desc = "Open [Y]ear Note" })
