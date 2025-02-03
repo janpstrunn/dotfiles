@@ -82,6 +82,10 @@ local config = function()
 		capabilities = capabilities,
 		filetypes = { "markdown", "markdown.mdx" },
 	})
+	require("lspconfig").markdown_oxide.setup({
+		capabilities = capabilities,
+		filetypes = { "markdown" },
+	})
 
 	-- rust
 	require("lspconfig").bacon_ls.setup({
