@@ -12,7 +12,7 @@ return {
 			json = { "prettier" },
 			html = { "prettier" },
 			css = { "prettier" },
-			markdown = { "prettier" },
+			-- markdown = { "prettier" },
 		},
 	},
 }
