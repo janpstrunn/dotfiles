@@ -7,7 +7,7 @@ vim.api.nvim_set_keymap("n", "<F6>", ":set spell!<CR>", { noremap = true, silent
 
 -- Managing files
 
-keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
+-- keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
 keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
 keymap.set("n", "<leader>cw", ":wq<CR>", { desc = "Exit and Save" })
 keymap.set("n", "<M-q>", ":q!<CR>", { desc = "Exit without saving" })
@@ -102,7 +102,7 @@ keymap.set("n", "<leader>oc", ":ObsidianTOC<cr>", { desc = "To[C]" })
 keymap.set("n", "<leader>om", ":ObsidianTags<cr>", { desc = "[M]arks" })
 keymap.set("n", "<leader>ot", ":ObsidianTemplate<cr>", { desc = "[T]emplate" })
 keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>", { desc = "[O]pen UX" })
-keymap.set("n", "<leader>od", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
+keymap.set("n", "<leader>dd", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
 
 -- Links
 
@@ -356,3 +356,47 @@ end, { desc = "Insert time" })
 vim.keymap.set("n", "<leader>gr", function()
 	insert_text_in_current_line(generate_random_id())
 end, { desc = "Insert time" })
+
+-- Week Daily
+local function open_weeknote()
+	local obsidian_dir = os.getenv("JOURNAL") .. "/Week/"
+
+	local year = os.date("%Y")
+	local week = os.date("%U")
+
+	if #week == 1 then
+		week = "0" .. week
+	end
+
+	local weeknote = string.format("%s-W%s.md", year, week)
+	local weeknote_path = obsidian_dir .. weeknote
+	vim.cmd("edit " .. weeknote_path)
+end
+
+vim.keymap.set("n", "<leader>dw", open_weeknote, { desc = "Open Current Week's Note" })
+
+local function open_monthnote()
+	local obsidian_dir = os.getenv("JOURNAL") .. "/Month/"
+
+	local year = os.date("%Y")
+	local month = os.date("%B")
+
+	local monthnote = string.format("%s, %s.md", month, year)
+	local monthnote_path = obsidian_dir .. monthnote
+
+	vim.cmd("edit " .. monthnote_path)
+end
+
+vim.keymap.set("n", "<leader>dm", open_monthnote, { desc = "Open Current Month's Note" })
+
+local function open_yearnote()
+	local obsidian_dir = os.getenv("JOURNAL")
+	local year = os.date("%Y")
+	local yearnote = string.format("%s.md", year)
+
+	local yearnote_path = obsidian_dir .. yearnote
+
+	vim.cmd("edit " .. yearnote_path)
+end
+
+vim.keymap.set("n", "<leader>dy", open_yearnote, { desc = "Open Current Year's Note" })
