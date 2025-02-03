@@ -61,11 +61,6 @@ keymap.set("n", "<M-t>", ":tabnew<CR>") -- Create a new Tab
 keymap.set("v", "<", "<gv") -- Allows multiple indents without losing cursor
 keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 
--- Time
-
-keymap.set("n", "<leader>gt", ':r !date +"\\%H:\\%M"<CR>', { desc = "Insert time" })
-keymap.set("n", "<leader>gd", ':r !date +"\\%F"<CR>', { desc = "Insert Date" })
-
 -- URL
 
 keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
@@ -317,3 +312,47 @@ end, { desc = "Snippet: Edit" })
 vim.keymap.set({ "n", "x" }, "<leader>sa", function()
 	require("scissors").addNewSnippet()
 end, { desc = "Snippet: Add" })
+
+-- Current Line Scripts
+
+function get_current_line()
+	return vim.api.nvim_get_current_line()
+end
+
+function set_current_line(new_line)
+	vim.api.nvim_set_current_line(new_line)
+end
+
+-- Generate Reference ID
+
+function generate_random_id()
+	local hex_chars = "0123456789abcdef"
+	local id = "^"
+	for i = 1, 6 do
+		local rand_index = math.random(1, #hex_chars)
+		id = id .. hex_chars:sub(rand_index, rand_index)
+	end
+	return id
+end
+
+function insert_text_in_current_line(text_to_insert)
+	local current_line = get_current_line()
+	local new_line = current_line .. " " .. text_to_insert
+	set_current_line(new_line)
+end
+
+-- Time
+
+vim.keymap.set("n", "<leader>gd", function()
+	insert_text_in_current_line(os.date("%Y-%m-%d %H:%M:%S"))
+end, { desc = "Insert date" })
+
+vim.keymap.set("n", "<leader>gt", function()
+	insert_text_in_current_line(os.date("%H:%M:%S"))
+end, { desc = "Insert time" })
+
+-- Insert Reference ID
+
+vim.keymap.set("n", "<leader>gr", function()
+	insert_text_in_current_line(generate_random_id())
+end, { desc = "Insert time" })
