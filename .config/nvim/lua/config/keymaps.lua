@@ -319,27 +319,17 @@ end, { desc = "Snippet: Add" })
 
 -- Current Line Scripts
 
-function get_current_line()
+local function get_current_line()
 	return vim.api.nvim_get_current_line()
 end
 
-function set_current_line(new_line)
+local function set_current_line(new_line)
 	vim.api.nvim_set_current_line(new_line)
 end
 
--- Generate Reference ID
+-- Get Current Line (General Usage)
 
-function generate_random_id()
-	local hex_chars = "0123456789abcdef"
-	local id = "^"
-	for i = 1, 6 do
-		local rand_index = math.random(1, #hex_chars)
-		id = id .. hex_chars:sub(rand_index, rand_index)
-	end
-	return id
-end
-
-function insert_text_in_current_line(text_to_insert)
+local function insert_text_in_current_line(text_to_insert)
 	local current_line = get_current_line()
 	local new_line = current_line .. " " .. text_to_insert
 	set_current_line(new_line)
@@ -355,13 +345,43 @@ vim.keymap.set("n", "<leader>gt", function()
 	insert_text_in_current_line(os.date("%H:%M:%S"))
 end, { desc = "Insert [T]ime" })
 
--- Insert Reference ID
+-- Copy Block Reference
 
-vim.keymap.set("n", "<leader>gr", function()
-	insert_text_in_current_line(generate_random_id())
-end, { desc = "Insert [R]eference ID" })
+local function copy_block_reference()
+	local charset = "abcdef0123456789"
+	local id = "^"
+	for _ = 1, 6 do
+		local rand = math.random(1, #charset)
+		id = id .. charset:sub(rand, rand)
+	end
+	return id
+end
+
+local function id_handle()
+	local line_number = vim.api.nvim_win_get_cursor(0)[1]
+	local line = vim.api.nvim_buf_get_lines(0, line_number - 1, line_number, false)[1]
+
+	local existing_id = line:match("%^%w%w%w%w%w%w")
+	local id = existing_id or copy_block_reference()
+
+	if not existing_id then
+		line = line .. " " .. id
+		vim.api.nvim_buf_set_lines(0, line_number - 1, line_number, false, { line })
+	end
+
+	local filename = vim.fn.expand("%:t") -- File name only
+
+	local link = string.format("[[%s#%s]]", filename, id)
+
+	vim.fn.setreg("+", link)
+
+	print("Copied to clipboard: " .. link)
+end
+
+vim.keymap.set("n", "<leader>gr", id_handle, { desc = "Copy Block [R]eference" })
 
 -- Week Daily
+
 local function open_weeknote()
 	local obsidian_dir = os.getenv("JOURNAL") .. "/Week/"
 
@@ -379,6 +399,8 @@ end
 
 vim.keymap.set("n", "<leader>dw", open_weeknote, { desc = "Open [W]eek Note" })
 
+-- Week Monthly
+
 local function open_monthnote()
 	local obsidian_dir = os.getenv("JOURNAL") .. "/Month/"
 
@@ -392,6 +414,8 @@ local function open_monthnote()
 end
 
 vim.keymap.set("n", "<leader>dm", open_monthnote, { desc = "Open [M]onth Note" })
+
+-- Week Yearly
 
 local function open_yearnote()
 	local obsidian_dir = os.getenv("JOURNAL")
