@@ -3,27 +3,33 @@ local M = {}
 
 -- Toggle Spelling
 
-vim.api.nvim_set_keymap("n", "<F6>", ":set spell!<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>sp",
+	":set spell!<CR>",
+	{ noremap = true, silent = true, desc = "[S]pell: Toggle" }
+)
 
 -- Managing files
 
--- keymap.set("n", "<leader>w", ":w<CR>", { desc = "[W]rite changes" })
-keymap.set("n", "<leader>cq", ":q!<CR>", { desc = "Exit without saving" })
-keymap.set("n", "<leader>cw", ":wq<CR>", { desc = "Exit and Save" })
-keymap.set("n", "<M-q>", ":q!<CR>", { desc = "Exit without saving" })
-keymap.set("n", "<M-w>", ":wq<CR>", { desc = "Exit and Save" })
+keymap.set("n", "<leader>qq", ":q!<CR>", { desc = "[Q]uit: [Q]uit no save" })
+keymap.set("n", "<leader>qa", ":qa!<CR>", { desc = "[Q]uit: [A]ll" })
+keymap.set("n", "<leader>qw", ":wq<CR>", { desc = "[Q]uit: [W]rite" })
+
+keymap.set("n", "<M-q>", ":qa!<CR>", { desc = "Exit without saving" })
+keymap.set("n", "<M-w>", ":w<CR>", { desc = "Write Changes" })
 
 keymap.set("n", "<M-j>", ":cnext<CR>", { desc = "Next QuickFix" })
 keymap.set("n", "<M-k>", ":cprev<CR>", { desc = "Previous QuickFix" })
 
 -- Search and Replace
 
-keymap.set("v", "<leader>ss", ":s/", { desc = "[S]earch" })
-keymap.set("n", "<leader>sS", ":%s/", { desc = "[S]earch" })
+keymap.set("v", "<leader>ss", ":s/", { desc = "[S]earch: [S]elected" })
+keymap.set("n", "<leader>sS", ":%s/", { desc = "[S]earch: Whole File" })
 
 -- File Permissions
 
-keymap.set("n", "<leader>cx", ":!chmod +x %<cr>", { desc = "Make executable" })
+keymap.set("n", "<leader>cx", ":!chmod +x %<cr>", { desc = "Make Executable" })
 
 -- Managing lines
 
@@ -67,11 +73,11 @@ keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
 
 -- LSP
 
-keymap.set("n", "<leader>fmd", vim.lsp.buf.format, { desc = "LSP Format" })
+keymap.set("n", "<leader>fmd", vim.lsp.buf.format, { desc = "[L]SP Format" })
 
 -- Functions
 
-function toggle_checkbox()
+local function toggle_checkbox()
 	local line = vim.api.nvim_get_current_line()
 	if line:match("^%s*-%s*%[ %]") then
 		local new_line = line:gsub("%[ %]", "[x]")
@@ -84,7 +90,7 @@ function toggle_checkbox()
 	end
 end
 
-keymap.set("n", "<leader>ti", toggle_checkbox, { noremap = true, silent = true })
+keymap.set("n", "<leader>tc", toggle_checkbox, { noremap = true, silent = true, desc = "[T]oggle: [C]heckbox" })
 
 vim.keymap.set("i", "<c-t>", function()
 	require("telescope.builtin").registers()
