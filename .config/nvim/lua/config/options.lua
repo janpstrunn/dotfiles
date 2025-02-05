@@ -8,6 +8,7 @@ opt.softtabstop = 2
 opt.expandtab = true
 opt.smartindent = true
 opt.wrap = true
+opt.linebreak = true
 
 -- Search
 
