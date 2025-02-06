@@ -281,6 +281,18 @@ vim.keymap.set({ "n", "x" }, "<leader>sa", function()
 	require("scissors").addNewSnippet()
 end, { desc = "Snippet: Add" })
 
+-- Timestamp
+
+local function insert_time_list_item()
+	local cursor = vim.api.nvim_win_get_cursor(0)
+	local row = cursor[1]
+	local time_string = os.date("%H:%M")
+
+	vim.api.nvim_buf_set_lines(0, row, row, false, { "- " .. time_string })
+
+	vim.api.nvim_win_set_cursor(0, { row + 1, 2 })
+end
+
 -- Current Line Scripts
 
 local function get_current_line()
@@ -302,12 +314,14 @@ end
 -- Time
 
 vim.keymap.set("n", "<leader>gd", function()
-	insert_text_in_current_line(os.date("%Y-%m-%d %H:%M:%S"))
+	insert_text_in_current_line(os.date("%Y-%m-%d"))
 end, { desc = "Insert [D]ate" })
 
 vim.keymap.set("n", "<leader>gt", function()
-	insert_text_in_current_line(os.date("%H:%M:%S"))
+	insert_text_in_current_line(os.date("%H:%M"))
 end, { desc = "Insert [T]ime" })
+
+vim.keymap.set("n", "<leader>gt", insert_time_list_item, { desc = "Add [T]imestamp" })
 
 -- Copy Block Reference
 
@@ -439,7 +453,7 @@ local function format_markdown()
 			if indent_level == 0 then
 				line = line:gsub("^%s+", "") -- Top-level lists must not start with spaces
 			elseif indent_level % 5 ~= 0 then
-				local new_indent = math.max(6, math.floor(indent_level / 5) * 5)
+				local new_indent = math.max(5, math.floor(indent_level / 5) * 5)
 				line = string.rep(" ", new_indent) .. list_marker .. " " .. line:match("^%s*[-*%d]+%.? (.+)")
 			end
 
