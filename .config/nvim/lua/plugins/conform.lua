@@ -1,5 +1,6 @@
 return {
 	"stevearc/conform.nvim",
+	ft = { "lua", "shell", "python", "javascript", "typescript", "json", "html", "css", "markdown", "rust" },
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
@@ -13,6 +14,7 @@ return {
 			html = { "prettier" },
 			css = { "prettier" },
 			markdown = { "prettier" },
+			rust = { "rustfmt" },
 		},
 	},
 }
