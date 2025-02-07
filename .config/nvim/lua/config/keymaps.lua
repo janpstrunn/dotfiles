@@ -33,6 +33,8 @@ keymap.set("n", "<leader>cx", ":!chmod +x %<cr>", { desc = "Make Executable" })
 
 -- Managing lines
 
+keymap.set("i", "<Tab>", "<C-o>>>", { noremap = true, silent = true })
+keymap.set("i", "<S-Tab>", "<C-o><<", { noremap = true, silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true }) -- Shift + K in Visual Mode
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true }) -- Shift + J in Visual Mode
 
@@ -74,6 +76,10 @@ keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
 -- LSP
 
 keymap.set("n", "<leader>fmd", vim.lsp.buf.format, { desc = "[L]SP Format" })
+
+-- Footnotes
+
+keymap.set("n", "<leader>fmf", ":lua require('footnote').organize_footnotes()<CR>", { desc = "[F]ootnote Organize" })
 
 -- Functions
 
@@ -270,16 +276,6 @@ end)
 ----------------------------------------------------------
 --                     Janpstrunn                       --
 ----------------------------------------------------------
-
--- Nvim Scissors
-
-vim.keymap.set("n", "<leader>se", function()
-	require("scissors").editSnippet()
-end, { desc = "Snippet: Edit" })
-
-vim.keymap.set({ "n", "x" }, "<leader>sa", function()
-	require("scissors").addNewSnippet()
-end, { desc = "Snippet: Add" })
 
 -- Timestamp
 
