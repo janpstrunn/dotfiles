@@ -12,7 +12,14 @@ return {
 	},
 	{
 		"3rd/image.nvim",
-		enabled = true,
+		ft = { "markdown" },
+		enabled = function()
+			if vim.g.neovide then
+				return false
+			else
+				return true
+			end
+		end,
 		dependencies = { "luarocks.nvim" },
 		config = function()
 			require("image").setup({
