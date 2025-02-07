@@ -24,24 +24,24 @@ local settings = {
         oldfiles_amount = 0,
     },
 
-    body = {
-        type = "mapping",
-        align = "center",
-        fold_section = false,
-        title = "Basic Commands",
-        margin = 5,
-        content = {
-            { " Find File", "Telescope find_files", "<leader>ff" },
-            { "󰍉 Find Word", "Telescope live_grep", "<leader>lg" },
-            { " Recent Files", "Telescope oldfiles", "<leader>of" },
-            { " File Browser", "Telescope file_browser", "<leader>fb" },
-            { " Colorschemes", "Telescope colorscheme", "<leader>cs" },
-            { " New File", "lua require'startup'.new_file()", "<leader>nf" },
-        },
-        highlight = "String",
-        default_color = "",
-        oldfiles_amount = 0,
-    },
+    -- body = {
+    --     type = "mapping",
+    --     align = "center",
+    --     fold_section = false,
+    --     title = "Basic Commands",
+    --     margin = 5,
+    --     content = {
+    --         { " Find File", "Telescope find_files", "<leader>ff" },
+    --         { "󰍉 Find Word", "Telescope live_grep", "<leader>lg" },
+    --         { " Recent Files", "Telescope oldfiles", "<leader>of" },
+    --         { " File Browser", "Telescope file_browser", "<leader>fb" },
+    --         { " Colorschemes", "Telescope colorscheme", "<leader>cs" },
+    --         { " New File", "lua require'startup'.new_file()", "<leader>nf" },
+    --     },
+    --     highlight = "String",
+    --     default_color = "",
+    --     oldfiles_amount = 0,
+    -- },
 
     body_2 = {
         type = "oldfiles",
@@ -69,35 +69,35 @@ local settings = {
     --     oldfiles_amount = 20,
     -- },
 
-    clock = {
-        type = "text",
-        content = function()
-            local clock = " " .. os.date("%H:%M")
-            local date = " " .. os.date("%d-%m-%y")
-            return { clock, date }
-        end,
-        oldfiles_directory = false,
-        align = "center",
-        fold_section = false,
-        title = "",
-        margin = 5,
-        highlight = "TSString",
-        default_color = "#FFFFFF",
-        oldfiles_amount = 10,
-    },
+    -- clock = {
+    --     type = "text",
+    --     content = function()
+    --         local clock = " " .. os.date("%H:%M")
+    --         local date = " " .. os.date("%d-%m-%y")
+    --         return { clock, date }
+    --     end,
+    --     oldfiles_directory = false,
+    --     align = "center",
+    --     fold_section = false,
+    --     title = "",
+    --     margin = 5,
+    --     highlight = "TSString",
+    --     default_color = "#FFFFFF",
+    --     oldfiles_amount = 10,
+    -- },
 
-    footer_2 = {
-        type = "text",
-        content = require("startup.functions").packer_plugins(),
-        oldfiles_directory = false,
-        align = "center",
-        fold_section = false,
-        title = "",
-        margin = 5,
-        highlight = "TSString",
-        default_color = "#FFFFFF",
-        oldfiles_amount = 10,
-    },
+    -- footer_2 = {
+    --     type = "text",
+    --     content = require("startup.functions").packer_plugins(),
+    --     oldfiles_directory = false,
+    --     align = "center",
+    --     fold_section = false,
+    --     title = "",
+    --     margin = 5,
+    --     highlight = "TSString",
+    --     default_color = "#FFFFFF",
+    --     oldfiles_amount = 10,
+    -- },
 
     options = {
         after = function()
@@ -118,11 +118,11 @@ local settings = {
     parts = {
         "header",
         "header_2",
-        "body",
+        -- "body",
         "body_2",
         -- "footer",
-        "clock",
-        "footer_2",
+        -- "clock",
+        -- "footer_2",
     },
 }
 return settings
