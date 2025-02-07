@@ -4,7 +4,8 @@
 
 return {
 	"HakonHarnes/img-clip.nvim",
-	event = "VeryLazy",
+	cmd = { "PasteImage" },
+	ft = { "markdown" },
 	opts = {
 		default = {
 			use_absolute_path = false, ---@type boolean

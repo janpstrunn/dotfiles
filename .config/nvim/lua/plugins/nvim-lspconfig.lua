@@ -1,3 +1,13 @@
+-- Linters
+
+-- "black",
+-- "fixjson",
+-- "prettier",
+-- "prettierd",
+-- "rustfmt",
+-- "shfmt",
+-- "stylua",
+
 local config = function()
 	require("neoconf").setup({})
 	local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -7,9 +17,8 @@ local config = function()
 	-- lua
 	lspconfig.lua_ls.setup({
 		capabilities = capabilities,
-		settings = { -- custom settings for lua
+		settings = {
 			Lua = {
-				-- make the language server recognize "vim" global
 				diagnostics = {
 					globals = { "vim" },
 				},
