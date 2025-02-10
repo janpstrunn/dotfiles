@@ -1,6 +1,7 @@
 return {
 	"chenxin-yan/footnote.nvim",
 	ft = "markdown",
+  lazy = true,
 	config = function()
 		require("footnote").setup({
 			keys = {
