@@ -1,20 +1,27 @@
--- Remove trailing whitespace from all lines on save
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+--
+-- Add any additional autocmds here
+-- with `vim.api.nvim_create_autocmd`
+--
+-- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
+-- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 local CleanOnSave = vim.api.nvim_create_augroup("CleanOnSave", {})
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	group = CleanOnSave,
-	pattern = "*",
-	command = [[%s/\s\+$//e]],
+  group = CleanOnSave,
+  pattern = "*",
+  command = [[%s/\s\+$//e]],
 })
 
--- Set colorscheme
-vim.api.nvim_create_augroup("ChangeColorscheme", { clear = true })
-vim.api.nvim_create_autocmd("VimEnter", {
-	group = "ChangeColorscheme",
-	callback = function()
-		vim.cmd("colorscheme catppuccin-mocha")
-	end,
-})
+-- -- Set colorscheme
+-- vim.api.nvim_create_augroup("ChangeColorscheme", { clear = true })
+-- vim.api.nvim_create_autocmd("VimEnter", {
+-- 	group = "ChangeColorscheme",
+-- 	callback = function()
+-- 		vim.cmd("colorscheme catppuccin-mocha")
+-- 	end,
+-- })
 
 -- Format file on save
 -- vim.api.nvim_create_autocmd("BufWritePre", {
@@ -43,15 +50,22 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- Run Conform
 vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
-	pattern = "*",
-	callback = function(args)
-		local buf = args.buf or vim.api.nvim_get_current_buf()
-		if vim.fn.mode() == "n" then
-			vim.defer_fn(function()
-				if vim.api.nvim_buf_is_valid(buf) then
-					require("conform").format({ bufnr = buf })
-				end
-			end, 100)
-		end
-	end,
+  pattern = "*",
+  callback = function(args)
+    local buf = args.buf or vim.api.nvim_get_current_buf()
+    if vim.fn.mode() == "n" then
+      vim.defer_fn(function()
+        if vim.api.nvim_buf_is_valid(buf) then
+          require("conform").format({ bufnr = buf })
+        end
+      end, 100)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spelllang = { "pt", "en_us" }
+  end,
 })
