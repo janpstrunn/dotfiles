@@ -79,31 +79,27 @@ else
 end
 vim.g.markdown_recommended_style = 0
 
-local function get_winbar_path()
-  local full_path = vim.fn.expand("%:p")
-  return full_path:gsub(vim.fn.expand("$HOME"), "~")
-end
-local function get_buffer_count()
-  local buffers = vim.fn.execute("ls")
-  local count = 0
-  for line in string.gmatch(buffers, "[^\r\n]+") do
-    if string.match(line, "^%s*%d+") then
-      count = count + 1
-    end
-  end
-  return count
-end
-local function update_winbar()
-  local home_replaced = get_winbar_path()
-  local buffer_count = get_buffer_count()
-  vim.opt.winbar = "%#WinBar1#%m "
-    .. "%#WinBar2#("
-    .. buffer_count
-    .. ") "
-    .. "%#WinBar1#"
-    .. home_replaced
-    .. "%*%=%#WinBar2#"
-end
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-  callback = update_winbar,
-})
+-- local function get_winbar_path()
+--   local full_path = vim.fn.expand("%:p")
+--   return full_path:gsub(vim.fn.expand("$HOME"), "~")
+-- end
+-- local function get_buffer_count()
+--   local buffers = vim.fn.execute("ls")
+--   local count = 0
+--   for line in string.gmatch(buffers, "[^\r\n]+") do
+--     if string.match(line, "^%s*%d+") then
+--       count = count + 1
+--     end
+--   end
+--   return count
+-- end
+-- local function update_winbar()
+--   -- local home_replaced = get_winbar_path()
+--   local buffer_count = get_buffer_count()
+--   vim.opt.winbar = "%#WinBar1#%m " .. "%#WinBar2#(" .. buffer_count .. ") " .. "%#WinBar1#"
+--   -- .. home_replaced
+--   -- .. "%*%=%#WinBar2#"
+-- end
+-- vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+--   callback = update_winbar,
+-- })
