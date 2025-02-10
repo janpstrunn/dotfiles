@@ -113,7 +113,6 @@ keymap.set("n", "<leader>oc", ":ObsidianTOC<cr>", { desc = "To[C]" })
 keymap.set("n", "<leader>om", ":ObsidianTags<cr>", { desc = "[M]arks" })
 keymap.set("n", "<leader>ot", ":ObsidianTemplate<cr>", { desc = "[T]emplate" })
 keymap.set("n", "<leader>oo", ":ObsidianOpen<cr>", { desc = "[O]pen UX" })
-keymap.set("n", "<leader>dd", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
 
 -- Links
 
@@ -352,6 +351,20 @@ local function id_handle()
 end
 
 vim.keymap.set("n", "<leader>gr", id_handle, { desc = "Copy Block [R]eference" })
+
+-- Today
+
+local function open_today()
+	local obsidian_dir = os.getenv("JOURNAL") .. "/Daily/"
+
+	local today = os.date("%F")
+
+	local dailynote = string.format("%s.md", today)
+	local dailynote_path = obsidian_dir .. dailynote
+	vim.cmd("edit " .. dailynote_path)
+end
+
+vim.keymap.set("n", "<leader>dd", open_today, { desc = "[D]aily Note" })
 
 -- Week
 
