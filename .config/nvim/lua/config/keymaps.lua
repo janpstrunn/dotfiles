@@ -53,7 +53,7 @@ keymap.set("n", "N", "Nzzzv") -- Previous and Center
 
 keymap.set("n", "<leader>h", ":noh<cr>") -- Remove highlight
 
--- Panes & Tabs
+-- Panes
 
 keymap.set("n", "<C-h>", "<C-w>h") -- Navigate Left
 keymap.set("n", "<C-j>", "<C-w>j") -- Navigate Down
@@ -65,7 +65,22 @@ keymap.set("n", "<C-k>", "TmuxNavigateUp") -- Navigate Up
 keymap.set("n", "<C-l>", "TmuxNavigateRight") -- Navigate Right
 keymap.set("n", "<leader>mz", ":Maximize<CR>") -- Maximize current pane
 
+-- Tabs
+
 keymap.set("n", "<M-t>", ":tabnew<CR>") -- Create a new Tab
+
+keymap.set("n", "<M-n>", ":tabnext<CR>") -- Next Tab
+keymap.set("n", "<M-p>", ":tabprevious<CR>") -- Previous Tab
+
+keymap.set("n", "<M-1>", ":tabn 1<CR>") -- Move to Tab
+keymap.set("n", "<M-2>", ":tabn 2<CR>") -- Move to Tab
+keymap.set("n", "<M-3>", ":tabn 3<CR>") -- Move to Tab
+keymap.set("n", "<M-4>", ":tabn 4<CR>") -- Move to Tab
+keymap.set("n", "<M-5>", ":tabn 5<CR>") -- Move to Tab
+keymap.set("n", "<M-6>", ":tabn 6<CR>") -- Move to Tab
+keymap.set("n", "<M-7>", ":tabn 7<CR>") -- Move to Tab
+keymap.set("n", "<M-8>", ":tabn 8<CR>") -- Move to Tab
+keymap.set("n", "<M-9>", ":tabn 9<CR>") -- Move to Tab
 
 -- Indenting
 
