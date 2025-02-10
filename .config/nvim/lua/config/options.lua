@@ -1,3 +1,7 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
 local opt = vim.opt
 
 -- Tab / Indentation
@@ -7,8 +11,8 @@ opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.expandtab = true
 opt.smartindent = true
-opt.wrap = true
-opt.linebreak = true
+-- opt.wrap = true
+-- opt.linebreak = true
 
 -- Search
 
@@ -75,7 +79,6 @@ else
 end
 vim.g.markdown_recommended_style = 0
 
---
 local function get_winbar_path()
   local full_path = vim.fn.expand("%:p")
   return full_path:gsub(vim.fn.expand("$HOME"), "~")

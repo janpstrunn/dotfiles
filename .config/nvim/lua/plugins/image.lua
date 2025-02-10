@@ -13,6 +13,7 @@ return {
 	{
 		"3rd/image.nvim",
 		ft = { "markdown" },
+    lazy = true,
 		enabled = function()
 			if vim.g.neovide then
 				return false
