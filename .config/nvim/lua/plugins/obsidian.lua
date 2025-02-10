@@ -89,7 +89,7 @@ return {
 			return require("obsidian.util").markdown_link(opts)
 		end,
 		preferred_link_style = "wiki",
-		disable_frontmatter = false,
+		disable_frontmatter = true,
 		---@return table
 		note_frontmatter_func = function(note)
 			local out = {}
@@ -159,9 +159,34 @@ return {
 		-- 	post_set_workspace = function(client, workspace) end,
 		-- },
 
+		-- Ref: https://github.com/epwalsh/obsidian.nvim
 		ui = {
-			-- Ref: https://github.com/epwalsh/obsidian.nvim
-			enable = false,
+			enable = false, -- set to false to disable all additional syntax features
+			update_debounce = 200, -- update delay after a text change (in milliseconds)
+			max_file_length = 5000, -- disable UI features for files with more than this many lines
+			checkboxes = {
+				[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+				["x"] = { char = "", hl_group = "ObsidianDone" },
+			},
+			bullets = { char = "•", hl_group = "ObsidianBullet" },
+			external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+			reference_text = { hl_group = "ObsidianRefText" },
+			highlight_text = { hl_group = "ObsidianHighlightText" },
+			tags = { hl_group = "ObsidianTag" },
+			block_ids = { hl_group = "ObsidianBlockID" },
+			hl_groups = {
+				ObsidianTodo = { bold = true, fg = "#f78c6c" },
+				ObsidianDone = { bold = true, fg = "#89ddff" },
+				ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+				ObsidianTilde = { bold = true, fg = "#ff5370" },
+				ObsidianImportant = { bold = true, fg = "#d73128" },
+				ObsidianBullet = { bold = true, fg = "#89ddff" },
+				ObsidianRefText = { underline = true, fg = "#c792ea" },
+				ObsidianExtLinkIcon = { fg = "#c792ea" },
+				ObsidianTag = { italic = true, fg = "#7c5cff" },
+				ObsidianBlockID = { italic = true, fg = "#7c5cff" },
+				ObsidianHighlightText = { bg = "#75662e" },
+			},
 		},
 
 		attachments = {
