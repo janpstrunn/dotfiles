@@ -1,4 +1,6 @@
 return {
-  'declancm/maximize.nvim',
-  config = true
+  "declancm/maximize.nvim",
+  lazy = true,
+  event = "BufReadPre",
+  config = true,
 }
