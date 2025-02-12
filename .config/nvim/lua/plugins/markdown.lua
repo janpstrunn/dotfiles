@@ -1,4 +1,54 @@
-return {
+local markdown_footnote = {
+  "chenxin-yan/footnote.nvim",
+  ft = "markdown",
+  lazy = true,
+  config = function()
+    require("footnote").setup({
+      keys = {
+        new_footnote = "<C-f>",
+        organize_footnotes = "",
+        next_footnote = "]f",
+        prev_footnote = "[f",
+      },
+      organize_on_new = false,
+    })
+  end,
+}
+
+local markdown_bullet = {
+  "bullets-vim/bullets.vim",
+  lazy = true,
+  ft = { "markdown" },
+  config = function()
+    vim.g.bullets_delete_last_bullet_if_empty = 1
+  end,
+}
+
+local markdown_table = {
+  "SCJangra/table-nvim",
+  event = "VeryLazy",
+  ft = "markdown",
+  opts = {
+    padd_column_separators = true, -- Insert a space around column separators.
+    mappings = { -- next and prev work in Normal and Insert mode. All other mappings work in Normal mode.
+      next = "<TAB>", -- Go to next cell.
+      prev = "<S-TAB>", -- Go to previous cell.
+      insert_row_up = "<A-k>", -- Insert a row above the current row.
+      insert_row_down = "<A-j>", -- Insert a row below the current row.
+      move_row_up = "<A-S-k>", -- Move the current row up.
+      move_row_down = "<A-S-j>", -- Move the current row down.
+      insert_column_left = "<A-h>", -- Insert a column to the left of current column.
+      insert_column_right = "<A-l>", -- Insert a column to the right of current column.
+      move_column_left = "<A-S-h>", -- Move the current column to the left.
+      move_column_right = "<A-S-l>", -- Move the current column to the right.
+      insert_table = "<A-t>", -- Insert a new table.
+      insert_table_alt = "<A-S-t>", -- Insert a new table that is not surrounded by pipes.
+      delete_column = "<A-d>", -- Delete the column under cursor.
+    },
+  },
+}
+
+local markdown_binds = {
   "tadmccorkle/markdown.nvim",
   event = "VeryLazy",
   ft = "markdown",
@@ -63,4 +113,11 @@ return {
     },
     on_attach = nil, -- (fun(bufnr: integer)) callback when plugin attaches to a buffer
   },
+}
+
+return {
+  markdown_table,
+  markdown_binds,
+  markdown_bullet,
+  markdown_footnote,
 }
