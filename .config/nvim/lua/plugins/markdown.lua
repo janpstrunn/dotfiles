@@ -1,6 +1,7 @@
 local markdown_footnote = {
   "chenxin-yan/footnote.nvim",
   ft = "markdown",
+  enabled = false,
   lazy = true,
   config = function()
     require("footnote").setup({
@@ -18,6 +19,7 @@ local markdown_footnote = {
 local markdown_bullet = {
   "bullets-vim/bullets.vim",
   lazy = true,
+  enabled = false,
   ft = { "markdown" },
   config = function()
     vim.g.bullets_delete_last_bullet_if_empty = 1
@@ -28,6 +30,7 @@ local markdown_table = {
   "SCJangra/table-nvim",
   event = "VeryLazy",
   ft = "markdown",
+  enabled = false,
   opts = {
     padd_column_separators = true, -- Insert a space around column separators.
     mappings = { -- next and prev work in Normal and Insert mode. All other mappings work in Normal mode.
@@ -51,6 +54,7 @@ local markdown_table = {
 local markdown_binds = {
   "tadmccorkle/markdown.nvim",
   event = "VeryLazy",
+  enabled = false,
   ft = "markdown",
   opts = {
     -- Disable all keymaps by setting mappings field to 'false'.

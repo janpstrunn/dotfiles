@@ -2,13 +2,7 @@ return {
   "epwalsh/obsidian.nvim",
   event = "VimEnter",
   lazy = true,
-  enabled = function()
-    if vim.cmd("silent! uname -a | grep 'Android' || echo 'false'") == false then
-      return false
-    else
-      return true
-    end
-  end,
+  enabled = false,
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
@@ -16,15 +10,7 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "/mnt/beelzebub/Pandora/obsidian/OUROBOROS/",
-      },
-      {
-        name = "tree",
-        path = "/mnt/beelzebub/Pandora/obsidian/YGGDRASIL/",
-      },
-      {
-        name = "programming",
-        path = "/mnt/beelzebub/Pandora/obsidian/HEPHAESTUS/",
+        path = "/path/to/vault",
       },
     },
     notes_subdir = "Notes",
