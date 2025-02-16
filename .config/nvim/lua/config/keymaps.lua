@@ -15,20 +15,8 @@ vim.api.nvim_set_keymap(
 
 -- Managing files
 
--- keymap.set("n", "<leader>qq", ":q!<CR>", { desc = "[Q]uit: [Q]uit no save" })
--- keymap.set("n", "<leader>qa", ":qa!<CR>", { desc = "[Q]uit: [A]ll" })
--- keymap.set("n", "<leader>qw", ":wq<CR>", { desc = "[Q]uit: [W]rite" })
---
--- keymap.set("n", "<M-q>", ":qa!<CR>", { desc = "Exit without saving" })
--- keymap.set("n", "<M-w>", ":w<CR>", { desc = "Write Changes" })
-
 keymap.set("n", "<M-j>", ":cnext<CR>", { desc = "Next QuickFix" })
 keymap.set("n", "<M-k>", ":cprev<CR>", { desc = "Previous QuickFix" })
-
--- Search and Replace
-
--- keymap.set("v", "<leader>ss", ":s/", { desc = "[S]earch: [S]elected" })
--- keymap.set("n", "<leader>sS", ":%s/", { desc = "[S]earch: Whole File" })
 
 -- File Permissions
 
@@ -67,18 +55,18 @@ keymap.set("n", "<leader>mz", ":Maximize<CR>") -- Maximize current pane
 
 -- Buffers
 
-keymap.set("n", "<M-n>", ":BufferLineCycleNext<CR>") -- Next Tab
-keymap.set("n", "<M-p>", ":BufferLineCyclePrev<CR>") -- Previous Tab
+keymap.set("n", "<M-n>", ":BufferLineCycleNext<CR>") -- Next Buffer
+keymap.set("n", "<M-p>", ":BufferLineCyclePrev<CR>") -- Previous Buffer
 
-keymap.set("n", "<M-1>", ":BufferLineGoToBuffer 1<CR>") -- Move to Tab
-keymap.set("n", "<M-2>", ":BufferLineGoToBuffer 2<CR>") -- Move to Tab
-keymap.set("n", "<M-3>", ":BufferLineGoToBuffer 3<CR>") -- Move to Tab
-keymap.set("n", "<M-4>", ":BufferLineGoToBuffer 4<CR>") -- Move to Tab
-keymap.set("n", "<M-5>", ":BufferLineGoToBuffer 5<CR>") -- Move to Tab
-keymap.set("n", "<M-6>", ":BufferLineGoToBuffer 6<CR>") -- Move to Tab
-keymap.set("n", "<M-7>", ":BufferLineGoToBuffer 7<CR>") -- Move to Tab
-keymap.set("n", "<M-8>", ":BufferLineGoToBuffer 8<CR>") -- Move to Tab
-keymap.set("n", "<M-9>", ":BufferLineGoToBuffer 9<CR>") -- Move to Tab
+keymap.set("n", "<M-1>", ":BufferLineGoToBuffer 1<CR>") -- Move to Buffer
+keymap.set("n", "<M-2>", ":BufferLineGoToBuffer 2<CR>") -- Move to Buffer
+keymap.set("n", "<M-3>", ":BufferLineGoToBuffer 3<CR>") -- Move to Buffer
+keymap.set("n", "<M-4>", ":BufferLineGoToBuffer 4<CR>") -- Move to Buffer
+keymap.set("n", "<M-5>", ":BufferLineGoToBuffer 5<CR>") -- Move to Buffer
+keymap.set("n", "<M-6>", ":BufferLineGoToBuffer 6<CR>") -- Move to Buffer
+keymap.set("n", "<M-7>", ":BufferLineGoToBuffer 7<CR>") -- Move to Buffer
+keymap.set("n", "<M-8>", ":BufferLineGoToBuffer 8<CR>") -- Move to Buffer
+keymap.set("n", "<M-9>", ":BufferLineGoToBuffer 9<CR>") -- Move to Buffer
 
 -- Indenting
 
@@ -87,15 +75,11 @@ keymap.set("v", ">", ">gv") -- Allows multiple indents without losing cursor
 
 -- URL
 
--- keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
+keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
 
 -- LSP
 
 keymap.set("n", "<leader>fmd", vim.lsp.buf.format, { desc = "[L]SP Format" })
-
--- Footnotes
-
-keymap.set("n", "<leader>fmf", ":lua require('footnote').organize_footnotes()<CR>", { desc = "[F]ootnote Organize" })
 
 -- Functions
 
@@ -113,36 +97,6 @@ local function toggle_checkbox()
 end
 
 keymap.set("n", "<leader>tc", toggle_checkbox, { noremap = true, silent = true, desc = "[T]oggle: [C]heckbox" })
-
-vim.keymap.set("i", "<c-t>", function()
-  require("telescope.builtin").registers()
-end, { remap = true, silent = false })
-
-----------------------------------------------------------
---                     Obsidian                         --
-----------------------------------------------------------
-
-keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>", { desc = "[Q]uick Switch" })
-keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "[W]orkspace" })
-keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "[R]ename" })
-keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "[S]earch" })
-keymap.set("n", "<leader>oc", ":ObsidianTOC<cr>", { desc = "To[C]" })
-keymap.set("n", "<leader>om", ":ObsidianTags<cr>", { desc = "[M]arks" })
-keymap.set("n", "<leader>ot", ":ObsidianTemplate<cr>", { desc = "[T]emplate" })
--- keymap.set("n", "<leader>dd", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
-
--- Links
-
-keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "[L]ink" }) -- Link under cursor
-keymap.set("v", "<leader>oL", ":ObsidianLink<cr>", { desc = "[L]ink" }) -- Link in visual mode
-
-keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "[B]acklinks" })
-
-keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>", { desc = "Coming Links" })
-
--- Others
-
-keymap.set("n", "<leader>oz", ":ObsidianCheck<cr>", { desc = "Check plugin" })
 
 ----------------------------------------------------------
 --                      Linkarzu                        --
@@ -641,3 +595,41 @@ local function toggle_wrap()
 end
 
 vim.keymap.set("n", "<leader>cw", toggle_wrap, { desc = "Toggle [W]rap" })
+
+----------------------------------------------------------
+--               For Future Reference                   --
+----------------------------------------------------------
+
+-- vim.keymap.set("i", "<c-t>", function()
+--   require("telescope.builtin").registers()
+-- end, { remap = true, silent = false })
+
+-- Footnotes
+
+-- keymap.set("n", "<leader>fmf", ":lua require('footnote').organize_footnotes()<CR>", { desc = "[F]ootnote Organize" })
+
+----------------------------------------------------------
+--                     Obsidian                         --
+----------------------------------------------------------
+
+-- keymap.set("n", "<leader>oq", ":ObsidianQuickSwitch<cr>", { desc = "[Q]uick Switch" })
+-- keymap.set("n", "<leader>ow", ":ObsidianWorkspace<cr>", { desc = "[W]orkspace" })
+-- keymap.set("n", "<leader>or", ":ObsidianRename<cr>", { desc = "[R]ename" })
+-- keymap.set("n", "<leader>os", ":ObsidianSearch<cr>", { desc = "[S]earch" })
+-- keymap.set("n", "<leader>oc", ":ObsidianTOC<cr>", { desc = "To[C]" })
+-- keymap.set("n", "<leader>om", ":ObsidianTags<cr>", { desc = "[M]arks" })
+-- keymap.set("n", "<leader>ot", ":ObsidianTemplate<cr>", { desc = "[T]emplate" })
+-- keymap.set("n", "<leader>dd", ":ObsidianToday<cr>", { desc = "[D]aily Note" })
+--
+-- -- Links
+--
+-- keymap.set("n", "<leader>ol", "viw:ObsidianLink<cr>", { desc = "[L]ink" }) -- Link under cursor
+-- keymap.set("v", "<leader>oL", ":ObsidianLink<cr>", { desc = "[L]ink" }) -- Link in visual mode
+--
+-- keymap.set("n", "<leader>ob", ":ObsidianBacklinks<cr>", { desc = "[B]acklinks" })
+--
+-- keymap.set("n", "<leader>oB", ":ObsidianLinks<cr>", { desc = "Coming Links" })
+--
+-- -- Others
+--
+-- keymap.set("n", "<leader>oz", ":ObsidianCheck<cr>", { desc = "Check plugin" })
