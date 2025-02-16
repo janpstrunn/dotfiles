@@ -1,3 +1,5 @@
+-- Ref: https://github.com/epwalsh/obsidian.nvim
+
 return {
   "epwalsh/obsidian.nvim",
   event = "VimEnter",
@@ -60,8 +62,6 @@ return {
       end
     end,
 
-    ---@param spec { id: string, dir: obsidian.Path, title: string|? }
-    ---@return string|obsidian.Path The full path to the new note.
     note_path_func = function(spec)
       local path = spec.dir / tostring(spec.id)
       return path:with_suffix(".md")
@@ -125,67 +125,24 @@ return {
     open_notes_in = "current",
 
     -- callbacks = {
-    -- 	---@param client obsidian.Client
     -- 	post_setup = function(client) end,
-    --
-    -- 	---@param client obsidian.Client
-    -- 	---@param note obsidian.Note
     -- 	enter_note = function(client, note) end,
-    --
-    -- 	---@param client obsidian.Client
-    -- 	---@param note obsidian.Note
     -- 	leave_note = function(client, note) end,
-    --
-    -- 	---@param client obsidian.Client
-    -- 	---@param note obsidian.Note
     -- 	pre_write_note = function(client, note) end,
-    --
-    -- 	---@param client obsidian.Client
-    -- 	---@param workspace obsidian.Workspace
     -- 	post_set_workspace = function(client, workspace) end,
     -- },
 
-    -- Ref: https://github.com/epwalsh/obsidian.nvim
     ui = {
-      enable = false, -- set to false to disable all additional syntax features
-      update_debounce = 200, -- update delay after a text change (in milliseconds)
-      max_file_length = 5000, -- disable UI features for files with more than this many lines
-      checkboxes = {
-        [" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-        ["x"] = { char = "", hl_group = "ObsidianDone" },
-      },
-      bullets = { char = "•", hl_group = "ObsidianBullet" },
-      external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
-      reference_text = { hl_group = "ObsidianRefText" },
-      highlight_text = { hl_group = "ObsidianHighlightText" },
-      tags = { hl_group = "ObsidianTag" },
-      block_ids = { hl_group = "ObsidianBlockID" },
-      hl_groups = {
-        ObsidianTodo = { bold = true, fg = "#f78c6c" },
-        ObsidianDone = { bold = true, fg = "#89ddff" },
-        ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
-        ObsidianTilde = { bold = true, fg = "#ff5370" },
-        ObsidianImportant = { bold = true, fg = "#d73128" },
-        ObsidianBullet = { bold = true, fg = "#89ddff" },
-        ObsidianRefText = { underline = true, fg = "#c792ea" },
-        ObsidianExtLinkIcon = { fg = "#c792ea" },
-        ObsidianTag = { italic = true, fg = "#7c5cff" },
-        ObsidianBlockID = { italic = true, fg = "#7c5cff" },
-        ObsidianHighlightText = { bg = "#75662e" },
-      },
+      enable = false,
     },
 
     attachments = {
-      img_folder = "Resources",
+      img_folder = "Embed",
 
-      ---@return string
       img_name_func = function()
         return string.format("%s-", os.time())
       end,
 
-      ---@param client obsidian.Client
-      ---@param path obsidian.Path the absolute path to the image file
-      ---@return string
       img_text_func = function(client, path)
         path = client:vault_relative_path(path) or path
         return string.format("![%s](%s)", path.name, path)
