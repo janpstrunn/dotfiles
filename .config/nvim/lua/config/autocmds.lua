@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.spelllang = { "pt", "en_us" }
   end,
