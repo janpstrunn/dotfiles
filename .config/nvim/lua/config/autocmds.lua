@@ -87,7 +87,7 @@ local function disable_lsp_for_notes(bufnr)
       disable_lsp = true
       break
     end
-    if lines_read >= 10 then
+    if lines_read >= 5 then
       break
     end
   end
@@ -116,7 +116,7 @@ local function disable_lsp_for_notes(bufnr)
 end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWrite" }, {
-  pattern = "*",
+  pattern = "*.py",
   callback = function(args)
     disable_lsp_for_notes(args.buf)
   end,
