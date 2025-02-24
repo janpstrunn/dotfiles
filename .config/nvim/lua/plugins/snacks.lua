@@ -28,6 +28,19 @@ return {
       end,
       desc = "Find Dev Notes",
     },
+    {
+      "<leader>y",
+      function()
+        local obsidian_path = vim.fn.getenv("OBSIDIAN")
+        if obsidian_path and obsidian_path ~= "" then
+          local dev_path = obsidian_path .. "/YGGDRASIL"
+          Snacks.picker.files({ cwd = dev_path })
+        else
+          print("Error: $OBSIDIAN environment variable is not set")
+        end
+      end,
+      desc = "Find Work Notes",
+    },
     -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     -- { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
     -- { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
