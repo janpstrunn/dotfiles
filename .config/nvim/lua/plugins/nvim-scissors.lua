@@ -50,12 +50,12 @@ return {
   cmd = { "ScissorsAddNewSnippet", "ScissorsEditSnippet" },
   keys = {
     {
-      "<leader>sa",
+      "<leader>ca",
       "<cmd>ScissorsAddNewSnippet<cr>",
       desc = "[S]nippet [A]dd",
     },
     {
-      "<leader>se",
+      "<leader>ce",
       "<cmd>ScissorsEditSnippet<cr>",
       desc = "[S]nippet [E]dit",
     },
