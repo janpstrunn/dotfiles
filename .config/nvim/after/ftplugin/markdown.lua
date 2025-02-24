@@ -1,6 +1,6 @@
-vim.opt.tabstop = 5
-vim.opt.shiftwidth = 5
-vim.opt.softtabstop = 5
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
