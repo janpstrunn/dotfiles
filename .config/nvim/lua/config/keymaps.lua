@@ -343,14 +343,14 @@ local function open_weeknote()
   local obsidian_dir = os.getenv("JOURNAL") .. "/Week/"
 
   local year = os.date("%Y")
-  local week = os.date("%U")
+  local week = tonumber(os.date("%U"))
 
-  if #week == 1 then
-    week = "0" .. week
-  end
+  week = week + 1
 
-  local weeknote = string.format("%s-W%s.md", year, week)
+  local week_str = string.format("%02d", week)
+  local weeknote = string.format("%s-W%s.md", year, week_str)
   local weeknote_path = obsidian_dir .. weeknote
+
   vim.cmd("edit " .. weeknote_path)
 end
 
@@ -372,10 +372,11 @@ local function open_weekly_notes()
   end
 
   local first_day_of_year = os.time({ year = year, month = 1, day = 1 })
-  local first_weekday = os.date("*t", first_day_of_year).wday -- Lua's wday: Sunday = 1
+  local first_weekday = os.date("*t", first_day_of_year).wday
   local days_to_first_sunday = (first_weekday == 1) and 0 or (8 - first_weekday)
   local first_sunday = first_day_of_year + days_to_first_sunday * 86400
-  local week_start = first_sunday + (week - 1) * 7 * 86400
+
+  local week_start = first_sunday + (week - 2) * 7 * 86400
 
   for i = 0, 6 do
     local day = os.date("%Y-%m-%d", week_start + i * 86400)
@@ -404,7 +405,8 @@ local function insert_weekly_notes()
   local first_weekday = os.date("*t", first_day_of_year).wday
   local days_to_first_sunday = (first_weekday == 1) and 0 or (8 - first_weekday)
   local first_sunday = first_day_of_year + days_to_first_sunday * 86400
-  local week_start = first_sunday + (week - 1) * 7 * 86400
+
+  local week_start = first_sunday + (week - 2) * 7 * 86400
 
   local lines = {}
   for i = 0, 6 do
