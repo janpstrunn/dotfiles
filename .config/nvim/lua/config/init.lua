@@ -20,6 +20,7 @@ require("config.autocmds")
 require("config.globals")
 require("config.options")
 require("config.keymaps")
+require("scripts.init")
 
 require("lazy").setup({
   spec = {
