@@ -1,7 +1,7 @@
 local markdown_footnote = {
   "chenxin-yan/footnote.nvim",
   ft = "markdown",
-  enabled = false,
+  enabled = true,
   lazy = true,
   config = function()
     require("footnote").setup({
