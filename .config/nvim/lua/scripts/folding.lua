@@ -1,7 +1,3 @@
-----------------------------------------------------------
---                      Linkarzu                        --
-----------------------------------------------------------
-
 -- Originally created by Linkarzu
 -- Find the original config here:
 -- https://github.com/linkarzu/dotfiles-latest/blob/main/neovim/neobean/lua/config/keymaps.lua
