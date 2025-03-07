@@ -1,5 +1,6 @@
--- Original File: https://github.com/Piotr1215/dotfiles/blob/master/.config/nvim/lua/user_functions/tasks.lua
--- ~/.config/nvim/lua/tasks.lua
+-- Originally created by Piotr1215
+-- Find the original config here:
+-- https://github.com/Piotr1215/dotfiles/blob/master/.config/nvim/lua/user_functions/tasks.lua
 
 local keymap = vim.keymap
 
