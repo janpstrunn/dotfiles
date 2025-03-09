@@ -11,8 +11,8 @@ keymap.set("n", "<leader>ts", ":set spell!<CR>", { noremap = true, silent = true
 
 -- Managing files
 
-keymap.set("n", "<M-j>", ":cnext<CR>", { desc = "Next QuickFix" })
-keymap.set("n", "<M-k>", ":cprev<CR>", { desc = "Previous QuickFix" })
+keymap.set("n", "<M-h>", ":cnext<CR>", { desc = "Next QuickFix" })
+keymap.set("n", "<M-l>", ":cprev<CR>", { desc = "Previous QuickFix" })
 
 -- File Permissions
 
