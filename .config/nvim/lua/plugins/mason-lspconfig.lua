@@ -3,7 +3,7 @@ return {
   opts = {
     ensure_installed = {
       "bashls",
-      "clangd",
+      -- "clangd",
       "dockerls",
       "emmet_ls",
       "efm",
