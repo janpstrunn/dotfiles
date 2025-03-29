@@ -14,7 +14,7 @@ return {
     "3rd/image.nvim",
     ft = { "markdown" },
     lazy = true,
-    enabled = true,
+    enabled = false,
     dependencies = { "luarocks.nvim" },
     config = function()
       require("image").setup({
