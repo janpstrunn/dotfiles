@@ -1,0 +1,690 @@
+#+title: Emacs Configuration
+#+AUTHOR: Janpstrunn
+#+DESCRIPTION: Elegant Vagrant Emacs
+#+STARTUP: fold
+
+* Base Config
+** Credits
+Most Config is a Mashup from
+[[https://joshblais.com/posts/my-literate-doom-emacs-config/][Josh Blais]]
+[[https://systemcrafters.net][System Crafters]]
+[[https://gitlab.com/dwt1/dotfiles][Derek Taylor]]
+** User
+#+begin_src emacs-lisp
+(setq user-full-name "Janpstrunn"
+      user-mail-address "janpstrunn@disroot.org")
+#+end_src
+** Bookmarks
+#+BEGIN_SRC emacs-lisp
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+#+END_SRC
+** Fonts
+#+begin_src emacs-lisp
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 13)
+      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 13)
+      doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
+
+(after! doom-themes
+  (setq doom-themes-enable-bold t
+        doom-themes-enable-italic t))
+
+(custom-set-faces!
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
+#+end_src
+** Split
+#+BEGIN_SRC emacs-lisp
+(defun prefer-horizontal-split ()
+  (set-variable 'split-height-threshold nil t)
+  (set-variable 'split-width-threshold 40 t))
+(add-hook 'markdown-mode-hook 'prefer-horizontal-split)
+(map! :leader
+      :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
+#+END_SRC
+** Theme
+#+begin_src emacs-lisp
+(setq doom-theme 'doom-challenger-deep)
+#+end_src
+** Vim
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+** Global Auto Revert
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+#+end_src
+** Emacs Lisp
+#+Begin_src emacs-lisp
+(map! :leader
+      (:prefix ("e". "evaluate")
+       :desc "Evaluate elisp in buffer"  "b" #'eval-buffer
+       :desc "Evaluate defun"            "d" #'eval-defun
+       :desc "Evaluate elisp expression" "e" #'eval-expression
+       :desc "Evaluate last sexpression" "l" #'eval-last-sexp
+       :desc "Evaluate elisp in region"  "r" #'eval-region))
+#+END_SRC
+** Templates
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      '(("t" "Todo" entry
+         (file+headline "~/org/inbox.org" "Inbox")
+         "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("e" "Event" entry
+         (file+headline "~/org/calendar.org" "Events")
+         "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:CONTACT: %(org-capture-ref-link \"~/org/contacts.org\")\n:END:\n%?")
+        ("d" "Deadline" entry
+         (file+headline "~/org/calendar.org" "Deadlines")
+         "* TODO %^{Task}\nDEADLINE: %^{Deadline}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("p" "Project" entry
+         (file+headline "~/org/projects.org" "Projects")
+         "* PROJ %^{Project name}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n** TODO %?")
+        ("i" "Idea" entry
+         (file+headline "~/org/ideas.org" "Ideas")
+         "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
+        ("c" "Contact" entry
+         (file+headline "~/org/contacts.org" "Inbox")
+         "* %^{Name}
+
+:PROPERTIES:
+:CREATED: %U
+:CAPTURED: %a
+:EMAIL: %^{Email}
+:PHONE: %^{Phone}
+:BIRTHDAY: %^{Birthday +1y}u
+:LOCATION: %^{Address}
+:LAST_CONTACTED: %U
+:END:
+\\ *** Communications
+\\ *** Notes
+%?")
+        ("n" "Note" entry
+         (file+headline "~/org/notes.org" "Inbox")
+         "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
+         :prepend t)))
+#+end_src
+** Issues
+*** Mini Buffer
+#+begin_src emacs-lisp
+(setq-default truncate-lines t)
+(setq completions-format 'one-column)
+(setq completions-detailed t)
+(setq truncate-partial-width-windows nil)
+#+end_src
+** Performance
+#+begin_src emacs-lisp
+(setq gc-cons-threshold (* 256 1024 1024))
+(setq read-process-output-max (* 4 1024 1024))
+(setq comp-deferred-compilation t)
+(setq comp-async-jobs-number 8)
+
+(setq gcmh-idle-delay 5)
+(setq gcmh-high-cons-threshold (* 1024 1024 1024))
+
+(setq vc-handled-backends '(Git))
+#+end_src
+*** LSP
+#+begin_src emacs-lisp
+(after! lsp-mode
+  (setq lsp-idle-delay 0.5
+        lsp-log-io nil
+        lsp-completion-provider :capf
+        lsp-enable-file-watchers nil
+        lsp-enable-folding nil
+        lsp-enable-text-document-color nil
+        lsp-enable-on-type-formatting nil
+        lsp-enable-snippet nil
+        lsp-enable-symbol-highlighting nil
+        lsp-enable-links nil
+
+        ;; Go-specific settings
+        lsp-go-hover-kind "Synopsis"
+        lsp-go-analyses '((fieldalignment . t)
+                          (nilness . t)
+                          (unusedwrite . t)
+                          (unusedparams . t))
+
+        ;; Register custom gopls settings
+        lsp-gopls-completeUnimported t
+        lsp-gopls-staticcheck t
+        lsp-gopls-analyses '((unusedparams . t)
+                             (unusedwrite . t))))
+
+;; LSP UI settings for better performance
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-position 'at-point
+        lsp-ui-doc-max-height 8
+        lsp-ui-doc-max-width 72
+        lsp-ui-doc-show-with-cursor t
+        lsp-ui-doc-delay 0.5
+        lsp-ui-sideline-enable nil
+        lsp-ui-peek-enable t))
+#+end_src
+* Plugins
+** Which Key
+#+begin_src emacs-lisp
+(setq which-key-idle-delay 0.2)
+#+end_src
+** Completion (Vertico)
+#+begin_src emacs-lisp
+(setq completing-read-function #'completing-read-default)
+(setq read-file-name-function #'read-file-name-default)
+
+(setq read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
+
+(map! :map minibuffer-mode-map
+      :when (featurep! :completion vertico)
+      "C-x C-f" #'find-file)
+
+(after! vertico
+  (add-hook 'rfn-eshadow-update-overlay-hook #'vertico-directory-tidy)
+  (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+  (define-key vertico-map (kbd "M-DEL") #'vertico-directory-delete-word))
+
+(after! marginalia
+  (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil)))
+
+(map! :leader
+      (:prefix ("k" . "embark")
+       :desc "Embark act" "a" #'embark-act
+       :desc "Embark dwim" "d" #'embark-dwim))
+
+(after! vertico
+  (setq vertico-count 17
+        vertico-cycle t))
+
+(after! consult
+  (setq consult-preview-key "M-.")
+  (setq consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip"))
+(setq marginalia-annotators nil)
+(setq consult-preview-key nil)
+(setq vertico-count 10)
+#+end_src
+** Elfeed (RSS)
+#+begin_src emacs-lisp
+(setq elfeed-goodies/entry-pane-size 0.5)
+
+(evil-define-key 'normal elfeed-show-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
+(evil-define-key 'normal elfeed-search-mode-map
+  (kbd "J") 'elfeed-goodies/split-show-next
+  (kbd "K") 'elfeed-goodies/split-show-prev)
+(setq elfeed-feeds (quote
+                    (("https://www.reddit.com/r/linux.rss" reddit linux)
+                     ("https://www.reddit.com/r/commandline.rss" reddit commandline)
+                     ("https://vetgirlontherun.com/feed/" vet)
+                     ("https://cyberinsider.com/news/feed/" news linux)
+                     ("https://feed.alternativeto.net/news/all" linux)
+                     ("https://flathub.org/api/v2/feed/new" linux)
+                     ("https://feeds.arstechnica.com/arstechnica/index" news)
+                     ("https://www.reddit.com/r/commandline.rss" reddit commandline)
+                     ("https://www.reddit.com/r/emacs.rss" reddit emacs)
+                     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
+                     ("https://hackaday.com/blog/feed/" hackaday linux)
+                     ("https://opensource.com/feed" opensource linux)
+                     ("https://linux.softpedia.com/backend.xml" softpedia linux)
+                     ("https://itsfoss.com/feed/" itsfoss linux)
+                     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
+                     ("https://www.phoronix.com/rss.php" phoronix linux)
+                     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
+                     ("https://www.computerworld.com/index.rss" computerworld linux)
+                     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
+                     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
+                     ("https://betanews.com/feed" betanews linux)
+                     ("http://lxer.com/module/newswire/headlines.rss" lxer linux))))
+#+END_SRC
+** File Types
+*** Markdown
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.5)))))
+#+end_src
+** NeoTree
+#+BEGIN_SRC emacs-lisp
+(after! neotree
+  (setq neo-smart-open t
+        neo-window-fixed-size nil))
+(after! doom-themes
+  (setq doom-neotree-enable-variable-pitch t))
+(map! :leader
+      :desc "Toggle neotree file viewer" "t n" #'neotree-toggle
+      :desc "Open directory in neotree"  "d n" #'neotree-dir)
+#+END_SRC
+** Org Mode
+*** Base Org
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      :desc "Org babel tangle" "m B" #'org-babel-tangle)
+(after! org
+  (setq org-directory "~/org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦))
+        org-log-done 'time
+        org-hide-emphasis-markers t
+        org-link-abbrev-alist
+        '(("google" . "http://www.google.com/search?q=")
+          ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+          ("ddg" . "https://duckduckgo.com/?q=")
+          ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords
+        '((sequence
+           "TODO(t)"           
+           "IN-PROGRESS(i)"    
+           "NEXT(n)"          
+           "WAIT(w)"          
+           "PROJ(p)"
+           "|"                
+           "DONE(d)"           
+           "CANCELLED(c)" ))))
+#+END_SRC
+*** Agenda
+#+begin_src emacs-lisp
+(after! org
+  (setq org-agenda-files '("~/org/agenda.org")))
+
+(setq
+ org-fancy-priorities-list '("[A]" "[B]" "[C]")
+ ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
+ ;; org-fancy-priorities-list '("🟥" "🟧" "🟨")
+ org-priority-faces
+ '((?A :foreground "#fc2020" :weight bold)
+   (?B :foreground "#fcae5f" :weight bold)
+   (?C :foreground "#f9fc5f" :weight bold))
+ org-agenda-block-separator 8411)
+
+(setq org-agenda-custom-commands
+      '(("v" "A better agenda view"
+         ((tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (tags "PRIORITY=\"B\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+          (tags "PRIORITY=\"C\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+          (tags "customtag"
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Tasks marked with customtag:")))
+
+          (agenda "")
+          (alltodo "")))))
+#+end_src
+*** Custom Font
+#+begin_src emacs-lisp
+(defun challenger-font ()
+  (interactive)
+  (dolist (face
+           '((org-level-1 1.4 "#F38BA8" ultra-bold)
+             (org-level-2 1.4 "#F3B387" extra-bold)
+             (org-level-3 1.4 "#A6E3A1" bold)
+             (org-level-4 1.4 "#90E2D5" semi-bold)
+             (org-level-5 1.4 "#A0BEFE" normal)
+             (org-level-6 1.4 "#cba6cb" normal)
+             (org-level-7 1.4 "#46d9ff" normal)
+             (org-level-8 1.4 "#ff6c6b" normal)))
+    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
+  (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
+(add-hook 'org-mode-hook #'challenger-font)
+#+end_src
+*** Journal
+#+begin_src emacs-lisp
+(setq org-journal-dir "~/org/journal/"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
+#+end_src
+*** Org-Roam (Zettelkasten)
+#+begin_src emacs-lisp
+(use-package! org-roam
+  :custom
+  (after! org
+    (setq org-roam-directory "~/org/roam/"))
+  (org-roam-completion-everywhere t)
+  (org-roam-database-connector 'sqlite-builtin)
+  (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
+
+  :config
+  (unless (file-exists-p org-roam-directory)
+    (make-directory org-roam-directory t))
+  (advice-add 'org-roam-db-query :around
+              (lambda (fn &rest args)
+                (condition-case err
+                    (apply fn args)
+                  (error
+                   (message "Database error in org-roam: %S" err)
+                   nil))))
+  (org-roam-db-autosync-mode +1))
+
+(after! org-roam
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("t" "timestamped entry" entry "%<%I:%M %p> %?"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("l" "library" plain
+           (file "~/org/templates/library.org")
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t))))
+
+(after! org-roam-dailies
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %<%I:%M %p> %?"
+           :if-new (file+head "%<%Y-%m-%d>.org"
+                              "#+title: Daily Notes %<%Y-%m-%d>\n")
+           :unnarrowed t))))
+
+(map! :leader
+      (:prefix ("n r" . "org-roam")
+       :desc "Completion at point" "c" #'completion-at-point
+       :desc "Find node"           "f" #'org-roam-node-find
+       :desc "Show graph"          "g" #'org-roam-graph
+       :desc "Insert node"         "i" #'org-roam-node-insert
+       :desc "Capture to node"     "n" #'org-roam-capture
+       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
+
+(use-package! websocket
+  :after org-roam)
+
+(use-package! org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+#+end_src
+**** Functions
+***** Immediate Capture
+"Insert an Org-roam node immediately without prompting for capture."
+
+#+begin_src emacs-lisp
+(after! org-roam
+  (defun org-roam-node-insert-immediate (arg &rest args)
+    (interactive "P")
+    (let ((args (cons arg args))
+          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                    '(:immediate-finish t)))))
+      (apply #'org-roam-node-insert args)))
+
+  (map! :leader
+        (:prefix ("a" . "org-roam")
+         :desc "Insert immediate node" "c" #'org-roam-node-insert-immediate)))
+#+end_src
+***** Project Notes to Agenda
+"All notes with /PROJ/ tag are inserted to Agenda."
+
+#+begin_src emacs-lisp
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "PROJ")))
+
+(my/org-roam-refresh-agenda-list)
+#+end_src
+***** Find Projects
+#+begin_src emacs-lisp
+(defun my/org-roam-project-finalize-hook ()
+  "Adds the captured project file to `org-agenda-files' if the
+capture was not aborted."
+  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+  (unless org-note-abort
+    (with-current-buffer (org-capture-get :buffer)
+      (add-to-list 'org-agenda-files (buffer-file-name)))))
+
+(defun my/org-roam-find-project ()
+  (interactive)
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+  (org-roam-node-find
+   nil
+   nil
+   (my/org-roam-filter-by-tag "Project")
+   :templates
+   '(("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
+      :unnarrowed t))))
+
+(global-set-key (kbd "C-c n p") #'my/org-roam-find-project)
+#+end_src
+***** Capture to Project
+#+begin_src emacs-lisp
+(defun my/org-roam-capture-task ()
+  (interactive)
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+  (org-roam-capture- :node (org-roam-node-read
+                            nil
+                            (my/org-roam-filter-by-tag "PROJ"))
+                     :templates '(("p" "project" plain "** TODO %?"
+                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: Project"
+                                                          ("Tasks"))))))
+
+(global-set-key (kbd "C-c n t") #'my/org-roam-capture-task)
+#+end_src
+***** Move Completed to Dailies
+#+begin_src emacs-lisp
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep t)
+        (org-roam-dailies-capture-templates
+         '(("t" "tasks" entry "%?"
+            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
+#+end_src
+***** Capture to Inbox
+#+begin_src emacs-lisp
+(defun my/org-roam-capture-inbox ()
+  (interactive)
+  (org-roam-capture- :node (org-roam-node-create)
+                     :templates '(("i" "inbox" plain "* %?"
+                                   :if-new (file+head "Inbox.org" "#+title: Inbox\n")))))
+(global-set-key (kbd "C-c n b") #'my/org-roam-capture-inbox)
+#+end_src
+** Rainbow
+#+begin_src emacs-lisp
+(define-globalized-minor-mode global-rainbow-mode rainbow-mode
+  (lambda ()
+    (when (not (memq major-mode
+                     (list 'org-agenda-mode)))
+      (rainbow-mode 1))))
+(global-rainbow-mode 1 )
+#+end_src
+** Beacon
+#+begin_src emacs-lisp
+(beacon-mode 1)
+#+end_src
+** Shell
+#+BEGIN_SRC emacs-lisp
+(setq shell-file-name "/bin/zsh"
+      vterm-max-scrollback 5000)
+(setq eshell-rc-script "~/.config/doom/eshell/profile"
+      eshell-aliases-file "~/.config/doom/eshell/aliases"
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
+(map! :leader
+      :desc "Eshell"                 "e s" #'eshell
+      :desc "Eshell popup toggle"    "e t" #'+eshell/toggle
+      :desc "Counsel eshell history" "e h" #'counsel-esh-history
+      :desc "Vterm popup toggle"     "v t" #'+vterm/toggle)
+#+END_SRC
+** Modern
+#+BEGIN_SRC emacs-lisp
+(use-package org-modern
+  :hook (org-mode . org-modern-mode)
+  :config
+  (global-org-modern-mode))
+#+END_SRC
+** Zen Mode
+#+BEGIN_SRC emacs-lisp
+(use-package olivetti
+  :hook (org-mode . olivetti-mode)
+  :config
+  (setq olivetti-body-width 120))
+#+END_SRC
+** Eglot
+#+BEGIN_SRC emacs-lisp
+(add-hook 'find-file-hook #'eglot-ensure)
+#+END_SRC
+** Mini-buffer
+#+BEGIN_SRC emacs-lisp
+(setq resize-mini-windows nil)
+#+END_SRC
+
+** Formatting
+#+begin_src emacs-lisp
+(defun my-org-format-elisp-blocks ()
+  (when (eq major-mode 'org-mode)
+    (org-babel-map-src-blocks nil
+      (when (string= lang "emacs-lisp")
+        (org-edit-special)
+        (indent-region (point-min) (point-max))
+        (org-edit-src-exit)))))
+
+(add-hook 'before-save-hook #'my-org-format-elisp-blocks)
+#+end_src
+* Bindings
+** Magit
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("g" . "magit")
+       :desc "Stage all files"          "a" #'magit-stage-modified
+       :desc "Push"                     "P" #'magit-push
+       :desc "Pull"                     "p" #'magit-pull
+       :desc "Merge"                    "m" #'magit-merge
+       :desc "Quick commit and push"    "z" #'my/magit-stage-commit-push
+       ))
+#+end_src
+** Org Mode
+#+begin_src emacs-lisp
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c e") #'org-set-effort)
+  (define-key org-mode-map (kbd "C-c i") #'org-clock-in)
+  (define-key org-mode-map (kbd "C-c o") #'org-clock-out))
+#+end_src
+** Dired
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("d" . "dired")
+       :desc "Open dired" "d" #'dired
+       :desc "Dired jump to current" "j" #'dired-jump)
+      (:after dired
+              (:map dired-mode-map
+               :desc "Peep-dired image previews" "d p" #'peep-dired
+               :desc "Dired view file"           "d v" #'dired-view-file)))
+
+(evil-define-key 'normal dired-mode-map
+  (kbd "M-RET") 'dired-display-file
+  (kbd "h") 'dired-up-directory
+  (kbd "l") 'dired-open-file ; use dired-find-file instead of dired-open.
+  (kbd "m") 'dired-mark
+  (kbd "t") 'dired-toggle-marks
+  (kbd "u") 'dired-unmark
+  (kbd "C") 'dired-do-copy
+  (kbd "D") 'dired-do-delete
+  (kbd "J") 'dired-goto-file
+  (kbd "M") 'dired-do-chmod
+  (kbd "O") 'dired-do-chown
+  (kbd "P") 'dired-do-print
+  (kbd "R") 'dired-do-rename
+  (kbd "T") 'dired-do-touch
+  (kbd "Y") 'dired-copy-filenamecopy-filename-as-kill ; copies filename to kill ring.
+  (kbd "Z") 'dired-do-compress
+  (kbd "+") 'dired-create-directory
+  (kbd "-") 'dired-do-kill-lines
+  (kbd "% l") 'dired-downcase
+  (kbd "% m") 'dired-mark-files-regexp
+  (kbd "% u") 'dired-upcase
+  (kbd "* %") 'dired-mark-files-regexp
+  (kbd "* .") 'dired-mark-extension
+  (kbd "* /") 'dired-mark-directories
+  (kbd "; d") 'epa-dired-do-decrypt
+  (kbd "; e") 'epa-dired-do-encrypt)
+(setq dired-open-extensions '(("gif" . "swayimg")
+                              ("jpg" . "swayimg")
+                              ("pdf" . "foliate")
+                              ("png" . "swayimg")
+                              ("mkv" . "mpv")
+                              ("mp4" . "mpv")))
+#+end_src
+** Bookmarks
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix ("b". "buffer")
+       :desc "List bookmarks"                          "L" #'list-bookmarks
+       :desc "Set bookmark"                            "m" #'bookmark-set
+       :desc "Delete bookmark"                         "M" #'bookmark-set
+       :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
+#+end_src
+** Shortcuts
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix ("=" . "open file")
+       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/org/agenda.org"))
+       :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+       :desc "Edit doom init.el"     "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+       :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
+(map! :leader
+      (:prefix ("= o" . "obsidian")
+       :desc "Dired: All vaults"   "o" #'(lambda () (interactive) (dired "~/beelzebub/Pandora/obsidian/"))))
+#+END_SRC
+** Registers
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      (:prefix ("r" . "registers")
+       :desc "Copy to register" "c" #'copy-to-register
+       :desc "Frameset to register" "f" #'frameset-to-register
+       :desc "Insert contents of register" "i" #'insert-register
+       :desc "Jump to register" "j" #'jump-to-register
+       :desc "List registers" "l" #'list-registers
+       :desc "Number to register" "n" #'number-to-register
+       :desc "Interactively choose a register" "r" #'counsel-register
+       :desc "View a register" "v" #'view-register
+       :desc "Window configuration to register" "w" #'window-configuration-to-register
+       :desc "Increment register" "+" #'increment-register
+       :desc "Point to register" "SPC" #'point-to-register))
+#+END_SRC
