@@ -2,6 +2,45 @@
 #+AUTHOR: Janpstrunn
 #+DESCRIPTION: Elegant Vagrant Emacs
 #+STARTUP: fold
+* Table of Contents :TOC:
+- [[#base-config][Base Config]]
+  - [[#credits][Credits]]
+  - [[#user][User]]
+  - [[#bookmarks][Bookmarks]]
+  - [[#fonts][Fonts]]
+  - [[#split][Split]]
+  - [[#theme][Theme]]
+  - [[#vim][Vim]]
+  - [[#global-auto-revert][Global Auto Revert]]
+  - [[#emacs-lisp][Emacs Lisp]]
+  - [[#templates][Templates]]
+  - [[#applications][Applications]]
+  - [[#issues][Issues]]
+  - [[#performance][Performance]]
+- [[#plugins][Plugins]]
+  - [[#which-key][Which Key]]
+  - [[#completion-vertico][Completion (Vertico)]]
+  - [[#elfeed-rss][Elfeed (RSS)]]
+  - [[#file-types][File Types]]
+  - [[#neotree][NeoTree]]
+  - [[#org-mode][Org Mode]]
+  - [[#rainbow][Rainbow]]
+  - [[#beacon][Beacon]]
+  - [[#shell][Shell]]
+  - [[#modern][Modern]]
+  - [[#zen-mode][Zen Mode]]
+  - [[#eglot][Eglot]]
+  - [[#mini-buffer][Mini-buffer]]
+  - [[#formatting][Formatting]]
+  - [[#terminal][Terminal]]
+  - [[#transclusion][Transclusion]]
+- [[#bindings][Bindings]]
+  - [[#magit][Magit]]
+  - [[#org-mode-1][Org Mode]]
+  - [[#dired][Dired]]
+  - [[#bookmarks-1][Bookmarks]]
+  - [[#shortcuts][Shortcuts]]
+  - [[#registers][Registers]]
 
 * Base Config
 ** Credits
@@ -304,7 +343,7 @@ Most Config is a Mashup from
 *** Agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files '("~/org/agenda.org"))
+  (setq org-agenda-files '("~/org/inbox.org" "~/org/projects.org" "~/org/agenda.org"))
 
   (setq
    org-fancy-priorities-list '("[A]" "[B]" "[C]")
@@ -315,53 +354,44 @@ Most Config is a Mashup from
      (?B :foreground "#fcae5f" :weight bold)
      (?C :foreground "#f9fc5f" :weight bold))
    org-agenda-block-separator 8411
+
    org-agenda-custom-commands
-   '(("d" "Dashboard"
+   '(("v" "A better agenda view"
+      ((tags "PRIORITY=\"A\""
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "High-priority unfinished tasks:")))
+       (tags "PRIORITY=\"B\""
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+       (tags "PRIORITY=\"C\""
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+       (tags "customtag"
+             ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+              (org-agenda-overriding-header "Tasks marked with customtag:")))
+       (agenda "")
+       (alltodo "")))
+
+     ("d" "Dashboard"
       ((agenda "" ((org-deadline-warning-days 7)))
-       (todo "NEXT"
-             ((org-agenda-overriding-header "Next Tasks")))
+       (todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))
        (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
      ("n" "Next Tasks"
-      ((todo "NEXT"
-             ((org-agenda-overriding-header "Next Tasks")))))
+      ((todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))))
 
-     ("W" "Work Tasks" tags-todo "+work")
-
-     ;; Low-effort next actions
-     ("e" "Low Effort Tasks"
-      ((tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-                  ((org-agenda-overriding-header "Low Effort Tasks")
-                   (org-agenda-max-todos 20)
-                   (org-agenda-files org-agenda-files)))))
+     ("W" "Work Tasks"
+      ((tags-todo "+work")))
 
      ("w" "Workflow Status"
-      ((todo "WAIT"
-             ((org-agenda-overriding-header "Waiting on External")
-              (org-agenda-files org-agenda-files)))
-       (todo "REVIEW"
-             ((org-agenda-overriding-header "In Review")
-              (org-agenda-files org-agenda-files)))
-       (todo "PLAN"
-             ((org-agenda-overriding-header "In Planning")
-              (org-agenda-todo-list-sublevels nil)
-              (org-agenda-files org-agenda-files)))
-       (todo "BACKLOG"
-             ((org-agenda-overriding-header "Project Backlog")
-              (org-agenda-todo-list-sublevels nil)
-              (org-agenda-files org-agenda-files)))
-       (todo "READY"
-             ((org-agenda-overriding-header "Ready for Work")
-              (org-agenda-files org-agenda-files)))
-       (todo "ACTIVE"
-             ((org-agenda-overriding-header "Active Projects")
-              (org-agenda-files org-agenda-files)))
-       (todo "COMPLETED"
-             ((org-agenda-overriding-header "Completed Projects")
-              (org-agenda-files org-agenda-files)))
-       (todo "CANC"
-             ((org-agenda-overriding-header "Cancelled Projects")
-              (org-agenda-files org-agenda-files))))))))
+      ((todo "WAIT" ((org-agenda-overriding-header "Waiting on External")))
+       (todo "REVIEW" ((org-agenda-overriding-header "In Review")))
+       (todo "PLAN" ((org-agenda-overriding-header "In Planning") (org-agenda-todo-list-sublevels nil)))
+       (todo "BACKLOG" ((org-agenda-overriding-header "Project Backlog") (org-agenda-todo-list-sublevels nil)))
+       (todo "READY" ((org-agenda-overriding-header "Ready for Work")))
+       (todo "ACTIVE" ((org-agenda-overriding-header "Active Projects")))
+       (todo "COMPLETED" ((org-agenda-overriding-header "Completed Projects")))
+       (todo "CANC" ((org-agenda-overriding-header "Cancelled Projects"))))))))
 #+end_src
 *** Custom Font
 #+begin_src emacs-lisp
@@ -390,25 +420,122 @@ Most Config is a Mashup from
 #+end_src
 *** Org-Roam (Zettelkasten)
 #+begin_src emacs-lisp
-(use-package! org-roam
+(use-package org-roam
+  :ensure t
+  :demand t  ;; Ensure org-roam is loaded by default
+  :init
+  (setq org-roam-v2-ack t)
   :custom
-  (after! org
-    (setq org-roam-directory "~/org/roam/"))
-  (org-roam-completion-everywhere t)
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
-
+  (org-roam-directory "~/org/roam")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n I" . org-roam-node-insert-immediate)
+         ("C-c n p" . my/org-roam-find-project)
+         ("C-c n t" . my/org-roam-capture-task)
+         ("C-c n b" . my/org-roam-capture-inbox)
+         :map org-mode-map
+         ("C-M-i" . completion-at-point)
+         :map org-roam-dailies-map
+         ("Y" . org-roam-dailies-capture-yesterday)
+         ("T" . org-roam-dailies-capture-tomorrow))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
   :config
   (unless (file-exists-p org-roam-directory)
     (make-directory org-roam-directory t))
-  (advice-add 'org-roam-db-query :around
-              (lambda (fn &rest args)
-                (condition-case err
-                    (apply fn args)
-                  (error
-                   (message "Database error in org-roam: %S" err)
-                   nil))))
-  (org-roam-db-autosync-mode +1))
+  (require 'org-roam-dailies)  ;; Ensure keymap is available
+  (org-roam-db-autosync-mode))
+
+(defun org-roam-node-insert-immediate (arg &rest args)
+  "Insert an org-roam node immediately upon capture."
+  (interactive "P")
+  (let ((args (push arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+
+(defun my/org-roam-filter-by-tag (tag-name)
+  "Filter org-roam nodes by TAG-NAME."
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  "List org-roam files that match a specific TAG-NAME."
+  (mapcar #'org-roam-node-file
+          (seq-filter (my/org-roam-filter-by-tag tag-name)
+                      (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  "Refresh the org-agenda list with notes tagged 'Project'."
+  (interactive)
+  (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
+
+;; Build agenda list when the session starts
+(my/org-roam-refresh-agenda-list)
+
+(defun my/org-roam-project-finalize-hook ()
+  "Add the captured project file to org-agenda-files if capture was successful."
+  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+  (unless org-note-abort
+    (with-current-buffer (org-capture-get :buffer)
+      (add-to-list 'org-agenda-files (buffer-file-name)))))
+
+(defun my/org-roam-find-project ()
+  "Find or create a project node tagged with 'Project'."
+  (interactive)
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+  (org-roam-node-find
+   nil
+   nil
+   (my/org-roam-filter-by-tag "Project")
+   :templates
+   '(("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                         "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
+      :unnarrowed t))))
+
+(defun my/org-roam-capture-inbox ()
+  "Capture a note into the Inbox."
+  (interactive)
+  (org-roam-capture- :node (org-roam-node-create)
+                     :templates '(("i" "inbox" plain "* %?"
+                                   :if-new (file+head "Inbox.org" "#+title: Inbox\n")))))
+
+(defun my/org-roam-capture-task ()
+  "Capture a task, creating the project file if needed."
+  (interactive)
+  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+  (org-roam-capture- :node (org-roam-node-read nil (my/org-roam-filter-by-tag "Project"))
+                     :templates '(("p" "project" plain "** TODO %?"
+                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: Project"
+                                                          ("Tasks"))))))
+
+(defun my/org-roam-copy-todo-to-today ()
+  "Refile a completed TODO to today's daily capture."
+  (interactive)
+  (let ((org-refile-keep t)
+        (org-roam-dailies-capture-templates
+         '(("t" "tasks" entry "%?"
+            :if-new (file+head+olp "%<%Y-%m-%d>.org"
+                                   "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        today-file pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
 
 (after! org-roam
   (setq org-roam-capture-templates
@@ -424,20 +551,22 @@ Most Config is a Mashup from
            :unnarrowed t))))
 
 (after! org-roam-dailies
+  (setq org-roam-dailies-directory "~/org/journal/")
   (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry "* %<%I:%M %p> %?"
-           :if-new (file+head "%<%Y-%m-%d>.org"
-                              "#+title: Daily Notes %<%Y-%m-%d>\n")
-           :unnarrowed t))))
+        `(("t" "daily" plain (file "~/org/templates/daily.org")
+           :target (file+head "daily/%<%Y-%m-%d>.org" "#+title: Daily: %<%Y-%m-%d>\n"))
 
-(map! :leader
-      (:prefix ("n r" . "org-roam")
-       :desc "Completion at point" "c" #'completion-at-point
-       :desc "Find node"           "f" #'org-roam-node-find
-       :desc "Show graph"          "g" #'org-roam-graph
-       :desc "Insert node"         "i" #'org-roam-node-insert
-       :desc "Capture to node"     "n" #'org-roam-capture
-       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
+          ("d" "default" plain "** %<%I:%M %p> %?"
+           :if-new (file+head+olp "daily/%<%Y-%m-%d>.org" "#+title: Default: %<%Y-%m-%d>\n" ("Journal")))
+
+          ("w" "weekly" plain (file "~/org/templates/weekly.org")
+           :if-new (file+head "weekly/%<%Y-W%U>.org" "#+title: Week: %<%Y-W%U>\n"))
+
+          ("y" "yearly" plain (file "~/org/templates/monthly.org")
+           :if-new (file+head "%<%Y>.org" "#+title: Year: %<%Y>\n"))
+
+          ("m" "monthly" plain (file "~/org/templates/monthly.org")
+           :if-new (file+head "monthly/%<%B>, %<%Y>.org" "#+title: Month: %<%B>, %<%Y>\n")))))
 
 (use-package! websocket
   :after org-roam)
@@ -450,117 +579,7 @@ Most Config is a Mashup from
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 #+end_src
-**** Functions
-***** Immediate Capture
-"Insert an Org-roam node immediately without prompting for capture."
 
-#+begin_src emacs-lisp
-(after! org-roam
-  (defun org-roam-node-insert-immediate (arg &rest args)
-    (interactive "P")
-    (let ((args (cons arg args))
-          (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                    '(:immediate-finish t)))))
-      (apply #'org-roam-node-insert args)))
-
-  (map! :leader
-        (:prefix ("a" . "org-roam")
-         :desc "Insert immediate node" "c" #'org-roam-node-insert-immediate)))
-#+end_src
-***** Project Notes to Agenda
-"All notes with /PROJ/ tag are inserted to Agenda."
-
-#+begin_src emacs-lisp
-(defun my/org-roam-filter-by-tag (tag-name)
-  (lambda (node)
-    (member tag-name (org-roam-node-tags node))))
-
-(defun my/org-roam-list-notes-by-tag (tag-name)
-  (mapcar #'org-roam-node-file
-          (seq-filter
-           (my/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
-
-(defun my/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (my/org-roam-list-notes-by-tag "PROJ")))
-
-(my/org-roam-refresh-agenda-list)
-#+end_src
-***** Find Projects
-#+begin_src emacs-lisp
-(defun my/org-roam-project-finalize-hook ()
-  "Adds the captured project file to `org-agenda-files' if the
-capture was not aborted."
-  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
-
-  (unless org-note-abort
-    (with-current-buffer (org-capture-get :buffer)
-      (add-to-list 'org-agenda-files (buffer-file-name)))))
-
-(defun my/org-roam-find-project ()
-  (interactive)
-  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
-  (org-roam-node-find
-   nil
-   nil
-   (my/org-roam-filter-by-tag "Project")
-   :templates
-   '(("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n#+filetags: Project")
-      :unnarrowed t))))
-
-(global-set-key (kbd "C-c n p") #'my/org-roam-find-project)
-#+end_src
-***** Capture to Project
-#+begin_src emacs-lisp
-(defun my/org-roam-capture-task ()
-  (interactive)
-  (add-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
-  (org-roam-capture- :node (org-roam-node-read
-                            nil
-                            (my/org-roam-filter-by-tag "PROJ"))
-                     :templates '(("p" "project" plain "** TODO %?"
-                                   :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-                                                          "#+title: ${title}\n#+category: ${title}\n#+filetags: Project"
-                                                          ("Tasks"))))))
-
-(global-set-key (kbd "C-c n t") #'my/org-roam-capture-task)
-#+end_src
-***** Move Completed to Dailies
-#+begin_src emacs-lisp
-(defun my/org-roam-copy-todo-to-today ()
-  (interactive)
-  (let ((org-refile-keep t)
-        (org-roam-dailies-capture-templates
-         '(("t" "tasks" entry "%?"
-            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
-        (org-after-refile-insert-hook #'save-buffer)
-        today-file
-        pos)
-    (save-window-excursion
-      (org-roam-dailies--capture (current-time) t)
-      (setq today-file (buffer-file-name))
-      (setq pos (point)))
-
-    (unless (equal (file-truename today-file)
-                   (file-truename (buffer-file-name)))
-      (org-refile nil nil (list "Tasks" today-file nil pos)))))
-
-(add-to-list 'org-after-todo-state-change-hook
-             (lambda ()
-               (when (equal org-state "DONE")
-                 (my/org-roam-copy-todo-to-today))))
-#+end_src
-***** Capture to Inbox
-#+begin_src emacs-lisp
-(defun my/org-roam-capture-inbox ()
-  (interactive)
-  (org-roam-capture- :node (org-roam-node-create)
-                     :templates '(("i" "inbox" plain "* %?"
-                                   :if-new (file+head "Inbox.org" "#+title: Inbox\n")))))
-(global-set-key (kbd "C-c n b") #'my/org-roam-capture-inbox)
-#+end_src
 ** Rainbow
 #+begin_src emacs-lisp
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
@@ -636,6 +655,17 @@ capture was not aborted."
   (setq vterm-shell "zsh")
   (setq vterm-max-scrollback 10000))
 #+end_src
+** Transclusion
+   #+begin_src emacs-lisp
+(use-package! org-transclusion
+  :after org
+  :init
+  (map!
+   :map global-map "<f12>" #'org-transclusion-mode
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+   #+end_src
 * Bindings
 ** Magit
 #+begin_src emacs-lisp
