@@ -82,7 +82,9 @@ Most Config is a Mashup from
 #+END_SRC
 ** Theme
 #+begin_src emacs-lisp
-(setq doom-theme 'doom-challenger-deep)
+;; (setq doom-theme 'doom-challenger-deep)
+(setq custom-theme-directory "~/.config/doom/themes")
+(setq doom-theme 'elegant-vagrant)
 #+end_src
 ** Vim
 #+begin_src emacs-lisp
