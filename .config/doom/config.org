@@ -17,6 +17,7 @@
   - [[#applications][Applications]]
   - [[#issues][Issues]]
   - [[#performance][Performance]]
+  - [[#formatting][Formatting]]
 - [[#plugins][Plugins]]
   - [[#which-key][Which Key]]
   - [[#completion-vertico][Completion (Vertico)]]
@@ -31,7 +32,7 @@
   - [[#zen-mode][Zen Mode]]
   - [[#eglot][Eglot]]
   - [[#mini-buffer][Mini-buffer]]
-  - [[#formatting][Formatting]]
+  - [[#formatting-1][Formatting]]
   - [[#terminal][Terminal]]
   - [[#transclusion][Transclusion]]
 - [[#bindings][Bindings]]
@@ -52,6 +53,7 @@ Most Config is a Mashup from
 #+begin_src emacs-lisp
 (setq user-full-name "Janpstrunn"
       user-mail-address "janpstrunn@disroot.org")
+(setq user-username "janpstrunn")
 #+end_src
 ** Bookmarks
 #+BEGIN_SRC emacs-lisp
@@ -219,6 +221,17 @@ Most Config is a Mashup from
         lsp-ui-doc-delay 0.5
         lsp-ui-sideline-enable nil
         lsp-ui-peek-enable t))
+
+(setq lsp-diagnostics-provider :flycheck)
+(setq lsp-signature-auto-activate t)
+(setq lsp-signature-render-documentation t)
+#+end_src
+** Formatting
+"Delete trailing whitespace at the end of all lines before saving."
+#+begin_src emacs-lisp
+(defun my-trim-trailing-whitespace ()
+  (add-hook 'before-save-hook #'delete-trailing-whitespace))
+(my-trim-trailing-whitespace)
 #+end_src
 * Plugins
 ** Which Key
@@ -445,7 +458,7 @@ Most Config is a Mashup from
          ("Y" . org-roam-dailies-capture-yesterday)
          ("T" . org-roam-dailies-capture-tomorrow))
   :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
+  ("C-c a" . org-roam-dailies-map)
   :config
   (unless (file-exists-p org-roam-directory)
     (make-directory org-roam-directory t))
@@ -569,6 +582,37 @@ Most Config is a Mashup from
 
           ("m" "monthly" plain (file "~/org/templates/monthly.org")
            :if-new (file+head "monthly/%<%B>, %<%Y>.org" "#+title: Month: %<%B>, %<%Y>\n")))))
+
+(defun org-roam-switch-db (&optional arg silent)
+  "Switch to a different org-roam database, arg"
+  (interactive)
+  (when (not arg)
+    (setq full-org-roam-db-list nil)
+
+    (setq full-org-roam-db-list (directory-files "~/org" t "\\.[p,s]$"))
+    (dolist (item full-org-roam-db-list)
+      (setq full-org-roam-db-list
+            (append (directory-files item t "\\.[p,s]$") full-org-roam-db-list)))
+
+    (setq full-org-roam-db-list-pretty (list))
+    (dolist (item full-org-roam-db-list)
+      (setq full-org-roam-db-list-pretty
+            (append (list
+                     (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/org\\/") "" item)) full-org-roam-db-list-pretty)))
+
+    (setq org-roam-db-choice (completing-read "Select org roam database: "
+                                              full-org-roam-db-list-pretty nil t)))
+  (when arg
+    (setq org-roam-db-choice arg))
+
+  (setq org-roam-directory (file-truename (concat "~/org/" org-roam-db-choice "/Notes"))
+        org-roam-db-location (file-truename (concat "~/org/" org-roam-db-choice "/Notes/org-roam.db"))
+        org-directory (file-truename (concat "~/org/" org-roam-db-choice "/Notes")))
+  (when (not silent))
+
+  (org-roam-db-sync)
+
+  (message (concat "Switched to " org-roam-db-choice " org-roam database!")))
 
 (use-package! websocket
   :after org-roam)
