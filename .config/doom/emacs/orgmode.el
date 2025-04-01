@@ -14,7 +14,7 @@
           ("wiki" . "https://en.wikipedia.org/wiki/"))
         org-table-convert-region-max-lines 20000
         org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "READY(r)" "ACTIVE(a)" "|" "DONE(d!)" "WAIT(w)" "CANC(k)")))
+        '((sequence "TODO(t)" "NEXT(n)" "READY(r)" "ACTIVE(a)" "|" "DONE(d!)" "WAIT(w)" "CANC(k)"))))
 
   ;; Agenda
   (after! org

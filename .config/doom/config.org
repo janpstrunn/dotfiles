@@ -17,7 +17,7 @@ Most parts of this configuration file is a Mashup from:
 #+begin_src emacs-lisp
 (load! "~/.config/doom/emacs/bindings")
 (load! "~/.config/doom/emacs/lang")
-(load! "~/.config/doom/emacs/org")
+(load! "~/.config/doom/emacs/orgmode")
 (load! "~/.config/doom/emacs/performance")
 (load! "~/.config/doom/emacs/qol")
 (load! "~/.config/doom/emacs/template")
