@@ -9,8 +9,10 @@
   - [[#bookmarks][Bookmarks]]
   - [[#fonts][Fonts]]
   - [[#split][Split]]
+  - [[#window][Window]]
   - [[#theme][Theme]]
   - [[#vim][Vim]]
+  - [[#images][Images]]
   - [[#global-auto-revert][Global Auto Revert]]
   - [[#emacs-lisp][Emacs Lisp]]
   - [[#templates][Templates]]
@@ -21,6 +23,13 @@
 - [[#plugins][Plugins]]
   - [[#which-key][Which Key]]
   - [[#completion-vertico][Completion (Vertico)]]
+  - [[#images-1][Images]]
+  - [[#calendar][Calendar]]
+  - [[#git][Git]]
+  - [[#notifications][Notifications]]
+  - [[#later][Later]]
+  - [[#open-with][Open WIth]]
+  - [[#scroll][Scroll]]
   - [[#elfeed-rss][Elfeed (RSS)]]
   - [[#file-types][File Types]]
   - [[#neotree][NeoTree]]
@@ -45,15 +54,17 @@
 
 * Base Config
 ** Credits
-Most Config is a Mashup from
+Most parts of this configuration file is a Mashup from:
 [[https://joshblais.com/posts/my-literate-doom-emacs-config/][Josh Blais]]
 [[https://systemcrafters.net][System Crafters]]
 [[https://gitlab.com/dwt1/dotfiles][Derek Taylor]]
+[[https://github.com/librephoenix/nixos-config][LibrePhoenix (Emmet)]]
 ** User
 #+begin_src emacs-lisp
 (setq user-full-name "Janpstrunn"
       user-mail-address "janpstrunn@disroot.org")
 (setq user-username "janpstrunn")
+(setq system-wm-type "wayland") ; wayland or x11?
 #+end_src
 ** Bookmarks
 #+BEGIN_SRC emacs-lisp
@@ -72,6 +83,8 @@ Most Config is a Mashup from
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
+;; For camelCase
+(global-subword-mode 1)
 #+end_src
 ** Split
 #+BEGIN_SRC emacs-lisp
@@ -82,6 +95,23 @@ Most Config is a Mashup from
 (map! :leader
       :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 #+END_SRC
+** Window
+#+begin_src emacs-lisp
+(bind-key* "C-j" #'evil-window-down)
+(bind-key* "C-k" #'evil-window-up)
+(bind-key* "C-h" #'evil-window-left)
+(bind-key* "C-l" #'evil-window-right)
+(bind-key* "C-q" #'evil-window-delete)
+(bind-key* "M-q" #'kill-current-buffer)
+(bind-key* "M-q" #'kill-current-buffer)
+(bind-key* "M-w" #'+workspace/close-window-or-workspace)
+(bind-key* "M-n" #'next-buffer)
+(bind-key* "M-p" #'previous-buffer)
+(bind-key* "M-z" #'+vterm/toggle)
+(bind-key* "M-e" #'+eshell/toggle)
+(bind-key* (kbd "M-<return>") #'+vterm/here)
+(bind-key* (kbd "M-E") #'+eshell/here)
+#+end_src
 ** Theme
 #+begin_src emacs-lisp
 ;; (setq doom-theme 'doom-challenger-deep)
@@ -92,10 +122,16 @@ Most Config is a Mashup from
 #+begin_src emacs-lisp
 (setq display-line-numbers-type 'relative)
 #+end_src
+** Images
+#+begin_src emacs-lisp
+(setq org-startup-with-inline-images t
+      org-image-actual-width nil)
+#+end_src
 ** Global Auto Revert
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-use-notify t)
 #+end_src
 ** Emacs Lisp
 #+Begin_src emacs-lisp
@@ -275,6 +311,269 @@ Most Config is a Mashup from
 (setq consult-preview-key nil)
 (setq vertico-count 10)
 #+end_src
+** Images
+*** Download
+#+BEGIN_SRC emacs-lisp
+(require 'org-download)
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
+
+;; system-wm-type, wayland or x11? only should be considered if system-nix-profile is "personal" or "work"
+(if (string= system-wm-type "wayland")
+    (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
+  (setq org-download-screenshot-method "flameshot gui -p %s")
+  )
+
+(after! org-download
+  (setq org-download-method 'directory))
+
+(after! org
+  (setq-default org-download-image-dir "img/"
+                org-download-heading-lvl nil))
+
+(add-to-list 'display-buffer-alist '("^*Async Shell Command*" . (display-buffer-no-window)))
+
+(defun org-download-clipboard-basename ()
+  (interactive)
+  (setq org-download-path-last-dir org-download-image-dir)
+  (setq org-download-image-dir (completing-read "directory: " (-filter #'f-directory-p (directory-files-recursively "." "" t)) nil t))
+  (org-download-clipboard (completing-read "basename: " '() nil nil))
+  (setq org-download-image-dir org-download-path-last-dir)
+  )
+
+(map! :leader
+      :desc "Insert a screenshot"
+      "i s" 'org-download-screenshot
+      :desc "Insert image from clipboard"
+      "i p" 'org-download-clipboard
+      "i P" 'org-download-clipboard-basename)
+#+END_SRC
+*** Slice
+#+begin_src emacs-lisp
+;; this is kinda buggy
+(add-load-path! "~/.emacs.d/org-sliced-images")
+(require 'org-sliced-images)
+(defalias 'org-remove-inline-images #'org-sliced-images-remove-inline-images)
+(defalias 'org-toggle-inline-images #'org-sliced-images-toggle-inline-images)
+(defalias 'org-display-inline-images #'org-sliced-images-display-inline-images)
+#+end_src
+** Calendar
+| Navigation          |                                              |
+|---------------------|----------------------------------------------|
+| [left], b, h        | Previous day                                 |
+| [right], f, l       | Next day                                     |
+| [up], p, k          | Previous week                                |
+| [down], n, j        | Next week                                    |
+| ^                   | Week begin                                   |
+| $                   | Week end                                     |
+| [home]              | First date in this month                     |
+| [end]               | Last date in this month                      |
+| M-v, [PgUp], &lt;   | Previous month                               |
+| C-v, [PgDown], &gt; | Next month                                   |
+| t                   | Today                                        |
+| g                   | Absolute date (YYYY/MM/DD)                   |
+| TAB                 | Next item in a day                           |
+
+| Changing View       |                                              |
+|---------------------|----------------------------------------------|
+| M                   | Month view                                   |
+| W                   | 1 Week view                                  |
+| T                   | 2 Week view                                  |
+| D                   | Day view                                     |
+
+| Operation           |                                              |
+|---------------------|----------------------------------------------|
+| r                   | Refresh data and re-draw contents            |
+| SPC                 | Pop-up detail buffer (like Quicklook in Mac) |
+| RET, [click]        | Jump (howm, orgmode)                         |
+| q                   | Bury buffer                                  |
+** Git
+#+begin_src emacs-lisp
+(setq magit-todos-keywords-list '("TODO" "FIXME" "HACK" "REVIEW" "DEPRECATED" "BUG"))
+(magit-todos-mode 1)
+#+end_src
+** Notifications
+#+begin_src emacs-lisp
+(setq alert-default-style 'libnotify)
+(setq org-alert-interval 300
+      org-alert-notify-cutoff 60
+      org-alert-notify-after-event-cutoff 10)
+#+end_src
+** TODO Later
+*** Org Mermaid Diagrams
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; Mermaid diagrams
+;; (setq ob-mermaid-cli-path "~/.nix-profile/bin/mmdc")
+#+END_SRC
+*** Email
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;;;------ helpful configuration ------;;;
+;; (add-load-path! "~/.nix-profile/share/emacs/site-lisp/elpa/mu4e-1.12.2")
+;; (require 'mu4e)
+;; (require 'mu4e-contrib)
+;; (require 'mu4e-actions)
+
+;; (after! mu4e
+;;   (setq mu4e-modeline-support nil)
+;;   (setq mu4e-sent-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Sent")))
+;;   (setq mu4e-drafts-folder (lambda (msg) (concat "/" user-mail-address "/Drafts")))
+;;   (setq mu4e-trash-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Trash")))
+;;   (setq mu4e-refile-folder (lambda (msg) (concat "/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Folders/" (completing-read "Refile msg to: " (directory-files (concat "~/.mail/" (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )) "/Folders"))))))
+
+;;   (setq mu4e-index-lazy-check t)
+;;   (setq mu4e-index-cleanup t)
+;;   (setq mu4e-update-interval 120)
+;;   (mu4e-alert-enable-notifications)
+
+;;   (define-key mu4e-main-mode-map (kbd "<SPC>") #'doom/leader)
+;;   (define-key mu4e-headers-mode-map (kbd "<SPC>") #'doom/leader)
+;;   (define-key mu4e-view-mode-map (kbd "<SPC>") #'doom/leader)
+
+;;   (define-key mu4e-main-mode-map (kbd "g g") #'evil-goto-first-line)
+;;   (define-key mu4e-main-mode-map (kbd "G") #'evil-goto-line)
+;;   (define-key mu4e-main-mode-map (kbd "h") #'evil-backward-char)
+;;   (define-key mu4e-main-mode-map (kbd "l") #'evil-forward-char)
+;;   (define-key mu4e-main-mode-map (kbd "w") #'evil-forward-word-begin)
+
+;;   (unbind-key "g" mu4e-headers-mode-map)
+;;   (define-key mu4e-headers-mode-map (kbd "g g") #'evil-goto-first-line)
+;;   (define-key mu4e-headers-mode-map (kbd "G") #'evil-goto-line)
+;;   (define-key mu4e-headers-mode-map (kbd "h") #'evil-backward-char)
+;;   (define-key mu4e-headers-mode-map (kbd "l") #'evil-forward-char)
+;;   (define-key mu4e-headers-mode-map (kbd "w") #'evil-forward-word-begin)
+
+;;   (unbind-key "g" mu4e-view-mode-map)
+;;   (define-key mu4e-view-mode-map (kbd "g g") #'evil-goto-first-line)
+;;   (define-key mu4e-view-mode-map (kbd "G") #'evil-goto-line)
+;;   (define-key mu4e-view-mode-map (kbd "h") #'evil-backward-char)
+;;   (define-key mu4e-view-mode-map (kbd "l") #'evil-forward-char)
+;;   (define-key mu4e-view-mode-map (kbd "w") #'evil-forward-word-begin)
+
+;;   (map! :map 'mu4e-main-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+;;   (map! :map 'mu4e-main-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+;;   (map! :map 'mu4e-main-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+
+;;   (map! :map 'mu4e-headers-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Next char" :ge "l" #'evil-forward-char)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
+;;   (map! :map 'mu4e-headers-mode-map :desc "Archive message" :ge "e" #'mu4e-headers-mark-for-refile)
+
+;;   (map! :map 'mu4e-view-mode-map :desc "Jump to maildir" :ge "J" #'mu4e-search-maildir)
+;;   (map! :map 'mu4e-view-mode-map :desc "Next line" :ge "j" #'evil-next-visual-line)
+;;   (map! :map 'mu4e-view-mode-map :desc "Prev line" :ge "k" #'evil-previous-visual-line)
+;;   (map! :map 'mu4e-view-mode-map :desc "Update mail and index" :ge "U" #'mu4e-update-mail-and-index)
+;;   (map! :map 'mu4e-view-mode-map :desc "Compose reply" :ge "r" #'mu4e-compose-reply)
+;;   (map! :map 'mu4e-view-mode-map :desc "Archive message" :ge "e" #'mu4e-view-mark-for-refile)
+
+;;   (add-to-list 'mu4e-header-info-custom
+;;                '(:maildir-folder-no-account .
+;;                  ( :name "Maildir folder without account"  ;; long name, as seen in the message-view
+;;                          :shortname "Folder"           ;; short name, as seen in the headers view
+;;                          :help "Name of the subfolder without the maildir" ;; tooltip
+;;                          :function (lambda (msg) (substring (mu4e-message-field msg :maildir) (+ 2 (length (nth 1 (split-string (mu4e-message-field msg :maildir) "/" )))))))))
+;;   (add-to-list 'mu4e-bookmarks
+;;                '( :name  "Unified inbox"
+;;                   :query "maildir://.*/INBOX/"
+;;                   :key   ?i))
+;;   (setq mu4e-headers-fields
+;;         '((:account-stripe . 1)
+;;           (:account . 25)
+;;           (:human-date . 12)
+;;           (:flags . 6)
+;;           (:from-or-to . 20)
+;;           (:maildir-folder-no-account . 30)
+;;           (:subject)))
+
+;;   (add-hook 'mu4e-compose-mode-hook #'(lambda () (auto-save-mode -1)))
+;;   (setq mu4e-sent-messages-behavior 'delete)
+
+;;   (setq sendmail-program "~/.nix-profile/bin/msmtp")
+;;   (setq send-mail-function 'smtpmail-send-it)
+;;   (setq message-sendmail-f-is-evil t)
+;;   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+;;   (setq message-send-mail-function 'message-send-mail-with-sendmail)
+;;   (if (file-exists-p "~/.emacs.d/mu4e-private.el") (load! "~/.emacs.d/mu4e-private.el"))
+
+;;   ;; https://emacs.stackexchange.com/questions/3061/how-to-stop-mu4e-from-inserting-line-breaks
+;;   (defun no-auto-fill ()
+;;     "Turn off auto-fill-mode."
+;;     (auto-fill-mode -1))
+
+;;   (defun no-org-msg-mode ()
+;;     "Disable org-msg-mode since it doesn't respect multiline emails"
+;;     (org-msg-mode 0))
+
+;;   (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
+;;   (add-hook 'mu4e-compose-pre-hook #'no-org-msg-mode)
+
+;;   (mu4e--start) ;; start mu4e silently
+
+;;   )
+
+#+END_SRC
+** Open WIth
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(defun org-new-file-from-template ()
+  "Copy a template from ~/templates into a timestamped unique-named file in the
+same directory as the current org buffer and insert a link to this file."
+  (interactive)
+  (let* ((template-file (completing-read "Template file: " (directory-files "~/templates" nil "^[^.].*")))
+         (template-path (expand-file-name template-file "~/templates"))
+         (target-dir (expand-file-name "files/" (file-name-directory (buffer-file-name))))
+         (filename (concat target-dir
+                           (file-name-nondirectory (buffer-file-name))
+                           "_"
+                           (format-time-string "%Y%m%d_%H%M%S")
+                           (file-name-extension template-file t))))
+    (unless (file-exists-p target-dir)
+      (make-directory target-dir t))
+    (copy-file template-path filename)
+    (let ((prettyname (read-from-minibuffer "Pretty name: ")))
+      (insert (format "[[./files/%s][%s]]" (file-name-nondirectory filename) prettyname)))
+    (org-display-inline-images)))
+
+(map! :leader
+      :desc "Create a new file from a template and insert a link at point"
+      "i t" #'org-new-file-from-template)
+
+(when (require 'openwith nil 'noerror)
+  (setq openwith-associations
+        (list
+         (list (openwith-make-extension-regexp
+                '("mpg" "mpeg" "mp3" "mp4"
+                  "avi" "wmv" "wav" "mov" "flv"
+                  "ogm" "ogg" "mkv"))
+               "mpv" '(file))
+         (list (openwith-make-extension-regexp
+                '("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
+               "libreoffice" '(file))
+         (list "\\.lyx" "lyx" '(file))
+         (list "\\.chm" "kchmviewer" '(file))
+         (list (openwith-make-extension-regexp '("kdenlive"))
+               "kdenlive-accel" '(file))))
+  (openwith-mode 1))
+#+END_SRC
+** Scroll
+#+begin_src emacs-lisp
+(setq scroll-conservatively 101)
+
+;; Smooth scrolling
+;; requires good-scroll.el
+(good-scroll-mode 1)
+(setq good-scroll-duration 0.4
+      good-scroll-step 270
+      good-scroll-render-rate 0.03)
+
+(global-set-key (kbd "<next>") #'good-scroll-up-full-screen)
+(global-set-key (kbd "<prior>") #'good-scroll-down-full-screen)
+
+(setq scroll-margin 30)
+(setq hscroll-margin 10)
+#+end_src
 ** Elfeed (RSS)
 #+begin_src emacs-lisp
 (setq elfeed-goodies/entry-pane-size 0.5)
@@ -358,7 +657,7 @@ Most Config is a Mashup from
 *** Agenda
 #+begin_src emacs-lisp
 (after! org
-  (setq org-agenda-files '("~/org/inbox.org" "~/org/projects.org" "~/org/agenda.org"))
+  (setq org-agenda-files '("~/org/roam/Inbox.org" "~/org/projects.org" "~/org/agenda.org"))
 
   (setq
    org-fancy-priorities-list '("[A]" "[B]" "[C]")
@@ -609,6 +908,16 @@ Most Config is a Mashup from
         org-roam-db-location (file-truename (concat "~/org/" org-roam-db-choice "/Notes/org-roam.db"))
         org-directory (file-truename (concat "~/org/" org-roam-db-choice "/Notes")))
   (when (not silent))
+
+  (setq mode-line-misc-info '((which-function-mode
+                               (which-func-mode
+                                ("" which-func-format " ")))
+                              ("" so-long-mode-line-info)
+                              (global-mode-string
+                               ("" global-mode-string))
+                              " "
+                              org-roam-db-choice)
+        )
 
   (org-roam-db-sync)
 
