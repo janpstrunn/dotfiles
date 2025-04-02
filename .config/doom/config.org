@@ -46,7 +46,6 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/magit-todos")
 (load! "~/.config/doom/packages/olivetti")
 (load! "~/.config/doom/packages/org-alert")
-(load! "~/.config/doom/packages/org-download")
 (load! "~/.config/doom/packages/org-modern")
 (load! "~/.config/doom/packages/org-roam")
 (load! "~/.config/doom/packages/org-tempo")
