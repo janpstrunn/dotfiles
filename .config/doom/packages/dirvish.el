@@ -13,14 +13,14 @@
   :custom
   (dirvish-quick-access-entries ; It's a custom option, `setq' won't work
    '(("h" "~/"                          "Home")
-     ("d" "~/Downloads/"                "Downloads")
+     ("d" "~/downloads/"                "Downloads")
      ("m" "/mnt/"                       "Drives")
-     ("s" "/ssh:my-remote-server")      "SSH server"
-     ("e" "/sudo:root@localhost:/etc")  "Modify program settings"
+     ("s" "/ssh:my-remote-server"       "SSH server")
+     ("e" "/sudo:root@localhost:/etc"   "Modify program settings")
      ("t" "~/.local/share/Trash/files/" "TrashCan")))
   :config
-  ;; (dirvish-peek-mode)             ; Preview files in minibuffer
-  ;; (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
+  (dirvish-peek-mode)             ; Preview files in minibuffer
+  (dirvish-side-follow-mode)      ; similar to `treemacs-follow-mode'
   (setq dirvish-mode-line-format
         '(:left (sort symlink) :right (omit yank index)))
   (setq dirvish-attributes           ; The order *MATTERS* for some attributes
@@ -46,7 +46,6 @@
    ("M-f" . dirvish-history-go-forward)
    ("M-b" . dirvish-history-go-backward)
    ("M-t" . dirvish-layout-toggle)
-   ("M-g" . dirvish-quick-access-entries)
    ("M-e" . dirvish-emerge-menu)))
 
 (setq dirvish-preview-dispatchers
