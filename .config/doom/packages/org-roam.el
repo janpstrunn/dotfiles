@@ -123,6 +123,9 @@
           ("t" "timestamped entry" entry "%<%I:%M %p> %?"
            :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
            :unnarrowed t)
+          ("e" "encrypted" plain "%?"
+           :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org.gpg" "#+title: ${title}\n")
+           :unnarrowed t)
           ("l" "library" plain
            (file "~/org/templates/library.org")
            :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
@@ -197,3 +200,5 @@
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
+
+(setq org-roam-completion-everywhere t)
