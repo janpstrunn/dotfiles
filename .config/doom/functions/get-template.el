@@ -22,20 +22,3 @@ same directory as the current org buffer and insert a link to this file."
 (map! :leader
       :desc "Create a new file from a template and insert a link at point"
       "i t" #'org-new-file-from-template)
-
-(when (require 'openwith nil 'noerror)
-  (setq openwith-associations
-        (list
-         (list (openwith-make-extension-regexp
-                '("mpg" "mpeg" "mp3" "mp4"
-                  "avi" "wmv" "wav" "mov" "flv"
-                  "ogm" "ogg" "mkv"))
-               "mpv" '(file))
-         (list (openwith-make-extension-regexp
-                '("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
-               "libreoffice" '(file))
-         (list "\\.lyx" "lyx" '(file))
-         (list "\\.chm" "kchmviewer" '(file))
-         (list (openwith-make-extension-regexp '("kdenlive"))
-               "kdenlive-accel" '(file))))
-  (openwith-mode 1))
