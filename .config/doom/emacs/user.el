@@ -28,3 +28,7 @@
 
 ;; Relative Lines
 (setq display-line-numbers-type 'relative)
+
+;; GPG
+(setq epa-file-encrypt-to '("188FA3B303AD6D96F49A39ED17943A6CB78FEDAF"))
+(setq epa-file-select-keys nil)
