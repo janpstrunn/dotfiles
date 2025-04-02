@@ -70,8 +70,8 @@
 
   ;; Journals
   (setq org-journal-dir "~/org/journal/"
-        org-journal-date-prefix "* "
-        org-journal-time-prefix "** "
+        org-journal-date-prefix "#+title: "
+        org-journal-time-prefix "* "
         org-journal-date-format "%B %d, %Y (%A) "
         org-journal-file-format "%Y-%m-%d.org")
 
