@@ -1,4 +1,5 @@
 (defun my/org-insert-clipboard-image ()
+  "Insert image in WEBP from clipboard"
   (interactive)
   (let* ((script-path "./clipboard-to-webp.sh")
          (fullpath (string-trim (shell-command-to-string script-path)))

@@ -1,8 +1,5 @@
-;; "Insert a file path with completion.
-;; If the cursor is on a file path, replace it with the selected path.
-;; Otherwise, start completion from the current directory."
-
 (defun my-insert-file-path ()
+  "Insert a file path with completion."
   (interactive)
   (let* ((bounds (bounds-of-thing-at-point 'filename))
          (default-path (if bounds
