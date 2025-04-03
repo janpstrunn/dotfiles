@@ -22,3 +22,5 @@ same directory as the current org buffer and insert a link to this file."
 (map! :leader
       :desc "Create a new file from a template and insert a link at point"
       "i t" #'org-new-file-from-template)
+
+(openwith-mode 1)
