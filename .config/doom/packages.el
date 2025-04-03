@@ -24,7 +24,7 @@
 (package! magit-todos)
 ;; (package! marginalia)
 (package! math-preview)
-;; (package! ob-mermaid)
+(package! ob-mermaid)
 (package! olivetti)
 (package! openwith)
 ;; (package! orderless)
