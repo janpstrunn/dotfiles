@@ -12,3 +12,7 @@
 (setq completions-format 'one-column)
 (setq completions-detailed t)
 (setq truncate-partial-width-windows nil)
+(after! ivy
+  (setq ivy-height 20
+        ivy-wrap nil
+        ivy-fixed-height-minibuffer t))
