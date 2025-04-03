@@ -16,64 +16,25 @@
         org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "READY(r)" "ACTIVE(a)" "|" "DONE(d!)" "WAIT(w)" "CANC(k)"))))
 
-  ;; Agenda
-  (after! org
-    (setq org-agenda-files '("~/org/roam/Inbox.org" "~/org/projects.org" "~/org/agenda.org"))
+(defun my/org-files-with-tags (dir tags)
+  "Return a list of Org files in DIR containing any of the TAGS in #+filetags:."
+  (let ((files (directory-files-recursively dir "\\.org$"))
+        (matched-files '()))
+    (dolist (file files)
+      (with-temp-buffer
+        (insert-file-contents file nil 0 300)  ;;
+        (when (cl-loop for tag in tags
+                       thereis (string-match-p (format "#\\+filetags:.*\\b%s\\b" tag)
+                                               (buffer-string)))
+          (push file matched-files))))
+    matched-files))
 
-    (setq
-     org-fancy-priorities-list '("[A]" "[B]" "[C]")
-     ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
-     ;; org-fancy-priorities-list '("🟥" "🟧" "🟨")
-     org-priority-faces
-     '((?A :foreground "#fc2020" :weight bold)
-       (?B :foreground "#fcae5f" :weight bold)
-       (?C :foreground "#f9fc5f" :weight bold))
-     org-agenda-block-separator 8411
+;; Journals
+(setq org-journal-dir "~/org/journal/"
+      org-journal-date-prefix "#+title: "
+      org-journal-time-prefix "* "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
 
-     org-agenda-custom-commands
-     '(("v" "A better agenda view"
-        ((tags "PRIORITY=\"A\""
-               ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "High-priority unfinished tasks:")))
-         (tags "PRIORITY=\"B\""
-               ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
-         (tags "PRIORITY=\"C\""
-               ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "Low-priority unfinished tasks:")))
-         (tags "customtag"
-               ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
-                (org-agenda-overriding-header "Tasks marked with customtag:")))
-         (agenda "")
-         (alltodo "")))
-
-       ("d" "Dashboard"
-        ((agenda "" ((org-deadline-warning-days 7)))
-         (todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))
-         (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
-
-       ("n" "Next Tasks"
-        ((todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))))
-
-       ("W" "Work Tasks"
-        ((tags-todo "+work")))
-
-       ("w" "Workflow Status"
-        ((todo "WAIT" ((org-agenda-overriding-header "Waiting on External")))
-         (todo "REVIEW" ((org-agenda-overriding-header "In Review")))
-         (todo "PLAN" ((org-agenda-overriding-header "In Planning") (org-agenda-todo-list-sublevels nil)))
-         (todo "BACKLOG" ((org-agenda-overriding-header "Project Backlog") (org-agenda-todo-list-sublevels nil)))
-         (todo "READY" ((org-agenda-overriding-header "Ready for Work")))
-         (todo "ACTIVE" ((org-agenda-overriding-header "Active Projects")))
-         (todo "COMPLETED" ((org-agenda-overriding-header "Completed Projects")))
-         (todo "CANC" ((org-agenda-overriding-header "Cancelled Projects"))))))))
-
-  ;; Journals
-  (setq org-journal-dir "~/org/journal/"
-        org-journal-date-prefix "#+title: "
-        org-journal-time-prefix "* "
-        org-journal-date-format "%B %d, %Y (%A) "
-        org-journal-file-format "%Y-%m-%d.org")
-
-  (map! :leader
-        :desc "Org babel tangle" "m B" #'org-babel-tangle)
+(map! :leader
+      :desc "Org babel tangle" "m B" #'org-babel-tangle)
