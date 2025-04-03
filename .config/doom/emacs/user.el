@@ -8,8 +8,8 @@
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 
 ;; Fonts
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 14)
-      doom-variable-pitch-font (font-spec :family "Ubuntu Nerd Font" :size 14)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 15)
+      doom-variable-pitch-font (font-spec :family "Ubuntu Nerd Font" :size 15)
       doom-big-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
 
 ;; Theming
