@@ -14,6 +14,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/emacs/bindings")
 (load! "~/.config/doom/emacs/lang")
 (load! "~/.config/doom/emacs/orgmode")
+(load! "~/.config/doom/emacs/org-agenda")
 (load! "~/.config/doom/emacs/performance")
 (load! "~/.config/doom/emacs/qol")
 (load! "~/.config/doom/emacs/template")
@@ -32,6 +33,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/functions/insert-image")
 (load! "~/.config/doom/functions/lsp-org-format")
 (load! "~/.config/doom/functions/path-select")
+(load! "~/.config/doom/functions/switch-roam")
 #+END_SRC
 *** Imports Packages
 #+begin_src emacs-lisp
@@ -40,6 +42,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/company")
 (load! "~/.config/doom/packages/eglot")
 (load! "~/.config/doom/packages/dirvish")
+(load! "~/.config/doom/packages/org-roam-ui.el")
 (load! "~/.config/doom/packages/eshell")
 (load! "~/.config/doom/packages/good-scroll")
 (load! "~/.config/doom/packages/image-slice")
@@ -50,11 +53,13 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/org-modern")
 (load! "~/.config/doom/packages/org-roam")
 (load! "~/.config/doom/packages/org-tempo")
+(load! "~/.config/doom/packages/lsp")
 (load! "~/.config/doom/packages/rainbow")
 (load! "~/.config/doom/packages/transclusion")
 (load! "~/.config/doom/packages/vterm")
 (load! "~/.config/doom/packages/which-key")
 (load! "~/.config/doom/packages/zoxide")
+(load! "~/.config/doom/packages/org-super-agenda.el")
 #+end_src
 *** Snippets
 #+begin_src emacs-lisp
