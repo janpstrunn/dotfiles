@@ -65,7 +65,7 @@
            :if-new (file+head+olp "daily/%<%Y-%m-%d>.org" "#+title: Default: %<%Y-%m-%d>\n" ("Journal")))
 
           ("w" "weekly" plain (file "~/org/templates/weekly.org")
-           :if-new (file+head "weekly/%<%Y-W%U>.org" "#+title: Week: %<%Y-W%U>\n"))
+           :if-new (file+head "weekly/%<%Y-W%V>.org" "#+title: Week: %<%Y-W%V>\n"))
 
           ("y" "yearly" plain (file "~/org/templates/monthly.org")
            :if-new (file+head "%<%Y>.org" "#+title: Year: %<%Y>\n"))
