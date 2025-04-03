@@ -1,3 +1,4 @@
+(openwith-mode 0)
 (when (require 'openwith nil 'noerror)
   (setq openwith-associations
         (list
@@ -20,8 +21,7 @@
          '("\\.lyx" "lyx" (file))
          '("\\.chm" "kchmviewer" (file))
          (list (openwith-make-extension-regexp
-                '("pdf" "ps" "ps.gz" "dvi"))
-               "foliate"
+                '("pdf" "epub" "ps" "ps.gz" "dvi"))
+               "evince"
                '(file))
-         ))
-  (openwith-mode 1))
+         )))
