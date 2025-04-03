@@ -32,6 +32,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/functions/get-template")
 (load! "~/.config/doom/functions/insert-image")
 (load! "~/.config/doom/functions/lsp-org-format")
+(load! "~/.config/doom/functions/daily-notes")
 (load! "~/.config/doom/functions/path-select")
 (load! "~/.config/doom/functions/switch-roam")
 #+END_SRC
