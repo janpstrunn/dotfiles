@@ -46,3 +46,4 @@
 (package! toc-org)
 (package! websocket)
 (package! zoxide)
+(package! helpful)
