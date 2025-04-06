@@ -61,7 +61,7 @@
         `(("t" "today" plain (file "~/org/templates/daily.org")
            :target (file+head "daily/%<%Y-%m-%d>.org" "#+title: Daily: %<%Y-%m-%d>\n"))
 
-          ("d" "default" plain "** %<%I:%M %p> %?"
+          ("d" "default" plain "- %<%H:%M> %?"
            :if-new (file+head+olp "daily/%<%Y-%m-%d>.org" "#+title: Default: %<%Y-%m-%d>\n" ("Journal")))
 
           ("w" "weekly" plain (file "~/org/templates/weekly.org")
