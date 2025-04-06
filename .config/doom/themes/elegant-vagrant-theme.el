@@ -2,9 +2,9 @@
 ;;
 ;; Author: janpstrunn <https://github.com/janpstrunn>
 ;; Maintainer:
-;; Source: https://github.com/janpstrunn
+;; Source: https://github.com/janpstrunn/elegantvagrant
 ;;
-;; Inspired: doom-challenger-deep
+;; Forked: doom-challenger-deep
 ;;
 ;;; Commentary:
 ;;; Code:
