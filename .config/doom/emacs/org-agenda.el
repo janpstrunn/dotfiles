@@ -27,10 +27,6 @@
                                  (tags . " %i %-12:c")
                                  (search . " %i %-12:c")))
 
-; (defun org-agenda-open-hook ()
-;   (olivetti-mode))
-; (add-hook 'org-agenda-mode-hook 'org-agenda-open-hook)
-
 (defun org-agenda-switch-with-roam ()
   (interactive)
   (org-agenda-switch-to)
@@ -85,12 +81,15 @@
        (agenda "")
        (alltodo "")))
 
+     ("n" "Now - Today's Due Tasks"
+      ((agenda "" ((org-agenda-span 1)(org-deadline-warning-days 1)(org-agenda-start-day "+0d")))))
+
      ("d" "Dashboard"
       ((agenda "" ((org-deadline-warning-days 7)))
        (todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))
        (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
-     ("n" "Next Tasks"
+     ("N" "Next Tasks"
       ((todo "NEXT" ((org-agenda-overriding-header "Next Tasks")))))
 
      ("W" "Work Tasks"
