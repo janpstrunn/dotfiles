@@ -11,11 +11,11 @@
   '(org-super-agenda-header :inherit custom-button :weight bold :height 1.05))
 
 (setq org-agenda-category-icon-alist
-      `(("Graduation" ,(list (all-the-icons-faicon "graduation-cap" :height 0.8)) nil nil :ascent center)
-        ("Family" ,(list (all-the-icons-faicon "home" :v-adjust 0.005)) nil nil :ascent center)
-        ("Books" ,(list (all-the-icons-faicon "book" :height 0.9)) nil nil :ascent center)
-        ("Personal" ,(list (all-the-icons-material "person" :height 0.9)) nil nil :ascent center)
-        ("Inbox" ,(list (all-the-icons-material "inbox" :height 0.9)) nil nil :ascent center)
+      `(("Graduation" (concat "\uf19d" " ") nil nil :ascent center)
+        ("Family" (concat "\udb80\udedc" " ") nil nil :ascent center)
+        ("Books" (concat "\udb84\ude5f" " ") nil nil :ascent center)
+        ("Personal" (concat "\uf4ca" " ") nil nil :ascent center)
+        ("Inbox" (concat "\uf01c" " ") nil nil :ascent center)
         ))
 
 ;; (setq org-agenda-current-time-string "")
