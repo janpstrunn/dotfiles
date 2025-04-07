@@ -1,8 +1,5 @@
 ;;; ../../dotfiles/.config/doom/emacs/org-agenda.el -*- lexical-binding: t; -*-
 
-(use-package all-the-icons
-  :if (display-graphic-p))
-
 (custom-set-faces!
   '(org-agenda-date :inherit outline-1 :height 1.15)
   '(org-agenda-date-today :inherit outline-2 :height 1.15)
