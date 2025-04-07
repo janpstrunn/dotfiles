@@ -47,3 +47,4 @@
 (package! websocket)
 (package! zoxide)
 (package! helpful)
+(package! alert)
