@@ -62,6 +62,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/transclusion")
 (load! "~/.config/doom/packages/vterm")
 (load! "~/.config/doom/packages/which-key")
+;; (load! "~/.config/doom/packages/elfeed")
 (load! "~/.config/doom/packages/zoxide")
 (load! "~/.config/doom/packages/markdown-to-org") ;; Package made by Seijiro Ikehata
 #+end_src
