@@ -7,7 +7,7 @@
   :custom
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory))
-  (org-roam-directory "~/org/roam")
+  (org-roam-directory "~/org/roam/personal.p")
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
