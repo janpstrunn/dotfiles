@@ -53,6 +53,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/olivetti")
 (load! "~/.config/doom/packages/openwith")
 (load! "~/.config/doom/packages/org-alert")
+(load! "~/.config/doom/packages/treemacs.el")
 (load! "~/.config/doom/packages/org-modern")
 (load! "~/.config/doom/packages/org-roam")
 (load! "~/.config/doom/packages/org-roam-ui.el")

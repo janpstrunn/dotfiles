@@ -36,7 +36,7 @@
       (:prefix ("d" . "dired")
        :desc "Open dired" "d" #'dired
        :desc "Open dirvish" "D" #'dirvish
-       :desc "Open dirvish-side" "n" #'dirvish-side
+       ;; :desc "Open dirvish-side" "n" #'dirvish-side
        :desc "Dired jump to current" "j" #'dired-jump)
       (:after dired
               (:map dired-mode-map
