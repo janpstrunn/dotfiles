@@ -109,3 +109,7 @@
        :desc "Window configuration to register" "w" #'window-configuration-to-register
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
+
+(after! org
+  (define-key org-mode-map (kbd "<M-right>") 'org-narrow-to-element)
+  (define-key org-mode-map (kbd "<M-left>") 'widen))
