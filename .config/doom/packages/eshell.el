@@ -11,5 +11,4 @@
 (map! :leader
       :desc "Eshell"                 "e s" #'eshell
       :desc "Eshell popup toggle"    "e t" #'+eshell/toggle
-      :desc "Counsel eshell history" "e h" #'counsel-esh-history
-      :desc "Vterm popup toggle"     "v t" #'+vterm/toggle)
+      :desc "Counsel eshell history" "e h" #'counsel-esh-history)

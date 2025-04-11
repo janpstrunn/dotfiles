@@ -1,4 +1,7 @@
+#+title: Doom Emacs Config
+#+author: Janpstrunn
 
+* Table of Contents :toc:
 - [[#credits][Credits]]
 - [[#imports][Imports]]
 
@@ -44,31 +47,37 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/company")
 (load! "~/.config/doom/packages/dirvish")
 (load! "~/.config/doom/packages/eglot")
+;; (load! "~/.config/doom/packages/elfeed")
 (load! "~/.config/doom/packages/eshell")
-(load! "~/.config/doom/packages/indent-bars.el")
 (load! "~/.config/doom/packages/good-scroll")
 (load! "~/.config/doom/packages/image-slice")
+(load! "~/.config/doom/packages/indent-bars")
 (load! "~/.config/doom/packages/lsp")
-(load! "~/.config/doom/packages/mermaid")
 (load! "~/.config/doom/packages/magit-todos")
+(load! "~/.config/doom/packages/mermaid")
 (load! "~/.config/doom/packages/olivetti")
 (load! "~/.config/doom/packages/openwith")
 (load! "~/.config/doom/packages/org-alert")
-(load! "~/.config/doom/packages/treemacs.el")
 (load! "~/.config/doom/packages/org-modern")
 (load! "~/.config/doom/packages/org-roam")
-(load! "~/.config/doom/packages/org-roam-ui.el")
-(load! "~/.config/doom/packages/org-super-agenda.el")
+(load! "~/.config/doom/packages/org-roam-ui")
+(load! "~/.config/doom/packages/org-super-agenda")
 (load! "~/.config/doom/packages/org-tempo")
 (load! "~/.config/doom/packages/rainbow")
 (load! "~/.config/doom/packages/transclusion")
+(load! "~/.config/doom/packages/treemacs.el")
 (load! "~/.config/doom/packages/vterm")
 (load! "~/.config/doom/packages/which-key")
-;; (load! "~/.config/doom/packages/elfeed")
 (load! "~/.config/doom/packages/zoxide")
-(load! "~/.config/doom/packages/markdown-to-org") ;; Package made by Seijiro Ikehata
 #+end_src
 *** Snippets
 #+begin_src emacs-lisp
 (load "~/.config/doom/packages/yasnippet")
+#+end_src
+*** Local Packages
+#+begin_src emacs-lisp
+(load! "~/.config/doom/packages/markdown-to-org") ;; Package made by Seijiro Ikehata
+(load! "~/.config/doom/packages/org-bars") ;; Package made by Tony Aldon
+(require 'org-bars)
+(add-hook 'org-mode-hook #'org-bars-mode)
 #+end_src
