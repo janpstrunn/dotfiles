@@ -23,8 +23,8 @@
        company                    ; the ultimate code completion backend
        ;;helm                     ; the *other* search engine for love and life
        ;;ido                      ; the other *other* search engine...
-       (ivy +fonts)   ; a search engine for love and life
-       ;; vertico                 ; the search engine of the future
+       (ivy +fonts)               ; a search engine for love and life
+       ;;vertico                  ; the search engine of the future
 
        :ui
        ;;deft                     ; notational velocity for Emacs
@@ -34,13 +34,13 @@
        (emoji +unicode)           ; 🙂
        ;;fill-column              ; a `fill-column' indicator
        hl-todo                    ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
-       ;; hydra                   ; Manual God Mode
+       ;;hydra                    ; Manual God Mode
        indent-guides              ; highlighted indent columns
        (ligatures +extras)        ; ligatures and symbols to make your code pretty again
-       ;; minimap                 ; show a map of the code on the side
+       ;;minimap                  ; show a map of the code on the side
        modeline                   ; snazzy, Atom-inspired modeline, plus API
        nav-flash                  ; blink cursor line after big motions
-       ;; neotree                 ; a project drawer, like NERDTree for vim
+       ;;neotree                  ; a project drawer, like NERDTree for vim
        ophints                    ; highlight the region an operation acts on
        (popup +defaults)          ; tame sudden yet inevitable temporary windows
        ;;tabs                     ; a tab bar for Emacs
@@ -48,7 +48,7 @@
        ;;unicode                  ; extended unicode support for various languages
        vc-gutter                  ; vcs diff in the fringe
        vi-tilde-fringe            ; fringe tildes to mark beyond EOB
-       ;; window-select           ; visually switch windows
+       ;;window-select            ; visually switch windows
        workspaces                 ; tab emulation, persistence & separate workspaces
        ;;zen                      ; distraction-free coding or writing
 
@@ -57,7 +57,7 @@
        file-templates             ; auto-snippets for empty files
        fold                       ; (nigh) universal code folding
        (format +onsave)           ; automated prettiness
-       ;; god                     ; run Emacs commands without modifier keys
+       ;;god                      ; run Emacs commands without modifier keys
        ;;lispy                    ; vim for lisp, for people who don't like vim
        ;;multiple-cursors         ; editing in many places at once
        ;;objed                    ; text object editing for the innocent
@@ -99,7 +99,7 @@
        magit                      ; a git porcelain for Emacs
        ;;make                     ; run make tasks from Emacs
        ;;pass                     ; password manager for nerds
-       ;; pdf                     ; pdf enhancements
+       ;;pdf                      ; pdf enhancements
        ;;prodigy                  ; FIXME managing external services & code builders
        ;;rgb                      ; creating color strings
        ;;taskrunner               ; taskrunner for all your projects
@@ -143,7 +143,7 @@
        ;;lean
        ;;factor
        ;;ledger                   ; an accounting system in Emacs
-       lua                        ; one-based indices? one-based indices
+       ;;lua                      ; one-based indices? one-based indices
        markdown                   ; writing docs for people to ignore
        ;;nim                      ; python + lisp at the speed of c
        nix                        ; I hereby declare "nix geht mehr!"
@@ -154,7 +154,7 @@
         +pretty                   ; replace asterisks with pretty org bullets
         +publish)                 ; create static websites with org
        ;;php                      ; perl's insecure younger brother
-       ;; plantuml                ; diagrams for confusing people more
+       ;;plantuml                 ; diagrams for confusing people more
        ;;purescript               ; javascript, but functional
        python                     ; beautiful is better than ugly
        ;;qt                       ; the 'cutest' gui framework ever
@@ -185,7 +185,7 @@
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
-       ;;rss              ; emacs as an RSS reader
+       ;;rss               ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config

@@ -1,0 +1,11 @@
+* %^{Name}
+:PROPERTIES:
+:CREATED: %U
+:EMAIL: %^{Email}
+:PHONE: %^{Phone}
+:BIRTHDAY: %^{Birthday +1y}u
+:LOCATION: %^{Address}
+:END:
+*** Communications
+*** Notes
+%?
