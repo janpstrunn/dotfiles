@@ -14,7 +14,7 @@
           ("wiki" . "https://en.wikipedia.org/wiki/"))
         org-table-convert-region-max-lines 20000
         org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "READY(r)" "ACTIVE(a)" "|" "DONE(d!)" "WAIT(w)" "CANC(k)"))))
+        '((sequence "TODO(t)" "NEXT(n)" "READY(r)" "ACTIVE(a)" "PROJ(p)" "|" "DONE(d!)" "WAIT(w)" "CANC(k)"))))
 
 (defun my/org-files-with-tags (dir tags)
   "Return a list of Org files in DIR containing any of the TAGS in #+filetags:."

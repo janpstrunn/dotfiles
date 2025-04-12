@@ -1,0 +1,9 @@
+* Highlights
+
+%?
+
+* Metadata
+
+- Author: %^{Author}
+- Year: %^{Year}
+- Source: %^{Source}

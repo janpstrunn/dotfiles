@@ -44,7 +44,7 @@
         lsp-ui-doc-max-width 72
         lsp-ui-doc-show-with-cursor t
         lsp-ui-doc-delay 0.5
-        lsp-ui-sideline-enable nil
+        lsp-ui-sideline-enable t
         lsp-ui-peek-enable t))
 
 (setq lsp-diagnostics-provider :flycheck)

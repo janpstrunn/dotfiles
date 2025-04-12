@@ -28,9 +28,9 @@
   (interactive)
   (org-agenda-switch-to)
   (if (f-exists-p (concat (dir!) "/org-roam.db"))
-      (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/org\\/\\roam\\/") "" (f-parent (dir!))) t))
+      (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/org/roam\\/") "" (f-parent (dir!))) t))
   (if (f-exists-p (concat (f-parent (dir!)) "/org-roam.db"))
-      (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/org\\/\\roam\\/") "" (f-parent (f-parent (dir!)))) t))
+      (org-roam-switch-db (replace-regexp-in-string (concat "\\/home\\/" user-username "\\/org/roam\\/") "" (f-parent (f-parent (dir!)))) t))
   (org-roam-olivetti-mode)
   )
 
@@ -48,7 +48,9 @@
 ;; Agenda
 (after! org
   (setq org-agenda-files
-        (my/org-files-with-tags "~/org/" '("Project" "Personal" "Work")))
+        (append
+         (my/org-files-with-tags "~/org/roam/" '("Project" "Personal" "Work" "Inbox"))
+         (my/org-files-with-tags "~/org/agenda/" '("Project" "Personal" "Work" "Inbox"))))
 
   (setq
    org-fancy-priorities-list '("[A]" "[B]" "[C]")

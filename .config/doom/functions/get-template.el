@@ -4,8 +4,8 @@
   "Copy a template from ~/templates into a timestamped unique-named file in the
 same directory as the current org buffer and insert a link to this file."
   (interactive)
-  (let* ((template-file (completing-read "Template file: " (directory-files "~/templates" nil "^[^.].*")))
-         (template-path (expand-file-name template-file "~/templates"))
+  (let* ((template-file (completing-read "Template file: " (directory-files "../templates" nil "^[^.].*")))
+         (template-path (expand-file-name template-file "../templates"))
          (target-dir (expand-file-name "files/" (file-name-directory (buffer-file-name))))
          (filename (concat target-dir
                            (file-name-nondirectory (buffer-file-name))

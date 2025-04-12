@@ -9,37 +9,21 @@
          :and(:file-path "personal.p" :not (:tag "event"))
          :order 3)
 
-        (:name "Family "
-         :and(:file-path "Family.s" :not (:tag "event"))
+        (:name "Yggdrasil "
+         :and(:file-path "yggdrasil.p" :not (:tag "event"))
          :order 3)
 
-        (:name "Teaching "
-         :and(:file-path "Teaching.p" :not (:tag "event"))
+        (:name "Hephaestus "
+         :and(:file-path "hephaestus.p" :not (:tag "event"))
          :order 3)
 
-        (:name "Gamedev "
-         :and(:file-path "Gamedev.s" :not (:tag "event"))
-         :order 3)
+        (:name "Inbox "
+         :tag "Inbox"
+         :order 4)
 
-        (:name "Youtube "
-         :and(:file-path "Producer.p" :not (:tag "event"))
-         :order 3)
-
-        (:name "Music "
-         :and(:file-path "Bard.p" :not (:tag "event"))
-         :order 3)
-
-        (:name "Storywriting "
-         :and(:file-path "Stories.s" :not (:tag "event"))
-         :order 3)
-
-        (:name "Writing "
-         :and(:file-path "Author.p" :not (:tag "event"))
-         :order 3)
-
-        (:name "Learning "
-         :and(:file-path "Knowledge.p" :not (:tag "event"))
-         :order 3)
+        (:name "Project "
+         :tag "Project"
+         :order 4)
 
         (:name " Today "  ; Optionally specify section name
          :time-grid t

@@ -15,6 +15,8 @@
        :desc "Pull"                     "p" #'magit-pull
        :desc "Merge"                    "m" #'magit-merge
        :desc "Quick commit and push"    "z" #'my/magit-stage-commit-push
+       :desc "Create tag"               "T" #'magit-tag
+       :desc "Diff"                     "d" #'magit-diff
        ))
 
 ;; Org
@@ -71,7 +73,9 @@
   (kbd "; e") 'epa-dired-do-encrypt)
 (setq dired-open-extensions '(("gif" . "swayimg")
                               ("jpg" . "swayimg")
-                              ("pdf" . "foliate")
+                              ("avif" . "swayimg")
+                              ("pdf" . "evince")
+                              ("docx" . "libreoffice")
                               ("png" . "swayimg")
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))

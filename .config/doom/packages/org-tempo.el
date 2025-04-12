@@ -1,4 +1,7 @@
 ;; Templates
+
+(global-set-key (kbd "C-c C-,") #'org-insert-structure-template)
+
 (use-package org-tempo
   :after org
   :config
