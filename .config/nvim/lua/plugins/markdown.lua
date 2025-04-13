@@ -1,7 +1,7 @@
 local markdown_footnote = {
   "chenxin-yan/footnote.nvim",
   ft = "markdown",
-  enabled = true,
+  enabled = false,
   lazy = true,
   config = function()
     require("footnote").setup({
@@ -18,8 +18,8 @@ local markdown_footnote = {
 
 local markdown_bullet = {
   "bullets-vim/bullets.vim",
-  lazy = true,
   enabled = false,
+  lazy = true,
   ft = { "markdown" },
   config = function()
     vim.g.bullets_delete_last_bullet_if_empty = 1
