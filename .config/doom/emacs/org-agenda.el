@@ -12,6 +12,7 @@
         ("Family" (concat "\udb80\udedc" " ") nil nil :ascent center)
         ("Books" (concat "\udb84\ude5f" " ") nil nil :ascent center)
         ("Personal" (concat "\uf4ca" " ") nil nil :ascent center)
+        ("Tech" (concat "\ueea7" " ") nil nil :ascent center)
         ("Inbox" (concat "\uf01c" " ") nil nil :ascent center)
         ))
 
@@ -19,10 +20,10 @@
 ;; (setq org-agenda-time-grid '((daily) () "" ""))
 
 (setq org-agenda-prefix-format '(
-                                 (agenda . "  %?-2i %t ")
-                                 (todo . " %i %-12:c")
-                                 (tags . " %i %-12:c")
-                                 (search . " %i %-12:c")))
+                                 (agenda . "  %-12:i%?-12t% s")
+                                 (todo . " %i ")
+                                 (tags . " %i ")
+                                 (search . " %i ")))
 
 (defun org-agenda-switch-with-roam ()
   (interactive)
