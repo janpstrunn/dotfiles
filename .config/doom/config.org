@@ -76,7 +76,6 @@ Most parts of this configuration file is a Mashup from:
 #+end_src
 *** Local Packages
 #+begin_src emacs-lisp
-(load! "~/.config/doom/packages/markdown-to-org") ;; Package made by Seijiro Ikehata
 (load! "~/.config/doom/packages/org-bars") ;; Package made by Tony Aldon
 (require 'org-bars)
 (add-hook 'org-mode-hook #'org-bars-mode)
