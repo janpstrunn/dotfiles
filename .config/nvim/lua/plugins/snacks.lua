@@ -16,7 +16,7 @@ return {
   keys = {
     -- Top Pickers & Explorer
     {
-      "<leader>o",
+      "<leader>om",
       function()
         local obsidian_path = vim.fn.getenv("OBSIDIAN")
         if obsidian_path and obsidian_path ~= "" then
