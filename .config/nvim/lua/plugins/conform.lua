@@ -16,6 +16,7 @@ return {
       html = { "prettier" },
       css = { "prettier" },
       markdown = { "prettier" },
+      nix = { "alejandra" },
       rust = { "rustfmt" },
     },
   },
