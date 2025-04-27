@@ -87,8 +87,8 @@
        :tools
        ;;ansible
        biblio                     ; Writes a PhD for you (citation needed)
-       debugger                   ; FIXME stepping through code, to help you add bugs
-       direnv
+       ;;debugger                   ; FIXME stepping through code, to help you add bugs
+       ;;direnv
        ;;docker
        ;;editorconfig             ; let someone else argue about tabs vs spaces
        ;;ein                      ; tame Jupyter notebooks with emacs
@@ -104,12 +104,12 @@
        ;;rgb                      ; creating color strings
        ;;taskrunner               ; taskrunner for all your projects
        ;;terraform                ; infrastructure as code
-       tmux                       ; an API for interacting with tmux
+       ;;tmux                       ; an API for interacting with tmux
        ;;upload                   ; map local to remote projects via ssh/ftp
 
        :os
        ;;(:if IS-MAC macos)       ; improve compatibility with macOS
-       tty                        ; improve the terminal Emacs experience
+       ;; tty                        ; improve the terminal Emacs experience
 
        :lang
        ;;agda                     ; types of types of types of types...
@@ -146,27 +146,27 @@
        ;;lua                      ; one-based indices? one-based indices
        markdown                   ; writing docs for people to ignore
        ;;nim                      ; python + lisp at the speed of c
-       nix                        ; I hereby declare "nix geht mehr!"
+       ;;nix                        ; I hereby declare "nix geht mehr!"
        ;;ocaml                    ; an objective camel
        (org
         +journal                  ; enable org journal
         +roam2                    ; create a personal wiki
-        +pretty                   ; replace asterisks with pretty org bullets
-        +publish)                 ; create static websites with org
+        +pretty)                   ; replace asterisks with pretty org bullets
+       ;;+publish)                 ; create static websites with org
        ;;php                      ; perl's insecure younger brother
        ;;plantuml                 ; diagrams for confusing people more
        ;;purescript               ; javascript, but functional
-       python                     ; beautiful is better than ugly
+       ;;python                     ; beautiful is better than ugly
        ;;qt                       ; the 'cutest' gui framework ever
        ;;racket                   ; a DSL for DSLs
        ;;raku                     ; the artist formerly known as perl6
        ;;rest                     ; Emacs as a REST client
        ;;rst                      ; ReST in peace
        ;;(ruby +rails)            ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       rust                       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;rust                       ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala                    ; java, but good
        ;;scheme                   ; a fully conniving family of lisps
-       sh                         ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sh                         ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity                 ; do you need a blockchain? No.
        ;;swift                    ; who asked for emoji variables?
@@ -181,7 +181,7 @@
        ;;(wanderlust +gmail)
 
        :app
-       calendar
+       ;; calendar
        ;;emms
        ;;everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
