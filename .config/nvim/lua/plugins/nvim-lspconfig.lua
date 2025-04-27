@@ -28,6 +28,13 @@ local config = function()
     },
   })
 
+  -- Nix
+  lspconfig.nil_ls.setup({
+  cmd = { "nil" },
+    filetypes = { "nix" },
+    root_markers = { "flake.nix", ".git" }
+  })
+
   -- json
   lspconfig.jsonls.setup({
     filetypes = { "json", "jsonc" },
