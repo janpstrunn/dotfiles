@@ -54,7 +54,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/packages/indent-bars")
 (load! "~/.config/doom/packages/lsp")
 (load! "~/.config/doom/packages/magit-todos")
-(load! "~/.config/doom/packages/mermaid")
+;; (load! "~/.config/doom/packages/mermaid")
 (load! "~/.config/doom/packages/olivetti")
 (load! "~/.config/doom/packages/openwith")
 (load! "~/.config/doom/packages/org-alert")
