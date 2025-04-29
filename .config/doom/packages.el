@@ -47,3 +47,4 @@
 (package! toc-org)
 (package! websocket)
 (package! zoxide)
+(package! org-mind-map)

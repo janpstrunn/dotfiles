@@ -11,7 +11,7 @@
          (list (openwith-make-extension-regexp
                 '("xbm" "pbm" "pgm" "ppm" "pnm"
                   "png" "gif" "bmp" "tif" "jpeg" "jpg"
-                  "webp"))
+                  "webp" "svg"))
                "swayimg"
                '(file))
          (list (openwith-make-extension-regexp
