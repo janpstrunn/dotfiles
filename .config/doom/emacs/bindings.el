@@ -91,13 +91,14 @@
 ;; Shortcuts
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/org/agenda.org"))
+       :desc "Edit agenda files"      "a" #'(lambda () (interactive) (find-file "~/org/agenda/"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el"     "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
 (map! :leader
-      (:prefix ("= o" . "obsidian")
-       :desc "Dired: All vaults"   "o" #'(lambda () (interactive) (dired "~/beelzebub/Pandora/obsidian/"))))
+      (:prefix ("= o" . "obsidian/org")
+       :desc "Dired: Obsidian Vaults"   "o" #'(lambda () (interactive) (dired "~/obsidian/"))
+       :desc "Dired: Org Root" "r" #'(lambda () (interactive) (dired org-directory))))
 
 ;; Registers
 (map! :leader
