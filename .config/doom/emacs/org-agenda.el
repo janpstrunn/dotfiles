@@ -50,8 +50,8 @@
 (after! org
   (setq org-agenda-files
         (append
-         (my/org-files-with-tags "~/org/roam/" '("Project" "Personal" "Work" "Inbox"))
-         (my/org-files-with-tags "~/org/agenda/" '("Project" "Personal" "Work" "Inbox"))))
+         (my/org-files-with-tags "~/org/roam/" '("Project" "Personal" "Work" "Inbox" "Academy"))
+         (my/org-files-with-tags "~/org/agenda/" '("Project" "Personal" "Work" "Inbox" "Academy"))))
 
   (setq
    org-fancy-priorities-list '("[A]" "[B]" "[C]")
