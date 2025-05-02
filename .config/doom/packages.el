@@ -48,3 +48,4 @@
 (package! websocket)
 (package! zoxide)
 (package! org-mind-map)
+(package! dashboard)
