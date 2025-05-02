@@ -21,6 +21,7 @@ Most parts of this configuration file is a Mashup from:
 (load! "~/.config/doom/emacs/performance")
 (load! "~/.config/doom/emacs/qol")
 (load! "~/.config/doom/emacs/template")
+(load! "~/.config/doom/emacs/spell")
 (load! "~/.config/doom/emacs/user")
 (load! "~/.config/doom/emacs/window")
 #+END_SRC
