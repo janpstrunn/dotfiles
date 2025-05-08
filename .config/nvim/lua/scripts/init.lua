@@ -1,6 +1,6 @@
 require("scripts.checkbox")
--- require("scripts.daily-notes-markdown")
-require("scripts.daily-notes-org")
+require("scripts.daily-notes-markdown")
+-- require("scripts.daily-notes-org")
 require("scripts.folding")
 require("scripts.get-block-reference")
 require("scripts.insert-time")
