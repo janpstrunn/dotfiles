@@ -6,9 +6,8 @@
     "lazyvim.plugins.extras.editor.inc-rename",
     "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.formatting.prettier",
-    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.go",
     "lazyvim.plugins.extras.lang.nix",
-    "lazyvim.plugins.extras.lang.python",
     "lazyvim.plugins.extras.linting.eslint",
     "lazyvim.plugins.extras.util.dot",
     "lazyvim.plugins.extras.util.mini-hipatterns"
@@ -19,4 +18,3 @@
   },
   "version": 8
 }
-
