@@ -58,6 +58,15 @@ local config = function()
     },
   })
 
+  -- golang
+  lspconfig.gopls.setup({
+    filetypes = {
+      "go",
+      "gomod",
+      "gowork",
+      "gotmpl" }
+  })
+
   -- typescript
   lspconfig.ts_ls.setup({
     filetypes = {
