@@ -398,7 +398,7 @@ end
 
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  enabled = false,
+  enabled = true,
   ft = { "markdown" },
   event = "BufReadPost",
   opts = {},
