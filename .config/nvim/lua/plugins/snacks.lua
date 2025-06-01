@@ -16,20 +16,20 @@ return {
   keys = {
     -- Top Pickers & Explorer
     {
-      "<leader>om",
+      "<leader>oo",
       function()
-        local obsidian_path = vim.fn.getenv("OBSIDIAN")
+        local obsidian_path = vim.fn.getenv("HOME")
         if obsidian_path and obsidian_path ~= "" then
-          local dev_path = obsidian_path .. "/HEPHAESTUS"
+          local dev_path = obsidian_path .. "/obsidian/OUROBOROS"
           Snacks.picker.files({ cwd = dev_path })
         else
           print("Error: $OBSIDIAN environment variable is not set")
         end
       end,
-      desc = "Find Dev Notes",
+      desc = "Find Notes",
     },
     {
-      "<leader>y",
+      "<leader>oy",
       function()
         local obsidian_path = vim.fn.getenv("OBSIDIAN")
         if obsidian_path and obsidian_path ~= "" then
