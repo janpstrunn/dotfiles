@@ -35,7 +35,36 @@ local config = function()
       all = {
         text = "#d9d9d9",
       },
-      mocha = {
+      mocha = { -- Oled
+        rosewater = "#f5e0dc",
+        flamingo = "#f2cdcd",
+        pink = "#f067fc",
+        mauve = "#cba6f7",
+        red = "#f38ba8",
+        maroon = "#eba0ac",
+        peach = "#fab387",
+        yellow = "#f9e2af",
+        green = "#a6e3a1",
+        teal = "#94e2d5",
+        sky = "#20dbfc",
+        sapphire = "#74c7ec",
+        blue = "#5ffcfc",
+        lavender = "#b4befe",
+        text = "#d9d9d9",
+        subtext1 = "#bac2de",
+        subtext0 = "#a6adc8",
+        overlay2 = "#9399b2",
+        overlay1 = "#7f849c",
+        overlay0 = "#6c7086",
+        surface2 = "#585b70",
+        surface1 = "#191919",
+        surface0 = "#121311",
+        base = "#000000",
+        mantle = "#090909",
+        crust = "#111111",
+      }, -- Dark Mode
+      frappe = {},
+      macchiato = {
         rosewater = "#f5e0dc",
         flamingo = "#f2cdcd",
         pink = "#f067fc",
@@ -63,10 +92,13 @@ local config = function()
         mantle = "#19191C",
         crust = "#1c1c1f",
       },
-      frappe = {},
-      macchiato = {},
     },
-    custom_highlights = {},
+    custom_highlights = function(colors)
+        return {
+            LineNr = { fg = "#393939" },
+            CursorLineNr = { fg = "#bac2de", bold = true },
+        }
+    end
   })
 end
 
