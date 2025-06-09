@@ -6,9 +6,10 @@ local function insert_git_link()
     return
   end
 
+local username = os.getenv("USER")
   local repo_name = vim.fn.system("basename " .. git_dir):gsub("%s+", "")
   local file_path = vim.fn.expand("%:p"):gsub(git_dir .. "/", "")
-  local url = "https://github.com/user/" .. repo_name .. "/blob/main/" .. file_path
+  local url = "https://github.com/" .. username .. "/" .. repo_name .. "/blob/main/" .. file_path
 
   local filetype = vim.bo.filetype
   local comment_line = ""
