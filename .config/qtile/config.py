@@ -68,7 +68,6 @@ def smart_layout(qtile):
 
 keys = [
     Key([mod], "Return", lazy.spawn(term)),
-    Key([mod, "shift"], "Return", lazy.spawn("/home/janpstrunn/scripts/__alt-term.sh")),
 
     # Qtile keybindings
     Key([mod, "shift"], "Tab", lazy.widget["keyboardlayout"].next_keyboard(), desc="Next keyboard layout."),
