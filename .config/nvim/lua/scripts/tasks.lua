@@ -124,7 +124,7 @@ local function go_to_task_in_taskwarrior_tui()
 
   -- If a task description was found, use it to go to the task in taskwarrior-tui
   if taskDescription then
-    vim.fn.system(" ~/scripts/__switch_to_tui.sh '" .. taskDescription .. "'")
+    vim.fn.system(" ~/.config/taskwarrior-tui/__switch_to_tui.sh '" .. taskDescription .. "'")
   end
 
   -- Replace the line back with the original
