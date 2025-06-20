@@ -1,4 +1,15 @@
 {
+  "case": {
+    "body": [
+      "case \"$1\" in",
+      "help)",
+      "  help",
+      "  exit 0",
+      "  ;;",
+      "esac"
+    ],
+    "prefix": "case"
+  },
   "getopts": {
     "body": [
       "while getopts \":h\" opt; do",
