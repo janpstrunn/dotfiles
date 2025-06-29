@@ -139,6 +139,22 @@ opt.spell = false
 opt.encoding = "UTF-8"
 opt.spelllang = "pt,en_us"
 
+-- LSP Inline
+
+vim.diagnostic.enable = true
+vim.diagnostic.config({
+  virtual_lines = true,
+})
+
+-- Auto LSP Pop Up
+
+-- vim.o.updatetime = 250
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--    callback = function()
+--      vim.diagnostic.open_float(nil, { focus = false })
+--    end
+-- })
+
 -- Folding
 
 -- opt.fillchars = {
