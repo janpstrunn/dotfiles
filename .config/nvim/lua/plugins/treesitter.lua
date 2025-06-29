@@ -10,7 +10,7 @@ return {
       "diff",
       "dockerfile",
       "gitignore",
-      "golang",
+      "go",
       "html",
       "hyprlang",
       -- "javascript",
