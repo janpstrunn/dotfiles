@@ -207,5 +207,22 @@ return {
     "williamboman/mason.nvim",
     "creativenull/efmls-configs-nvim",
   },
-  opts = {},
+  opts = {
+    servers = {
+      marksman = {
+        cmd = {
+          "sh",
+          "-c",
+          "test -x /run/current-system/sw/bin/marksman && { /run/current-system/sw/bin/marksman server; } || { marksman server; }",
+        },
+      },
+      markdown_oxide = {
+        cmd = {
+          "sh",
+          "-c",
+          "test -x /run/current-system/sw/bin/markdown-oxide && { /run/current-system/sw/bin/markdown-oxide server; } || { markdown-oxide server; }",
+        },
+      },
+    },
+  },
 }
