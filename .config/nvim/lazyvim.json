@@ -7,7 +7,6 @@
     "lazyvim.plugins.extras.editor.outline",
     "lazyvim.plugins.extras.formatting.prettier",
     "lazyvim.plugins.extras.lang.go",
-    "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.nix",
     "lazyvim.plugins.extras.linting.eslint",
     "lazyvim.plugins.extras.util.dot",
@@ -19,3 +18,4 @@
   },
   "version": 8
 }
+
