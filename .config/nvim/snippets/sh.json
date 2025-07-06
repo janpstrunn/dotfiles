@@ -52,5 +52,9 @@
   "sh-source": {
     "body": "source \"\\$(dirname \"\\$(realpath \\$0)\")/lib/$0",
     "prefix": "sh-source"
+  },
+  "shebang": {
+    "body": "#!/usr/bin/env bash",
+    "prefix": "shebang"
   }
 }
