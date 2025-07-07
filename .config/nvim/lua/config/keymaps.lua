@@ -77,6 +77,10 @@ keymap.set("n", "<leader>gx", ":!xdg-open <c-r><c-a>", { desc = "Follow URL" })
 
 keymap.set("n", "<leader>fmd", vim.lsp.buf.format, { desc = "[L]SP Format" })
 
+-- Plugins
+
+keymap.set("n", "<leader>cc", ":CsvViewToggle display_mode=border header_lnum=1", { desc = "[C]SV View" })
+
 -- Footnotes
 
 -- keymap.set("n", "<leader>fmf", ":lua require('footnote').organize_footnotes()<CR>", { desc = "[F]ootnote Organize" })
