@@ -18,7 +18,7 @@ local markdown_footnote = {
 
 local markdown_bullet = {
   "bullets-vim/bullets.vim",
-  enabled = false,
+  enabled = true,
   lazy = true,
   ft = { "markdown" },
   config = function()
