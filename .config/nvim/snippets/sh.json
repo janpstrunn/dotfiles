@@ -12,11 +12,14 @@
   },
   "getopts": {
     "body": [
-      "while getopts \":h\" opt; do",
+      "while getopts \":h-\" opt; do",
       "  case \"\\$opt\" in",
       "  h)",
       "    help",
       "    exit 0",
+      "    ;;",
+      "  -)",
+      "    break",
       "    ;;",
       "  ?)",
       "    echo \"Error: Invalid option '-\\$OPTARG'\" >&2",
