@@ -1,0 +1,1 @@
+/home/janpstrunn/.config/hypr/scripts/clearboard.sh
