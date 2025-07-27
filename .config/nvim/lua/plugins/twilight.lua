@@ -1,5 +1,6 @@
 return {
 	"folke/twilight.nvim",
+	enabled = false,
 	lazy = true,
 	opts = {
 		dimming = {
