@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 
 dotfiles_dir=$HOME/dotfiles/.config
 theme_dir=$HOME/.config/theme
 
-function elegantvagrant() {
-  git clone "https://codeberg.org/janpstrunn/elegantvagrant" "$theme_dir/elegantvagrant"
+elegantvagrant() {
+  git clone "https://codeberg.org/anstrinn/elegantvagrant" "$theme_dir/elegantvagrant"
 
   cd "$theme_dir/elegantvagrant" || return 1
   fd . -t f | while IFS= read -r repo; do
