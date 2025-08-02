@@ -1,9 +1,9 @@
 <h1 align="center">🍚 My Dotfiles</h1>
 
 <div align="center">
-<img src=https://img.shields.io/github/repo-size/janpstrunn/dotfiles?color=7c5cff&label=SIZE&logo=googlecloudstorage&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
+<img src=https://img.shields.io/github/repo-size/anstrinn/dotfiles?color=7c5cff&label=SIZE&logo=googlecloudstorage&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
 <img src=https://img.shields.io/badge/Keep%20It%20Simple-Stupid-7c5cff?logo=archlinux&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
-<img src=https://img.shields.io/github/license/janpstrunn/dotfiles?color=7c5cff&label=LICENSE&logo=github&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
+<img src=https://img.shields.io/github/license/anstrinn/dotfiles?color=7c5cff&label=LICENSE&logo=github&style=for-the-badge&logoColor=D9E0EE&labelColor=292324>
 </div>
 
 <details>
@@ -26,18 +26,18 @@
 <details>
   <summary>Notes</summary>
 
-I'm currently using NixOS as my main OS for desktop usage. You can find my config at [janpstrunn/dotfiles-nixos](https://github.com/janpstrunn/dotfiles-nixos).
+I'm currently using NixOS as my main OS for desktop usage. You can find my config at [anstrinn/dotfiles-nixos](https://github.com/anstrinn/dotfiles-nixos).
 
   </details>
 
 ## Footages
 
 <div align="center">
-  <img src="https://git.disroot.org/janpstrunn/images/raw/branch/main/dotfiles/2025-04-21-nixos.webp">
+  <img src="https://git.disroot.org/anstrinn/images/raw/branch/main/dotfiles/2025-04-21-nixos.webp">
   <p>Footage from NixOS. Featuring: Fastfetch, Neovim, Ranger, Cmatrix, Fuzzel, Hyprland and Waybar</p>
 </div>
 
-The theme can be found in this repository, as a production example, or in the official theme repository: [janpstrunn/elegantvagrant](https://github.com/janpstrunn/elegantvagrant)
+The theme can be found in this repository, as a production example, or in the official theme repository: [anstrinn/elegantvagrant](https://github.com/anstrinn/elegantvagrant)
 
 ## Tools
 
