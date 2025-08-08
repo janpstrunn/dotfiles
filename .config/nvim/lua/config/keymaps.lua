@@ -18,6 +18,11 @@ keymap.set("n", "<M-l>", ":cprev<CR>", { desc = "Previous QuickFix" })
 
 keymap.set("n", "<leader>cx", ":!chmod +x %<cr>", { desc = "Make Executable" })
 
+-- Search and Replace
+
+keymap.set("v", "<leader>ss", ":s/", { desc = "Make Executable" })
+keymap.set("n", "<leader>ss", ":%s/", { desc = "Make Executable" })
+
 -- Managing lines
 
 keymap.set("i", "<Tab>", "<C-o>>>", { noremap = true, silent = true })
